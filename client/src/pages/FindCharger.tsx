@@ -7,6 +7,7 @@ import { MapPin, Zap, Clock, Filter, Search, Star, ChevronRight, X, Calendar, Ch
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapView } from "@/components/Map";
+import { MoMoPaymentWidget } from "@/components/MoMoPaymentWidget";
 import { toast } from "sonner";
 
 interface Station {
@@ -54,10 +55,14 @@ function StatusBadge({ status, available, total }: { status: string; available: 
 }
 
 function ReservationModal({ station, onClose }: { station: Station; onClose: () => void }) {
-  const [step, setStep] = useState<"form" | "confirm">("form");
+  const [step, setStep] = useState<"form" | "confirm" | "payment">("form");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [duration, setDuration] = useState("30");
+  const [reservationId, setReservationId] = useState<number | null>(null);
+
+  // Calculate estimated cost (example: GHS 15 per 30 minutes)
+  const estimatedCost = (parseInt(duration) / 30 * 15).toFixed(2);
 
   const handleReserve = () => {
     if (!date || !time) { toast.error("Please select a date and time."); return; }
@@ -65,8 +70,18 @@ function ReservationModal({ station, onClose }: { station: Station; onClose: () 
   };
 
   const handleConfirm = () => {
-    toast.success(`Reservation confirmed at ${station.name}!`);
-    onClose();
+    // In a real app, create reservation in database first
+    setReservationId(1); // Mock reservation ID
+    setStep("payment");
+  };
+
+  const handlePaymentSuccess = (transactionId: string) => {
+    toast.success(`Reservation confirmed! Transaction: ${transactionId.substring(0, 8)}...`);
+    setTimeout(() => onClose(), 2000);
+  };
+
+  const handlePaymentFailed = (error: string) => {
+    toast.error(`Payment failed: ${error}`);
   };
 
   return (
@@ -111,7 +126,15 @@ function ReservationModal({ station, onClose }: { station: Station; onClose: () 
           </div>
         </div>
 
-        {step === "form" ? (
+        {step === "payment" && reservationId ? (
+          <MoMoPaymentWidget
+            reservationId={reservationId}
+            amount={estimatedCost}
+            estimatedCost={estimatedCost}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentFailed={handlePaymentFailed}
+          />
+        ) : step === "form" ? (
           <div className="space-y-4">
             <div>
               <label className="text-xs font-medium block mb-2" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -192,9 +215,13 @@ function ReservationModal({ station, onClose }: { station: Station; onClose: () 
                 <span className="text-sm font-medium" style={{ color: "oklch(0.95 0 0)", fontFamily: "'Space Grotesk', sans-serif" }}>{item.value}</span>
               </div>
             ))}
+            <div className="bg-slate-800/50 rounded-lg p-4 mb-4 border border-green-500/20">
+              <p className="text-sm text-slate-400 mb-2">Estimated Cost</p>
+              <p className="text-2xl font-bold text-green-500">GHS {estimatedCost}</p>
+            </div>
             <button onClick={handleConfirm} className="btn-primary w-full flex items-center justify-center gap-2 mt-4">
               <CheckCircle size={16} />
-              Confirm Reservation
+              Proceed to Payment
             </button>
           </div>
         )}

@@ -8,6 +8,7 @@ import { Link } from "wouter";
 import { Zap, MapPin, Clock, Shield, ChevronRight, ArrowRight, Battery, Leaf, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 // Intersection observer hook for scroll animations
 function useInView(threshold = 0.15) {
@@ -75,6 +76,10 @@ const features = [
 ];
 
 export default function Home() {
+  // The userAuth hooks provides authentication state
+  // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
+  let { user, loading, error, isAuthenticated, logout } = useAuth();
+
   const { ref: heroRef, inView: heroIn } = useInView(0.1);
   const { ref: statsRef, inView: statsIn } = useInView(0.2);
   const { ref: featRef, inView: featIn } = useInView(0.1);
