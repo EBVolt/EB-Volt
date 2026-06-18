@@ -4,16 +4,18 @@ import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
 
 interface RefundModalProps {
+  isOpen: boolean;
   reservationId: number;
-  estimatedCost: string;
   onClose: () => void;
   onSuccess?: () => void;
 }
 
-export function RefundModal({ reservationId, estimatedCost, onClose, onSuccess }: RefundModalProps) {
+export default function RefundModal({ isOpen, reservationId, onClose, onSuccess }: RefundModalProps) {
   const [reason, setReason] = useState("");
   const [step, setStep] = useState<"form" | "success">("form");
   const requestRefundMutation = trpc.refund.requestRefund.useMutation();
+
+  if (!isOpen) return null;
 
   const handleSubmit = async () => {
     if (!reason.trim() || reason.length < 10) {
@@ -32,6 +34,8 @@ export function RefundModal({ reservationId, estimatedCost, onClose, onSuccess }
       setTimeout(() => {
         onSuccess?.();
         onClose();
+        setStep("form");
+        setReason("");
       }, 2000);
     } catch (error) {
       toast.error("Failed to request refund");
@@ -65,17 +69,6 @@ export function RefundModal({ reservationId, estimatedCost, onClose, onSuccess }
 
         {step === "form" ? (
           <div className="space-y-4">
-            {/* Amount Display */}
-            <div
-              className="p-4 rounded-xl"
-              style={{ background: "oklch(0.12 0.015 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
-            >
-              <p style={{ color: "oklch(0.62 0.01 240)" }}>Refund Amount</p>
-              <p className="text-2xl font-bold" style={{ color: "oklch(0.72 0.18 145)" }}>
-                GHS {estimatedCost}
-              </p>
-            </div>
-
             {/* Warning */}
             <div
               className="p-3 rounded-lg flex gap-3"

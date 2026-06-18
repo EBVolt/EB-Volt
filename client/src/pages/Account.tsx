@@ -21,6 +21,7 @@ import {
   Zap
 } from "lucide-react";
 import { toast } from "sonner";
+import RefundModal from "@/components/RefundModal";
 
 type Tab = "reservations" | "receipts" | "refunds";
 
@@ -53,6 +54,8 @@ export default function Account() {
   const { user, loading } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>("reservations");
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const [refundModalOpen, setRefundModalOpen] = useState(false);
+  const [selectedReservationId, setSelectedReservationId] = useState<number | null>(null);
 
   // Fetch data
   const reservationsQuery = trpc.account.getReservationHistory.useQuery();
@@ -95,6 +98,11 @@ export default function Account() {
     } catch (error) {
       toast.error("Failed to download receipt");
     }
+  };
+
+  const handleRequestRefund = (reservationId: number) => {
+    setSelectedReservationId(reservationId);
+    setRefundModalOpen(true);
   };
 
   return (
@@ -196,6 +204,19 @@ export default function Account() {
                             <p style={{ color: "oklch(0.95 0 0)" }}>{reservation.phoneNumber}</p>
                           </div>
                         </div>
+                        {reservation.status === "completed" && (
+                          <button
+                            onClick={() => handleRequestRefund(reservation.id)}
+                            className="px-3 py-1 rounded-lg text-xs font-medium transition-all mt-4"
+                            style={{
+                              background: "oklch(0.65 0.18 50 / 0.15)",
+                              color: "oklch(0.75 0.18 50)",
+                              border: "1px solid oklch(0.65 0.18 50 / 0.25)",
+                            }}
+                          >
+                            Request Refund
+                          </button>
+                        )}
                       </div>
                     )}
                   </div>
@@ -320,6 +341,23 @@ export default function Account() {
           )}
         </div>
       </div>
+
+      {/* Refund Modal */}
+      {refundModalOpen && selectedReservationId && (
+        <RefundModal
+          isOpen={refundModalOpen}
+          onClose={() => {
+            setRefundModalOpen(false);
+            setSelectedReservationId(null);
+          }}
+          reservationId={selectedReservationId}
+          onSuccess={() => {
+            setRefundModalOpen(false);
+            setSelectedReservationId(null);
+            refundsQuery.refetch();
+          }}
+        />
+      )}
 
       <Footer />
     </div>
