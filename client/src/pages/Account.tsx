@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import RefundModal from "@/components/RefundModal";
+import ReservationFilterBar, { ReservationFilters } from "@/components/ReservationFilterBar";
 
 type Tab = "reservations" | "receipts" | "refunds";
 
@@ -56,6 +57,10 @@ export default function Account() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [refundModalOpen, setRefundModalOpen] = useState(false);
   const [selectedReservationId, setSelectedReservationId] = useState<number | null>(null);
+  const [filters, setFilters] = useState<ReservationFilters>({
+    sortBy: "date",
+    sortOrder: "desc",
+  });
 
   // Fetch data
   const reservationsQuery = trpc.account.getReservationHistory.useQuery();
@@ -105,6 +110,65 @@ export default function Account() {
     setRefundModalOpen(true);
   };
 
+  const getFilteredAndSortedReservations = () => {
+    if (!reservationsQuery.data) return [];
+
+    let filtered = [...reservationsQuery.data];
+
+    // Apply date filters
+    if (filters.dateFrom) {
+      filtered = filtered.filter(
+        (r: any) => new Date(r.reservationDate) >= filters.dateFrom!
+      );
+    }
+    if (filters.dateTo) {
+      const toDate = new Date(filters.dateTo);
+      toDate.setHours(23, 59, 59, 999);
+      filtered = filtered.filter(
+        (r: any) => new Date(r.reservationDate) <= toDate
+      );
+    }
+
+    // Apply location filter
+    if (filters.location) {
+      filtered = filtered.filter(
+        (r: any) => r.stationId?.toString().includes(filters.location!)
+      );
+    }
+
+    // Apply status filter
+    if (filters.status) {
+      filtered = filtered.filter((r: any) => r.status === filters.status);
+    }
+
+    // Apply sorting
+    filtered.sort((a: any, b: any) => {
+      let compareValue = 0;
+
+      if (filters.sortBy === "date") {
+        compareValue =
+          new Date(a.reservationDate).getTime() -
+          new Date(b.reservationDate).getTime();
+      } else if (filters.sortBy === "cost") {
+        compareValue = parseFloat(a.estimatedCost) - parseFloat(b.estimatedCost);
+      } else if (filters.sortBy === "duration") {
+        compareValue = a.durationMinutes - b.durationMinutes;
+      }
+
+      return filters.sortOrder === "asc" ? compareValue : -compareValue;
+    });
+
+    return filtered;
+  };
+
+  const getUniqueLocations = () => {
+    if (!reservationsQuery.data) return [];
+    const locations = new Set(
+      reservationsQuery.data.map((r: any) => `Station ${r.stationId}`)
+    );
+    return Array.from(locations).sort();
+  };
+
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
       <Navbar />
@@ -146,10 +210,15 @@ export default function Account() {
           {/* Reservations Tab */}
           {activeTab === "reservations" && (
             <div className="space-y-4">
+              <ReservationFilterBar
+                onFiltersChange={setFilters}
+                locations={getUniqueLocations()}
+              />
               {reservationsQuery.isLoading ? (
                 <p style={{ color: "oklch(0.62 0.01 240)" }}>Loading reservations...</p>
               ) : reservationsQuery.data && reservationsQuery.data.length > 0 ? (
-                reservationsQuery.data.map((reservation: any) => (
+                getFilteredAndSortedReservations().length > 0 ? (
+                  getFilteredAndSortedReservations().map((reservation: any) => (
                   <div
                     key={reservation.id}
                     className="p-4 rounded-xl border transition-all cursor-pointer"
@@ -221,6 +290,12 @@ export default function Account() {
                     )}
                   </div>
                 ))
+                ) : (
+                  <div className="text-center py-12">
+                    <Clock size={32} style={{ color: "oklch(0.35 0.01 240)", margin: "0 auto 12px" }} />
+                    <p style={{ color: "oklch(0.55 0.01 240)" }}>No reservations match your filters</p>
+                  </div>
+                )
               ) : (
                 <div className="text-center py-12">
                   <Clock size={32} style={{ color: "oklch(0.35 0.01 240)", margin: "0 auto 12px" }} />
