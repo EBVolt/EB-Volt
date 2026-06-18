@@ -23,6 +23,7 @@ import {
 import { toast } from "sonner";
 import RefundModal from "@/components/RefundModal";
 import ReservationFilterBar, { ReservationFilters } from "@/components/ReservationFilterBar";
+import ReservationStats from "@/components/ReservationStats";
 
 type Tab = "reservations" | "receipts" | "refunds";
 
@@ -169,6 +170,25 @@ export default function Account() {
     return Array.from(locations).sort();
   };
 
+  const calculateStats = () => {
+    const data = getFilteredAndSortedReservations();
+    
+    if (data.length === 0) {
+      return { totalBookings: 0, averageCost: 0, totalKwh: 0 };
+    }
+
+    const totalBookings = data.length;
+    const totalCost = data.reduce((sum: number, r: any) => sum + parseFloat(r.estimatedCost || 0), 0);
+    const averageCost = totalCost / totalBookings;
+    
+    const totalKwh = data.reduce((sum: number, r: any) => {
+      const durationHours = (r.durationMinutes || 0) / 60;
+      return sum + (durationHours * 7);
+    }, 0);
+
+    return { totalBookings, averageCost, totalKwh };
+  };
+
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
       <Navbar />
@@ -210,6 +230,14 @@ export default function Account() {
           {/* Reservations Tab */}
           {activeTab === "reservations" && (
             <div className="space-y-4">
+              {/* Statistics Section */}
+              {reservationsQuery.data && reservationsQuery.data.length > 0 && (
+                <ReservationStats
+                  {...calculateStats()}
+                  isLoading={reservationsQuery.isLoading}
+                />
+              )}
+              
               <ReservationFilterBar
                 onFiltersChange={setFilters}
                 locations={getUniqueLocations()}
