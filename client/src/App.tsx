@@ -9,6 +9,7 @@ import FindCharger from "./pages/FindCharger";
 import HowItWorks from "./pages/HowItWorks";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Account from "./pages/Account";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/how-it-works" component={HowItWorks} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
+      <Route path="/account" component={Account} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

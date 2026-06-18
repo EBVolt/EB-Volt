@@ -13,6 +13,15 @@ import {
   getPaymentTransaction,
   getPaymentByReferenceId,
   updatePaymentStatus,
+  createRefundRequest,
+  getRefundRequest,
+  getUserRefundRequests,
+  updateRefundStatus,
+  createReceipt,
+  getReceipt,
+  getReceiptByNumber,
+  getUserReceipts,
+  incrementReceiptDownloadCount,
 } from "./db";
 import { getMoMoService } from "./momo";
 import { nanoid } from "nanoid";
@@ -167,6 +176,94 @@ export const appRouter = router({
         }
         return transaction;
       }),
+  }),
+
+  account: router({
+    getReservationHistory: protectedProcedure
+      .input(z.object({ limit: z.number().optional(), offset: z.number().optional() }).optional())
+      .query(async ({ ctx, input }) => {
+        const reservations = await getUserReservations(ctx.user.id);
+        const limit = input?.limit || 10;
+        const offset = input?.offset || 0;
+        return reservations.slice(offset, offset + limit);
+      }),
+
+    getReceiptHistory: protectedProcedure
+      .input(z.object({ limit: z.number().optional(), offset: z.number().optional() }).optional())
+      .query(async ({ ctx, input }) => {
+        const receipts = await getUserReceipts(ctx.user.id);
+        const limit = input?.limit || 10;
+        const offset = input?.offset || 0;
+        return receipts.slice(offset, offset + limit);
+      }),
+
+    downloadReceipt: protectedProcedure
+      .input(z.object({ receiptId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const receipt = await getReceipt(input.receiptId);
+        if (!receipt || receipt.userId !== ctx.user.id) {
+          throw new Error("Receipt not found or unauthorized");
+        }
+        await incrementReceiptDownloadCount(input.receiptId);
+        return { success: true, url: receipt.receiptUrl };
+      }),
+  }),
+
+  refund: router({
+    requestRefund: protectedProcedure
+      .input(
+        z.object({
+          reservationId: z.number(),
+          reason: z.string().min(10, "Reason must be at least 10 characters"),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        try {
+          const reservation = await getReservationById(input.reservationId);
+          if (!reservation || reservation.userId !== ctx.user.id) {
+            throw new Error("Reservation not found or unauthorized");
+          }
+
+          // Get the associated payment transaction
+          const payment = await getPaymentTransaction(reservation.id);
+          if (!payment) {
+            throw new Error("Payment not found for this reservation");
+          }
+
+          // Create refund request
+          const refundRequest = await createRefundRequest({
+            paymentTransactionId: payment.id,
+            reservationId: input.reservationId,
+            userId: ctx.user.id,
+            refundAmount: payment.amount,
+            reason: input.reason,
+            status: "pending",
+          });
+
+          return {
+            success: true,
+            refundId: (refundRequest as any).insertId,
+            message: "Refund request submitted. We will process it within 24 hours.",
+          };
+        } catch (error) {
+          console.error("[Refund] Request failed:", error);
+          throw new Error("Failed to request refund");
+        }
+      }),
+
+    getRefundStatus: protectedProcedure
+      .input(z.object({ refundId: z.number() }))
+      .query(async ({ ctx, input }) => {
+        const refund = await getRefundRequest(input.refundId);
+        if (!refund || refund.userId !== ctx.user.id) {
+          throw new Error("Refund not found or unauthorized");
+        }
+        return refund;
+      }),
+
+    getUserRefunds: protectedProcedure.query(async ({ ctx }) => {
+      return getUserRefundRequests(ctx.user.id);
+    }),
   }),
 });
 

@@ -88,3 +88,46 @@ export const paymentTransactions = mysqlTable("payment_transactions", {
 
 export type PaymentTransaction = typeof paymentTransactions.$inferSelect;
 export type InsertPaymentTransaction = typeof paymentTransactions.$inferInsert;
+
+/**
+ * Refund requests table - tracks refund requests for cancelled bookings
+ */
+export const refundRequests = mysqlTable("refund_requests", {
+  id: int("id").autoincrement().primaryKey(),
+  paymentTransactionId: int("payment_transaction_id").notNull(),
+  reservationId: int("reservation_id").notNull(),
+  userId: int("user_id").notNull(),
+  refundAmount: text("refund_amount").notNull(), // Store as string for precision
+  reason: text("reason").notNull(), // User-provided reason for cancellation
+  status: mysqlEnum("status", ["pending", "approved", "rejected", "processed", "failed"]).default("pending").notNull(),
+  refundTransactionId: varchar("refund_transaction_id", { length: 255 }), // MoMo refund transaction ID
+  refundedAt: timestamp("refunded_at"), // When refund was processed
+  rejectionReason: text("rejection_reason"), // Reason if refund was rejected
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type RefundRequest = typeof refundRequests.$inferSelect;
+export type InsertRefundRequest = typeof refundRequests.$inferInsert;
+
+/**
+ * Receipt records table - stores generated receipt information
+ */
+export const receipts = mysqlTable("receipts", {
+  id: int("id").autoincrement().primaryKey(),
+  paymentTransactionId: int("payment_transaction_id").notNull(),
+  reservationId: int("reservation_id").notNull(),
+  userId: int("user_id").notNull(),
+  receiptNumber: varchar("receipt_number", { length: 50 }).unique().notNull(), // Unique receipt ID
+  amount: text("amount").notNull(),
+  currency: varchar("currency", { length: 3 }).default("GHS").notNull(),
+  receiptUrl: text("receipt_url"), // URL to stored PDF receipt
+  receiptFormat: varchar("receipt_format", { length: 20 }).default("pdf").notNull(),
+  downloadCount: int("download_count").default(0).notNull(),
+  lastDownloadedAt: timestamp("last_downloaded_at"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Receipt = typeof receipts.$inferSelect;
+export type InsertReceipt = typeof receipts.$inferInsert;

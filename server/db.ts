@@ -180,3 +180,96 @@ export async function updatePaymentStatus(id: number, status: string, transactio
   
   return db.update(paymentTransactions).set(updateData).where(eq(paymentTransactions.id, id));
 }
+
+/**
+ * Refund Requests Queries
+ */
+export async function createRefundRequest(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { refundRequests } = await import("../drizzle/schema");
+  return db.insert(refundRequests).values(data);
+}
+
+export async function getRefundRequest(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const { refundRequests } = await import("../drizzle/schema");
+  const result = await db.select().from(refundRequests).where(eq(refundRequests.id, id)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getUserRefundRequests(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { refundRequests } = await import("../drizzle/schema");
+  return db.select().from(refundRequests).where(eq(refundRequests.userId, userId));
+}
+
+export async function updateRefundStatus(id: number, status: string, refundTransactionId?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { refundRequests } = await import("../drizzle/schema");
+  const updateData: any = { status, updatedAt: new Date() };
+  if (refundTransactionId) {
+    updateData.refundTransactionId = refundTransactionId;
+  }
+  if (status === "processed") {
+    updateData.refundedAt = new Date();
+  }
+  
+  return db.update(refundRequests).set(updateData).where(eq(refundRequests.id, id));
+}
+
+/**
+ * Receipt Queries
+ */
+export async function createReceipt(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { receipts } = await import("../drizzle/schema");
+  return db.insert(receipts).values(data);
+}
+
+export async function getReceipt(id: number) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const { receipts } = await import("../drizzle/schema");
+  const result = await db.select().from(receipts).where(eq(receipts.id, id)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getReceiptByNumber(receiptNumber: string) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const { receipts } = await import("../drizzle/schema");
+  const result = await db.select().from(receipts).where(eq(receipts.receiptNumber, receiptNumber)).limit(1);
+  return result.length > 0 ? result[0] : null;
+}
+
+export async function getUserReceipts(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { receipts } = await import("../drizzle/schema");
+  return db.select().from(receipts).where(eq(receipts.userId, userId));
+}
+
+export async function incrementReceiptDownloadCount(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { receipts } = await import("../drizzle/schema");
+  return db.update(receipts).set({ 
+    downloadCount: (receipts.downloadCount as any) + 1,
+    lastDownloadedAt: new Date(),
+    updatedAt: new Date()
+  }).where(eq(receipts.id, id));
+}
