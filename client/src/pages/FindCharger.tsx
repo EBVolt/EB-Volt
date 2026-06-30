@@ -3,6 +3,7 @@
    Features: Google Maps with charger pins, filter panel, reservation modal, distance sorting
    ============================================================ */
 import { useState, useCallback, useRef } from "react";
+import { createBoltMarkerSVG } from "@/components/BoltMarker";
 import { MapPin, Zap, Clock, Filter, Search, Star, ChevronRight, X, Calendar, CheckCircle, ArrowUpDown, Navigation } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -130,7 +131,8 @@ export default function FindCharger() {
         cursor: pointer;
         transition: all 0.2s ease;
       `;
-      markerElement.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 10.26H24L17.55 15.46L20.64 23.72L12 18.52L3.36 23.72L6.45 15.46L0 10.26H8.91L12 2Z" fill="${color}"/></svg>`;
+      // EB Volt bolt/lightning icon
+      markerElement.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8Z" fill="${color}" stroke="${color}" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
       
       const marker = new google.maps.marker.AdvancedMarkerElement({
         position: { lat: station.lat, lng: station.lng },

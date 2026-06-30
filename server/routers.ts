@@ -22,9 +22,17 @@ import {
   getReceiptByNumber,
   getUserReceipts,
   incrementReceiptDownloadCount,
+  getDailyRevenue,
+  getTopPerformingStations,
+  getRevenueMetrics,
 } from "./db";
 import { getMoMoService } from "./momo";
 import { nanoid } from "nanoid";
+import {
+  sendBookingConfirmationEmail,
+  sendPaymentReceiptEmail,
+  sendRefundNotificationEmail,
+} from "./email";
 
 export const appRouter = router({
   system: systemRouter,
@@ -154,6 +162,21 @@ export const appRouter = router({
               transaction.id,
               newStatus
             );
+
+            // Send payment receipt email when completed
+            if (newStatus === "completed") {
+              await sendPaymentReceiptEmail({
+                userEmail: "customer@ecobellevolt.com",
+                userName: "Valued Customer",
+                bookingReference: input.referenceId,
+                amount: parseFloat(transaction.amount),
+                currency: transaction.currency,
+                paymentMethod: transaction.paymentMethod,
+                transactionId: transaction.transactionId || "",
+                timestamp: new Date().toISOString(),
+                stationName: "EcoBelle Volt Station",
+              }).catch(err => console.error("[Email] Failed to send receipt:", err));
+            }
           }
 
           return {
@@ -329,10 +352,29 @@ export const appRouter = router({
         if (ctx.user.role !== "admin") {
           throw new Error("Unauthorized: Admin access required");
         }
-        const { updateRefundStatus, getRefundRequest } = await import("./db");
+        const { updateRefundStatus, getRefundRequest, getUserById } = await import("./db");
         const refund = await getRefundRequest(input.refundId);
         if (!refund) throw new Error("Refund not found");
+        
         await updateRefundStatus(input.refundId, "approved", ctx.user.id, input.approvalNotes);
+        
+        // Send approval notification email
+        try {
+          const user = await getUserById(refund.userId);
+          if (user && user.email) {
+            await sendRefundNotificationEmail({
+              userEmail: user.email,
+              userName: user.name || "Valued Customer",
+              bookingReference: `RES-${refund.reservationId}`,
+              refundAmount: parseFloat(refund.refundAmount),
+              currency: "GHS",
+              status: "approved",
+            }).catch(err => console.error("[Email] Failed to send refund approval:", err));
+          }
+        } catch (err) {
+          console.error("[Refund] Error sending approval email:", err);
+        }
+        
         return { success: true };
       }),
 
@@ -345,10 +387,57 @@ export const appRouter = router({
         if (ctx.user.role !== "admin") {
           throw new Error("Unauthorized: Admin access required");
         }
-        const { updateRefundStatus } = await import("./db");
+        const { updateRefundStatus, getRefundRequest, getUserById } = await import("./db");
+        const refund = await getRefundRequest(input.refundId);
+        if (!refund) throw new Error("Refund not found");
+        
         await updateRefundStatus(input.refundId, "rejected", ctx.user.id, input.rejectionReason);
+        
+        // Send rejection notification email
+        try {
+          const user = await getUserById(refund.userId);
+          if (user && user.email) {
+            await sendRefundNotificationEmail({
+              userEmail: user.email,
+              userName: user.name || "Valued Customer",
+              bookingReference: `RES-${refund.reservationId}`,
+              refundAmount: parseFloat(refund.refundAmount),
+              currency: "GHS",
+              status: "rejected",
+              reason: input.rejectionReason,
+            }).catch(err => console.error("[Email] Failed to send refund rejection:", err));
+          }
+        } catch (err) {
+          console.error("[Refund] Error sending rejection email:", err);
+        }
+        
         return { success: true };
       }),
+
+    getDailyRevenue: protectedProcedure
+      .input(z.object({ days: z.number().optional() }))
+      .query(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        return getDailyRevenue(input.days || 30);
+      }),
+
+    getTopPerformingStations: protectedProcedure
+      .input(z.object({ limit: z.number().optional() }))
+      .query(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        return getTopPerformingStations(input.limit || 10);
+      }),
+
+    getRevenueMetrics: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Unauthorized: Admin access required");
+      }
+      return getRevenueMetrics();
+    }),
   }),
 });
 

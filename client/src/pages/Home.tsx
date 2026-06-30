@@ -161,7 +161,7 @@ export default function Home() {
               className="text-lg lg:text-xl leading-relaxed mb-10 max-w-xl"
               style={{ color: "oklch(0.78 0.005 240)" }}
             >
-              EcoBelle Volt is Ghana's first smart EV charging platform — giving drivers fast, reliable charging with real-time availability and easy reservations.
+              EcoBelle Volt is Ghana's first clean and off-grid EV charging platform giving drivers fast, reliable charging with real-time availability and easy reservations.
             </p>
 
             <div className="flex flex-wrap gap-4">
