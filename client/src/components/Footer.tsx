@@ -137,9 +137,9 @@ export default function Footer() {
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href}>
-                    <a className="text-sm hover:text-white transition-colors" style={{ color: "oklch(0.62 0.01 240)" }}>
+                    <span className="text-sm hover:text-white transition-colors cursor-pointer inline-block" style={{ color: "oklch(0.62 0.01 240)" }}>
                       {item.label}
-                    </a>
+                    </span>
                   </Link>
                 </li>
               ))}
