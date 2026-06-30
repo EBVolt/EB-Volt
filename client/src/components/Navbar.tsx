@@ -15,6 +15,14 @@ const navLinks = [
   { href: "/account", label: "My Account" },
 ];
 
+const serviceLinks = [
+  { href: "/services/public-charging", label: "Public Charging" },
+  { href: "/services/fleet-charging", label: "Fleet Charging" },
+  { href: "/services/business-partnerships", label: "Business Partnerships" },
+  { href: "/services/charger-installation", label: "Charger Installation" },
+  { href: "/services/support", label: "24/7 Support" },
+];
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -89,6 +97,56 @@ export default function Navbar() {
                   </span>
                 </Link>
               ))}
+              
+              {/* Services Dropdown */}
+              <div className="relative group">
+                <span
+                  className="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer"
+                  style={{
+                    color: "oklch(0.85 0 0)",
+                    background: "transparent",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.target as HTMLElement).style.color = "oklch(0.95 0 0)";
+                    (e.target as HTMLElement).style.background = "oklch(1 0 0 / 5%)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.target as HTMLElement).style.color = "oklch(0.85 0 0)";
+                    (e.target as HTMLElement).style.background = "transparent";
+                  }}
+                >
+                  Services
+                </span>
+                <div
+                  className="absolute left-0 mt-0 w-48 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2"
+                  style={{
+                    background: "oklch(0.12 0.015 240)",
+                    border: "1px solid oklch(0.55 0.18 145 / 0.2)",
+                  }}
+                >
+                  {serviceLinks.map((link) => (
+                    <Link key={link.href} href={link.href}>
+                      <span
+                        className="block px-4 py-2 text-sm hover:bg-opacity-50 transition-all"
+                        style={{
+                          color: "oklch(0.85 0 0)",
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
+                          (e.target as HTMLElement).style.background = "oklch(0.55 0.18 145 / 0.12)";
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.target as HTMLElement).style.color = "oklch(0.85 0 0)";
+                          (e.target as HTMLElement).style.background = "transparent";
+                        }}
+                      >
+                        {link.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </nav>
 
             {/* CTA */}

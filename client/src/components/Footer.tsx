@@ -129,16 +129,18 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                "Public Charging",
-                "Fleet Charging",
-                "Business Partnerships",
-                "Charger Installation",
-                "24/7 Support",
+                { label: "Public Charging", href: "/services/public-charging" },
+                { label: "Fleet Charging", href: "/services/fleet-charging" },
+                { label: "Business Partnerships", href: "/services/business-partnerships" },
+                { label: "Charger Installation", href: "/services/charger-installation" },
+                { label: "24/7 Support", href: "/services/support" },
               ].map((item) => (
-                <li key={item}>
-                  <span className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
-                    {item}
-                  </span>
+                <li key={item.label}>
+                  <Link href={item.href}>
+                    <a className="text-sm hover:text-white transition-colors" style={{ color: "oklch(0.62 0.01 240)" }}>
+                      {item.label}
+                    </a>
+                  </Link>
                 </li>
               ))}
             </ul>
