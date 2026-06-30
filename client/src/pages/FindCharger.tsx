@@ -1,14 +1,15 @@
 /* ============================================================
    EcoBelle Volt — Find a Charger Page
-   Features: Google Maps with charger pins, filter panel, reservation modal
+   Features: Google Maps with charger pins, filter panel, reservation modal, distance sorting
    ============================================================ */
 import { useState, useCallback, useRef } from "react";
-import { MapPin, Zap, Clock, Filter, Search, Star, ChevronRight, X, Calendar, CheckCircle } from "lucide-react";
+import { MapPin, Zap, Clock, Filter, Search, Star, ChevronRight, X, Calendar, CheckCircle, ArrowUpDown } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapView } from "@/components/Map";
 import { MoMoPaymentWidget } from "@/components/MoMoPaymentWidget";
 import { AddressSearch } from "@/components/AddressSearch";
+import { calculateDistance, formatDistance } from "@/lib/distance";
 import { toast } from "sonner";
 
 interface Station {
@@ -25,6 +26,13 @@ interface Station {
   status: "available" | "busy" | "offline";
   amenities: string[];
   rating: number;
+  distance?: number;
+}
+
+interface SearchLocation {
+  lat: number;
+  lng: number;
+  address: string;
 }
 
 const STATIONS: Station[] = [
@@ -62,15 +70,31 @@ export default function FindCharger() {
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterType, setFilterType] = useState("all");
   const [mapReady, setMapReady] = useState(false);
+  const [searchLocation, setSearchLocation] = useState<SearchLocation | null>(null);
+  const [sortByDistance, setSortByDistance] = useState(true);
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
 
-  const filtered = STATIONS.filter((s) => {
-    const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) || s.city.toLowerCase().includes(search.toLowerCase());
-    const matchStatus = filterStatus === "all" || s.status === filterStatus;
-    const matchType = filterType === "all" || s.type === filterType;
-    return matchSearch && matchStatus && matchType;
-  });
+  // Calculate distances from search location
+  const stationsWithDistance = STATIONS.map((s) => ({
+    ...s,
+    distance: searchLocation ? calculateDistance(searchLocation, { lat: s.lat, lng: s.lng }) : undefined,
+  }));
+
+  // Filter and sort stations
+  const filtered = stationsWithDistance
+    .filter((s) => {
+      const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) || s.city.toLowerCase().includes(search.toLowerCase());
+      const matchStatus = filterStatus === "all" || s.status === filterStatus;
+      const matchType = filterType === "all" || s.type === filterType;
+      return matchSearch && matchStatus && matchType;
+    })
+    .sort((a, b) => {
+      if (sortByDistance && a.distance !== undefined && b.distance !== undefined) {
+        return a.distance - b.distance;
+      }
+      return 0;
+    });
 
   const handleMapReady = useCallback((map: google.maps.Map) => {
     mapRef.current = map;
@@ -202,11 +226,13 @@ export default function FindCharger() {
         <div className="container">
           <AddressSearch
             onLocationSelect={(location) => {
+              setSearchLocation(location);
               if (mapRef.current) {
                 mapRef.current.setCenter({ lat: location.lat, lng: location.lng });
                 mapRef.current.setZoom(14);
               }
-              toast.success(`Centered on ${location.address}`);
+              setSortByDistance(true);
+              toast.success(`Centered on ${location.address} - sorted by distance`);
             }}
           />
         </div>
@@ -223,12 +249,28 @@ export default function FindCharger() {
 
             {/* Sidebar */}
             <div className="rounded-2xl p-6" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)", height: "600px", overflowY: "auto" }}>
-              <h3
-                className="text-lg font-bold mb-4"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
-              >
-                Nearby Stations ({filtered.length})
-              </h3>
+              <div className="flex items-center justify-between mb-4">
+                <h3
+                  className="text-lg font-bold"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
+                >
+                  Nearby Stations ({filtered.length})
+                </h3>
+                {searchLocation && (
+                  <button
+                    onClick={() => setSortByDistance(!sortByDistance)}
+                    className="p-2 rounded-lg transition-colors"
+                    style={{
+                      background: sortByDistance ? "oklch(0.52 0.18 145 / 0.15)" : "oklch(0.92 0.02 240)",
+                      color: sortByDistance ? "oklch(0.52 0.18 145)" : "oklch(0.45 0.05 240)",
+                      border: sortByDistance ? "1px solid oklch(0.52 0.18 145)" : "1px solid oklch(0.88 0.02 240)",
+                    }}
+                    title={sortByDistance ? "Sorted by distance" : "Click to sort by distance"}
+                  >
+                    <ArrowUpDown size={16} />
+                  </button>
+                )}
+              </div>
 
               {filtered.length === 0 ? (
                 <p style={{ color: "oklch(0.45 0.05 240)" }}>No stations match your filters.</p>
@@ -245,13 +287,18 @@ export default function FindCharger() {
                       }}
                     >
                       <div className="flex items-start justify-between mb-2">
-                        <div>
+                        <div className="flex-1">
                           <h4 className="font-semibold text-sm" style={{ color: "oklch(0.25 0.08 240)" }}>
                             {station.name}
                           </h4>
                           <p className="text-xs mt-1" style={{ color: "oklch(0.45 0.05 240)" }}>
                             {station.address}
                           </p>
+                          {station.distance !== undefined && (
+                            <p className="text-xs mt-1 font-semibold" style={{ color: "oklch(0.52 0.18 145)" }}>
+                              📍 {formatDistance(station.distance)} away
+                            </p>
+                          )}
                         </div>
                         <div className="flex items-center gap-1">
                           <Star size={14} style={{ color: "oklch(0.65 0.18 50)", fill: "oklch(0.65 0.18 50)" }} />
@@ -301,60 +348,42 @@ export default function FindCharger() {
           <div
             className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
-            style={{ background: "oklch(0.96 0.01 240)" }}
+            style={{ background: "oklch(0.98 0.01 240)" }}
           >
             <div className="flex items-center justify-between mb-6">
-              <h2
-                className="text-2xl font-bold"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
-              >
+              <h2 className="text-2xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}>
                 Reserve Charger
               </h2>
-              <button
-                onClick={() => setShowReservation(false)}
-                className="p-2 rounded-lg hover:bg-gray-200 transition-colors"
-              >
-                <X size={20} style={{ color: "oklch(0.25 0.08 240)" }} />
+              <button onClick={() => setShowReservation(false)} className="p-1">
+                <X size={24} style={{ color: "oklch(0.45 0.05 240)" }} />
               </button>
-            </div>
-
-            <div className="mb-6 p-4 rounded-lg" style={{ background: "oklch(0.92 0.02 240)" }}>
-              <h3 className="font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                {selectedStation.name}
-              </h3>
-              <p className="text-sm" style={{ color: "oklch(0.45 0.05 240)" }}>
-                {selectedStation.address}
-              </p>
             </div>
 
             <div className="space-y-4 mb-6">
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                  <Calendar size={14} className="inline mr-2" />
-                  Date
+                <p className="text-sm font-semibold mb-2" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  Station
+                </p>
+                <p className="text-lg font-bold" style={{ color: "oklch(0.25 0.08 240)" }}>
+                  {selectedStation.name}
+                </p>
+              </div>
+
+              <div>
+                <label className="text-sm font-semibold mb-2 block" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  <Calendar size={16} className="inline mr-2" />
+                  Reservation Date
                 </label>
                 <input
                   type="date"
-                  className="w-full px-3 py-2 rounded-lg outline-none"
+                  className="w-full px-3 py-2 rounded-lg text-sm outline-none"
                   style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                  <Clock size={14} className="inline mr-2" />
-                  Time
-                </label>
-                <input
-                  type="time"
-                  className="w-full px-3 py-2 rounded-lg outline-none"
-                  style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                  <Zap size={14} className="inline mr-2" />
+                <label className="text-sm font-semibold mb-2 block" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  <Clock size={16} className="inline mr-2" />
                   Duration (hours)
                 </label>
                 <input
@@ -362,9 +391,18 @@ export default function FindCharger() {
                   min="1"
                   max="8"
                   defaultValue="2"
-                  className="w-full px-3 py-2 rounded-lg outline-none"
+                  className="w-full px-3 py-2 rounded-lg text-sm outline-none"
                   style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
                 />
+              </div>
+
+              <div className="p-3 rounded-lg" style={{ background: "oklch(0.52 0.18 145 / 0.1)", border: "1px solid oklch(0.52 0.18 145 / 0.3)" }}>
+                <p className="text-sm" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  Estimated Cost
+                </p>
+                <p className="text-2xl font-bold" style={{ color: "oklch(0.52 0.18 145)" }}>
+                  ₵{(selectedStation.maxKw * 15).toFixed(2)}
+                </p>
               </div>
             </div>
 
