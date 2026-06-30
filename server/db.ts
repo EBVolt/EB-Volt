@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, and, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -272,4 +272,98 @@ export async function incrementReceiptDownloadCount(id: number) {
     lastDownloadedAt: new Date(),
     updatedAt: new Date()
   }).where(eq(receipts.id, id));
+}
+
+/**
+ * Favorite Chargers Queries
+ */
+export async function addFavoriteCharger(userId: number, stationId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { favoriteChargers } = await import("../drizzle/schema");
+  return db.insert(favoriteChargers).values({ userId, stationId });
+}
+
+export async function removeFavoriteCharger(userId: number, stationId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { favoriteChargers } = await import("../drizzle/schema");
+  return db.delete(favoriteChargers)
+    .where(
+      and(
+        eq(favoriteChargers.userId, userId),
+        eq(favoriteChargers.stationId, stationId)
+      )
+    );
+}
+
+export async function getUserFavoriteChargers(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { favoriteChargers } = await import("../drizzle/schema");
+  return db.select().from(favoriteChargers).where(eq(favoriteChargers.userId, userId));
+}
+
+export async function isFavoriteCharger(userId: number, stationId: number) {
+  const db = await getDb();
+  if (!db) return false;
+  
+  const { favoriteChargers } = await import("../drizzle/schema");
+  const result = await db.select().from(favoriteChargers)
+    .where(
+      and(
+        eq(favoriteChargers.userId, userId),
+        eq(favoriteChargers.stationId, stationId)
+      )
+    )
+    .limit(1);
+  return result.length > 0;
+}
+
+/**
+ * Notifications Queries
+ */
+export async function createNotification(data: any) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { notifications } = await import("../drizzle/schema");
+  return db.insert(notifications).values(data);
+}
+
+export async function getUserNotifications(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { notifications } = await import("../drizzle/schema");
+  return db.select().from(notifications)
+    .where(eq(notifications.userId, userId))
+    .orderBy((n) => n.createdAt);
+}
+
+export async function markNotificationAsRead(id: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  
+  const { notifications } = await import("../drizzle/schema");
+  return db.update(notifications).set({ isRead: true }).where(eq(notifications.id, id));
+}
+
+export async function getUnreadNotificationCount(userId: number) {
+  const db = await getDb();
+  if (!db) return 0;
+  
+  const { notifications } = await import("../drizzle/schema");
+  const result = await db.select({ count: sql`COUNT(*)` })
+    .from(notifications)
+    .where(
+      and(
+        eq(notifications.userId, userId),
+        eq(notifications.isRead, false)
+      )
+    );
+  return result[0]?.count || 0;
 }

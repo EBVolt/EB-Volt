@@ -15,6 +15,13 @@
       "when": 1781790625205,
       "tag": "0001_cultured_norrin_radd",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1782859966882,
+      "tag": "0002_elite_angel",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, varchar, boolean } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -131,3 +131,35 @@ export const receipts = mysqlTable("receipts", {
 
 export type Receipt = typeof receipts.$inferSelect;
 export type InsertReceipt = typeof receipts.$inferInsert;
+
+/**
+ * Favorite chargers table - stores user's bookmarked charging stations
+ */
+export const favoriteChargers = mysqlTable("favorite_chargers", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("user_id").notNull(),
+  stationId: int("station_id").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type FavoriteCharger = typeof favoriteChargers.$inferSelect;
+export type InsertFavoriteCharger = typeof favoriteChargers.$inferInsert;
+
+/**
+ * Notifications table - stores booking confirmations and status updates
+ */
+export const notifications = mysqlTable("notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("user_id").notNull(),
+  type: varchar("type", { length: 50 }).notNull(), // booking_confirmation, refund_approved, refund_rejected, payment_receipt
+  title: varchar("title", { length: 255 }).notNull(),
+  message: text("message").notNull(),
+  relatedReservationId: int("related_reservation_id"),
+  relatedRefundId: int("related_refund_id"),
+  isRead: boolean("is_read").default(false).notNull(),
+  sentAt: timestamp("sent_at").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Notification = typeof notifications.$inferSelect;
+export type InsertNotification = typeof notifications.$inferInsert;
