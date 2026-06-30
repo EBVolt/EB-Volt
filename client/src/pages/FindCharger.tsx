@@ -3,13 +3,14 @@
    Features: Google Maps with charger pins, filter panel, reservation modal, distance sorting
    ============================================================ */
 import { useState, useCallback, useRef } from "react";
-import { MapPin, Zap, Clock, Filter, Search, Star, ChevronRight, X, Calendar, CheckCircle, ArrowUpDown } from "lucide-react";
+import { MapPin, Zap, Clock, Filter, Search, Star, ChevronRight, X, Calendar, CheckCircle, ArrowUpDown, Navigation } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapView } from "@/components/Map";
 import { MoMoPaymentWidget } from "@/components/MoMoPaymentWidget";
 import { AddressSearch } from "@/components/AddressSearch";
 import { calculateDistance, formatDistance } from "@/lib/distance";
+import { openDirectionsInMaps } from "@/lib/directions";
 import { toast } from "sonner";
 
 interface Station {
@@ -316,19 +317,41 @@ export default function FindCharger() {
                       </div>
 
                       {selectedStation?.id === station.id && (
-                        <button
-                          onClick={() => setShowReservation(true)}
-                          className="w-full mt-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200"
-                          style={{ background: "oklch(0.52 0.18 145)", color: "white" }}
-                          onMouseEnter={(e) => {
-                            (e.currentTarget as HTMLElement).style.background = "oklch(0.42 0.18 145)";
-                          }}
-                          onMouseLeave={(e) => {
-                            (e.currentTarget as HTMLElement).style.background = "oklch(0.52 0.18 145)";
-                          }}
-                        >
-                          Reserve Now
-                        </button>
+                        <div className="flex gap-2 mt-3">
+                          <button
+                            onClick={() => setShowReservation(true)}
+                            className="flex-1 py-2 rounded-lg font-semibold text-sm transition-all duration-200"
+                            style={{ background: "oklch(0.52 0.18 145)", color: "white" }}
+                            onMouseEnter={(e) => {
+                              (e.currentTarget as HTMLElement).style.background = "oklch(0.42 0.18 145)";
+                            }}
+                            onMouseLeave={(e) => {
+                              (e.currentTarget as HTMLElement).style.background = "oklch(0.52 0.18 145)";
+                            }}
+                          >
+                            Reserve Now
+                          </button>
+                          {searchLocation && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openDirectionsInMaps(searchLocation, { lat: station.lat, lng: station.lng });
+                                toast.success("Opening directions...");
+                              }}
+                              className="px-3 py-2 rounded-lg transition-all duration-200 flex items-center gap-1"
+                              style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.52 0.18 145)", border: "1px solid oklch(0.52 0.18 145)" }}
+                              title="Get directions to this station"
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "oklch(0.52 0.18 145 / 0.1)";
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLElement).style.background = "oklch(0.92 0.02 240)";
+                              }}
+                            >
+                              <Navigation size={16} />
+                            </button>
+                          )}
+                        </div>
                       )}
                     </div>
                   ))}

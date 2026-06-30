@@ -8,6 +8,7 @@ import { Link } from "wouter";
 import { Zap, MapPin, Clock, Shield, ChevronRight, ArrowRight, Battery, Leaf, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ChargerIllustration } from "@/components/ChargerIllustration";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 // Intersection observer hook for scroll animations
@@ -297,6 +298,79 @@ export default function Home() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CHARGER TYPES ── */}
+      <section className="py-20" style={{ background: "oklch(0.12 0.015 240)" }}>
+        <div className="container">
+          <div className="text-center mb-14">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
+              style={{
+                background: "oklch(0.55 0.18 145 / 0.12)",
+                color: "oklch(0.72 0.18 145)",
+                fontFamily: "'Space Grotesk', sans-serif",
+              }}
+            >
+              Our Chargers
+            </div>
+            <h2
+              className="text-4xl lg:text-5xl font-bold mb-4"
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}
+            >
+              Charging Technology
+            </h2>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.62 0.01 240)" }}>
+              Choose the charging speed that works for you. DC Fast for quick top-ups, or AC Level 2 for longer sessions.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="flex justify-center">
+              <ChargerIllustration type="dc-fast" size="large" />
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}>
+                DC Fast Charging
+              </h3>
+              <p className="text-lg mb-6" style={{ color: "oklch(0.62 0.01 240)" }}>
+                Get 80% charge in just 30 minutes. Perfect for highway stops and quick top-ups.
+              </p>
+              <ul className="space-y-3">
+                {["Up to 100kW power", "30-minute fast charge", "Available at major hubs", "Perfect for long trips"].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "oklch(0.55 0.18 145 / 0.2)" }}>
+                      <Zap size={11} style={{ color: "oklch(0.72 0.18 145)" }} />
+                    </div>
+                    <span style={{ color: "oklch(0.78 0.005 240)" }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
+            <div>
+              <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}>
+                AC Level 2 Charging
+              </h3>
+              <p className="text-lg mb-6" style={{ color: "oklch(0.62 0.01 240)" }}>
+                Convenient charging for shopping, dining, or overnight stays.
+              </p>
+              <ul className="space-y-3">
+                {["Up to 50kW power", "2-4 hour full charge", "Available at all stations", "Perfect for daily use"].map((item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "oklch(0.55 0.18 145 / 0.2)" }}>
+                      <Zap size={11} style={{ color: "oklch(0.72 0.18 145)" }} />
+                    </div>
+                    <span style={{ color: "oklch(0.78 0.005 240)" }}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex justify-center">
+              <ChargerIllustration type="ac-level2" size="large" />
             </div>
           </div>
         </div>
