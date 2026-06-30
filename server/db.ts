@@ -209,20 +209,31 @@ export async function getUserRefundRequests(userId: number) {
   return db.select().from(refundRequests).where(eq(refundRequests.userId, userId));
 }
 
-export async function updateRefundStatus(id: number, status: string, refundTransactionId?: string) {
+export async function updateRefundStatus(id: number, status: string, approvedBy?: number, notes?: string) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
   
   const { refundRequests } = await import("../drizzle/schema");
   const updateData: any = { status, updatedAt: new Date() };
-  if (refundTransactionId) {
-    updateData.refundTransactionId = refundTransactionId;
+  if (approvedBy) {
+    updateData.approvedBy = approvedBy;
   }
-  if (status === "processed") {
-    updateData.refundedAt = new Date();
+  if (notes) {
+    updateData.adminNotes = notes;
+  }
+  if (status === "approved" || status === "rejected") {
+    updateData.processedAt = new Date();
   }
   
   return db.update(refundRequests).set(updateData).where(eq(refundRequests.id, id));
+}
+
+export async function getAllRefunds() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { refundRequests } = await import("../drizzle/schema");
+  return db.select().from(refundRequests).orderBy(desc(refundRequests.createdAt));
 }
 
 /**

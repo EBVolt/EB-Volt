@@ -311,6 +311,44 @@ export const appRouter = router({
         const { getChargerStatusLogs } = await import("./db");
         return getChargerStatusLogs(input.stationId);
       }),
+
+    getAllRefunds: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Unauthorized: Admin access required");
+      }
+      const { getAllRefunds } = await import("./db");
+      return getAllRefunds();
+    }),
+
+    approveRefund: protectedProcedure
+      .input(z.object({
+        refundId: z.number(),
+        approvalNotes: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        const { updateRefundStatus, getRefundRequest } = await import("./db");
+        const refund = await getRefundRequest(input.refundId);
+        if (!refund) throw new Error("Refund not found");
+        await updateRefundStatus(input.refundId, "approved", ctx.user.id, input.approvalNotes);
+        return { success: true };
+      }),
+
+    rejectRefund: protectedProcedure
+      .input(z.object({
+        refundId: z.number(),
+        rejectionReason: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        const { updateRefundStatus } = await import("./db");
+        await updateRefundStatus(input.refundId, "rejected", ctx.user.id, input.rejectionReason);
+        return { success: true };
+      }),
   }),
 });
 

@@ -6,6 +6,7 @@ import { trpc } from "@/lib/trpc";
 import { AlertCircle, CheckCircle, Zap, Wifi } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import RefundManagement from "@/components/RefundManagement";
 
 export default function AdminDashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -300,6 +301,11 @@ export default function AdminDashboard() {
             </div>
           </Card>
         )}
+
+        {/* Refund Management Section */}
+        <div className="mt-12">
+          <RefundManagement isAdmin={user?.role === "admin"} />
+        </div>
       </div>
     </div>
   );
