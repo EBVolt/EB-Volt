@@ -9,9 +9,12 @@ import Footer from "@/components/Footer";
 import { MapView } from "@/components/Map";
 import { MoMoPaymentWidget } from "@/components/MoMoPaymentWidget";
 import { AddressSearch } from "@/components/AddressSearch";
+import { FavoritesFilter } from "@/components/FavoritesFilter";
 import { calculateDistance, formatDistance } from "@/lib/distance";
 import { openDirectionsInMaps } from "@/lib/directions";
 import { toast } from "sonner";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 interface Station {
   id: string;
@@ -73,8 +76,12 @@ export default function FindCharger() {
   const [mapReady, setMapReady] = useState(false);
   const [searchLocation, setSearchLocation] = useState<SearchLocation | null>(null);
   const [sortByDistance, setSortByDistance] = useState(true);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const { user } = useAuth();
   const mapRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
+  
+  const favoriteStationIds = new Set<string>();
 
   // Calculate distances from search location
   const stationsWithDistance = STATIONS.map((s) => ({
@@ -88,7 +95,8 @@ export default function FindCharger() {
       const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) || s.city.toLowerCase().includes(search.toLowerCase());
       const matchStatus = filterStatus === "all" || s.status === filterStatus;
       const matchType = filterType === "all" || s.type === filterType;
-      return matchSearch && matchStatus && matchType;
+      const matchFavorites = !showFavoritesOnly || favoriteStationIds.has(s.id);
+      return matchSearch && matchStatus && matchType && matchFavorites;
     })
     .sort((a, b) => {
       if (sortByDistance && a.distance !== undefined && b.distance !== undefined) {
@@ -221,6 +229,19 @@ export default function FindCharger() {
           </div>
         </div>
       </section>
+
+      {/* Favorites Filter */}
+      {user && (
+        <section className="pb-6">
+          <div className="container">
+            <FavoritesFilter
+              isActive={showFavoritesOnly}
+              onToggle={setShowFavoritesOnly}
+              favoriteCount={favoriteStationIds.size}
+            />
+          </div>
+        </section>
+      )}
 
       {/* Address Search */}
       <section className="pb-6">
