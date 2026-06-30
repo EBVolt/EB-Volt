@@ -177,9 +177,11 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={15} style={{ color: "oklch(0.55 0.18 145)", marginTop: 2 }} />
-                <span className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
-                  Accra, Ghana
-                </span>
+                <div className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
+                  <p>66, Paul Street</p>
+                  <p>London EC2A 4NA</p>
+                  <p>United Kingdom</p>
+                </div>
               </li>
             </ul>
 

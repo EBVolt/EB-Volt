@@ -85,7 +85,7 @@ export default function Contact() {
                   {[
                     { icon: Phone, label: "Phone", value: "+44 7477 884 266", href: "tel:+447477884266" },
                     { icon: Mail, label: "Email", value: "contact@ecobelle.com", href: "mailto:contact@ecobelle.com" },
-                    { icon: MapPin, label: "Location", value: "Accra, Ghana", href: null },
+                    { icon: MapPin, label: "Location", value: "66, Paul Street, London EC2A 4NA", href: null },
                   ].map((item) => {
                     const Icon = item.icon;
                     return (

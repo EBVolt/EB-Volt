@@ -39,8 +39,8 @@ const STATIONS: Station[] = [
 
 function StatusBadge({ status, available, total }: { status: string; available: number; total: number }) {
   const styles = {
-    available: { bg: "oklch(0.55 0.18 145 / 0.15)", color: "oklch(0.72 0.18 145)", border: "oklch(0.55 0.18 145 / 0.3)", label: `${available}/${total} Available` },
-    busy: { bg: "oklch(0.65 0.18 50 / 0.15)", color: "oklch(0.75 0.18 50)", border: "oklch(0.65 0.18 50 / 0.3)", label: `${available}/${total} Available` },
+    available: { bg: "oklch(0.52 0.18 145 / 0.15)", color: "oklch(0.52 0.18 145)", border: "oklch(0.52 0.18 145 / 0.3)", label: `${available}/${total} Available` },
+    busy: { bg: "oklch(0.65 0.18 50 / 0.15)", color: "oklch(0.65 0.18 50)", border: "oklch(0.65 0.18 50 / 0.3)", label: `${available}/${total} Available` },
     offline: { bg: "oklch(0.5 0 0 / 0.15)", color: "oklch(0.65 0 0)", border: "oklch(0.5 0 0 / 0.3)", label: "Offline" },
   };
   const s = styles[status as keyof typeof styles] || styles.offline;
@@ -54,191 +54,15 @@ function StatusBadge({ status, available, total }: { status: string; available: 
   );
 }
 
-function ReservationModal({ station, onClose }: { station: Station; onClose: () => void }) {
-  const [step, setStep] = useState<"form" | "confirm" | "payment">("form");
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
-  const [duration, setDuration] = useState("30");
-  const [reservationId, setReservationId] = useState<number | null>(null);
-
-  // Calculate estimated cost (example: GHS 15 per 30 minutes)
-  const estimatedCost = (parseInt(duration) / 30 * 15).toFixed(2);
-
-  const handleReserve = () => {
-    if (!date || !time) { toast.error("Please select a date and time."); return; }
-    setStep("confirm");
-  };
-
-  const handleConfirm = () => {
-    // In a real app, create reservation in database first
-    setReservationId(1); // Mock reservation ID
-    setStep("payment");
-  };
-
-  const handlePaymentSuccess = (transactionId: string) => {
-    toast.success(`Reservation confirmed! Transaction: ${transactionId.substring(0, 8)}...`);
-    setTimeout(() => onClose(), 2000);
-  };
-
-  const handlePaymentFailed = (error: string) => {
-    toast.error(`Payment failed: ${error}`);
-  };
-
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4"
-      style={{ background: "oklch(0 0 0 / 0.7)" }}
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <div
-        className="w-full max-w-md rounded-2xl p-6"
-        style={{
-          background: "oklch(0.17 0.012 240)",
-          border: "1px solid oklch(1 0 0 / 10%)",
-          boxShadow: "0 24px 64px oklch(0 0 0 / 0.5)",
-        }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}>
-            {step === "form" ? "Reserve a Charger" : "Confirm Reservation"}
-          </h3>
-          <button onClick={onClose} className="p-1.5 rounded-lg transition-colors" style={{ color: "oklch(0.62 0.01 240)" }}>
-            <X size={20} />
-          </button>
-        </div>
-
-        <div
-          className="p-4 rounded-xl mb-6"
-          style={{ background: "oklch(0.12 0.015 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
-        >
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "oklch(0.55 0.18 145 / 0.15)" }}>
-              <Zap size={18} style={{ color: "oklch(0.72 0.18 145)" }} />
-            </div>
-            <div>
-              <div className="font-semibold text-sm" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.95 0 0)" }}>
-                {station.name}
-              </div>
-              <div className="text-xs mt-0.5" style={{ color: "oklch(0.62 0.01 240)" }}>
-                {station.address} · {station.maxKw}kW {station.type}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {step === "payment" && reservationId ? (
-          <MoMoPaymentWidget
-            reservationId={reservationId}
-            amount={estimatedCost}
-            estimatedCost={estimatedCost}
-            onPaymentSuccess={handlePaymentSuccess}
-            onPaymentFailed={handlePaymentFailed}
-          />
-        ) : step === "form" ? (
-          <div className="space-y-4">
-            <div>
-              <label className="text-xs font-medium block mb-2" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}>
-                Date
-              </label>
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                min={new Date().toISOString().split("T")[0]}
-                className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
-                style={{
-                  background: "oklch(0.12 0.015 240)",
-                  border: "1px solid oklch(1 0 0 / 12%)",
-                  color: "oklch(0.95 0 0)",
-                  colorScheme: "dark",
-                }}
-              />
-            </div>
-            <div>
-              <label className="text-xs font-medium block mb-2" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}>
-                Time
-              </label>
-              <input
-                type="time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl text-sm outline-none"
-                style={{
-                  background: "oklch(0.12 0.015 240)",
-                  border: "1px solid oklch(1 0 0 / 12%)",
-                  color: "oklch(0.95 0 0)",
-                  colorScheme: "dark",
-                }}
-              />
-            </div>
-            <div>
-              <label className="text-xs font-medium block mb-2" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}>
-                Duration
-              </label>
-              <select
-                value={duration}
-                onChange={(e) => setDuration(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl text-sm outline-none"
-                style={{
-                  background: "oklch(0.12 0.015 240)",
-                  border: "1px solid oklch(1 0 0 / 12%)",
-                  color: "oklch(0.95 0 0)",
-                }}
-              >
-                <option value="30">30 minutes</option>
-                <option value="60">1 hour</option>
-                <option value="90">1.5 hours</option>
-                <option value="120">2 hours</option>
-              </select>
-            </div>
-            <button onClick={handleReserve} className="btn-primary w-full flex items-center justify-center gap-2 mt-2">
-              <Calendar size={16} />
-              Reserve Slot
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <div className="text-center py-4">
-              <CheckCircle size={48} style={{ color: "oklch(0.72 0.18 145)", margin: "0 auto 12px" }} />
-              <p className="text-sm" style={{ color: "oklch(0.78 0.005 240)" }}>
-                Your reservation details:
-              </p>
-            </div>
-            {[
-              { label: "Date", value: date },
-              { label: "Time", value: time },
-              { label: "Duration", value: `${duration} minutes` },
-              { label: "Charger", value: `${station.maxKw}kW ${station.type}` },
-            ].map((item) => (
-              <div key={item.label} className="flex justify-between items-center py-2" style={{ borderBottom: "1px solid oklch(1 0 0 / 6%)" }}>
-                <span className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>{item.label}</span>
-                <span className="text-sm font-medium" style={{ color: "oklch(0.95 0 0)", fontFamily: "'Space Grotesk', sans-serif" }}>{item.value}</span>
-              </div>
-            ))}
-            <div className="bg-slate-800/50 rounded-lg p-4 mb-4 border border-green-500/20">
-              <p className="text-sm text-slate-400 mb-2">Estimated Cost</p>
-              <p className="text-2xl font-bold text-green-500">GHS {estimatedCost}</p>
-            </div>
-            <button onClick={handleConfirm} className="btn-primary w-full flex items-center justify-center gap-2 mt-4">
-              <CheckCircle size={16} />
-              Proceed to Payment
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
 export default function FindCharger() {
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
-  const [reserveStation, setReserveStation] = useState<Station | null>(null);
+  const [showReservation, setShowReservation] = useState(false);
   const [search, setSearch] = useState("");
-  const [filterStatus, setFilterStatus] = useState<"all" | "available" | "busy" | "offline">("all");
-  const [filterType, setFilterType] = useState<"all" | "DC Fast" | "AC Level 2">("all");
+  const [filterStatus, setFilterStatus] = useState("all");
+  const [filterType, setFilterType] = useState("all");
   const [mapReady, setMapReady] = useState(false);
   const mapRef = useRef<google.maps.Map | null>(null);
-  const markersRef = useRef<google.maps.Marker[]>([]);
+  const markersRef = useRef<google.maps.marker.AdvancedMarkerElement[]>([]);
 
   const filtered = STATIONS.filter((s) => {
     const matchSearch = s.name.toLowerCase().includes(search.toLowerCase()) || s.city.toLowerCase().includes(search.toLowerCase());
@@ -255,29 +79,40 @@ export default function FindCharger() {
     map.setZoom(7);
 
     STATIONS.forEach((station) => {
-      const color = station.status === "available" ? "#22c55e" : station.status === "busy" ? "#f97316" : "#6b7280";
-      const marker = new google.maps.Marker({
+      const color = station.status === "available" ? "#22c55e" : station.status === "busy" ? "#f97316" : "#9ca3af";
+      
+      // Create custom marker with EB Volt logo
+      const markerElement = document.createElement('div');
+      markerElement.style.cssText = `
+        width: 52px;
+        height: 52px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid ${color};
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      `;
+      markerElement.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15.09 10.26H24L17.55 15.46L20.64 23.72L12 18.52L3.36 23.72L6.45 15.46L0 10.26H8.91L12 2Z" fill="${color}"/></svg>`;
+      
+      const marker = new google.maps.marker.AdvancedMarkerElement({
         position: { lat: station.lat, lng: station.lng },
         map,
         title: station.name,
-        icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 12,
-          fillColor: color,
-          fillOpacity: 1,
-          strokeColor: "#ffffff",
-          strokeWeight: 2,
-        },
+        content: markerElement,
       });
 
       const infoWindow = new google.maps.InfoWindow({
         content: `
-          <div style="font-family:'Space Grotesk',sans-serif;padding:8px;min-width:200px;background:#1a2035;color:#f5f5f5;border-radius:8px;">
-            <div style="font-weight:700;font-size:14px;margin-bottom:4px;">${station.name}</div>
-            <div style="font-size:12px;color:#9ca3af;margin-bottom:8px;">${station.address}</div>
+          <div style="font-family:'Space Grotesk',sans-serif;padding:12px;min-width:220px;background:#f8f9fa;color:#1f2937;border-radius:8px;border:1px solid #e5e7eb;">
+            <div style="font-weight:700;font-size:14px;margin-bottom:4px;color:#1f2937;">${station.name}</div>
+            <div style="font-size:12px;color:#6b7280;margin-bottom:8px;">${station.address}</div>
             <div style="display:flex;gap:8px;align-items:center;">
               <span style="font-size:12px;color:#22c55e;font-weight:600;">${station.maxKw}kW</span>
-              <span style="font-size:12px;color:#9ca3af;">${station.available}/${station.total} ports</span>
+              <span style="font-size:12px;color:#6b7280;">${station.available}/${station.total} ports</span>
             </div>
           </div>
         `,
@@ -301,181 +136,234 @@ export default function FindCharger() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />
-      {reserveStation && (
-        <ReservationModal station={reserveStation} onClose={() => setReserveStation(null)} />
-      )}
 
-      <div style={{ paddingTop: "5rem" }} className="h-screen flex flex-col">
-        {/* Page header */}
-        <div
-          className="px-6 py-4 flex items-center gap-4 flex-wrap"
-          style={{ background: "oklch(0.15 0.012 240)", borderBottom: "1px solid oklch(1 0 0 / 8%)" }}
-        >
-          <h1 className="text-xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}>
-            Find a Charger
-          </h1>
-          <div className="flex-1 flex items-center gap-3 flex-wrap">
-            {/* Search */}
-            <div className="relative flex-1 min-w-48 max-w-xs">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "oklch(0.55 0.01 240)" }} />
+      <section className="pt-24 pb-8">
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+            <div>
+              <h1
+                className="text-4xl font-bold mb-2"
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
+              >
+                Find Your Charger
+              </h1>
+              <p style={{ color: "oklch(0.45 0.05 240)" }}>Locate and reserve an EB Volt charging station near you</p>
+            </div>
+          </div>
+
+          {/* Filter Bar */}
+          <div
+            className="rounded-xl p-4 mb-6 flex flex-col md:flex-row gap-4 items-stretch md:items-center"
+            style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}
+          >
+            <div className="flex-1 flex items-center gap-2" style={{ background: "oklch(0.92 0.02 240)", borderRadius: "8px", padding: "8px 12px" }}>
+              <Search size={18} style={{ color: "oklch(0.45 0.05 240)" }} />
               <input
                 type="text"
-                placeholder="Search city or station..."
+                placeholder="Search by name or city..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-lg text-sm outline-none"
-                style={{
-                  background: "oklch(0.12 0.015 240)",
-                  border: "1px solid oklch(1 0 0 / 10%)",
-                  color: "oklch(0.95 0 0)",
-                }}
+                className="flex-1 bg-transparent outline-none text-sm"
+                style={{ color: "oklch(0.25 0.08 240)" }}
               />
             </div>
-            {/* Status filter */}
-            <div className="flex items-center gap-1.5">
-              <Filter size={14} style={{ color: "oklch(0.62 0.01 240)" }} />
-              {(["all", "available", "busy", "offline"] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilterStatus(f)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium capitalize transition-all"
-                  style={{
-                    background: filterStatus === f ? "oklch(0.55 0.18 145 / 0.2)" : "oklch(0.12 0.015 240)",
-                    color: filterStatus === f ? "oklch(0.72 0.18 145)" : "oklch(0.62 0.01 240)",
-                    border: `1px solid ${filterStatus === f ? "oklch(0.55 0.18 145 / 0.4)" : "oklch(1 0 0 / 8%)"}`,
-                    fontFamily: "'Space Grotesk', sans-serif",
-                  }}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-            {/* Type filter */}
-            <div className="flex items-center gap-1.5">
-              {(["all", "DC Fast", "AC Level 2"] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilterType(f)}
-                  className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                  style={{
-                    background: filterType === f ? "oklch(0.55 0.18 145 / 0.2)" : "oklch(0.12 0.015 240)",
-                    color: filterType === f ? "oklch(0.72 0.18 145)" : "oklch(0.62 0.01 240)",
-                    border: `1px solid ${filterType === f ? "oklch(0.55 0.18 145 / 0.4)" : "oklch(1 0 0 / 8%)"}`,
-                    fontFamily: "'Space Grotesk', sans-serif",
-                  }}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
+
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value)}
+              className="px-3 py-2 rounded-lg text-sm outline-none"
+              style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
+            >
+              <option value="all">All Status</option>
+              <option value="available">Available</option>
+              <option value="busy">Busy</option>
+              <option value="offline">Offline</option>
+            </select>
+
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="px-3 py-2 rounded-lg text-sm outline-none"
+              style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
+            >
+              <option value="all">All Types</option>
+              <option value="DC Fast">DC Fast</option>
+              <option value="AC Level 2">AC Level 2</option>
+            </select>
           </div>
         </div>
+      </section>
 
-        {/* Main content */}
-        <div className="flex flex-1 overflow-hidden">
-          {/* Station List */}
-          <div
-            className="w-80 flex-shrink-0 overflow-y-auto"
-            style={{ background: "oklch(0.14 0.012 240)", borderRight: "1px solid oklch(1 0 0 / 8%)" }}
-          >
-            <div className="p-3">
-              <div className="text-xs font-medium mb-3" style={{ color: "oklch(0.55 0.01 240)", fontFamily: "'Space Grotesk', sans-serif" }}>
-                {filtered.length} station{filtered.length !== 1 ? "s" : ""} found
-              </div>
-              <div className="space-y-2">
-                {filtered.map((station) => (
-                  <div
-                    key={station.id}
-                    className="p-4 rounded-xl cursor-pointer transition-all duration-200"
-                    style={{
-                      background: selectedStation?.id === station.id ? "oklch(0.55 0.18 145 / 0.1)" : "oklch(0.17 0.012 240)",
-                      border: `1px solid ${selectedStation?.id === station.id ? "oklch(0.55 0.18 145 / 0.4)" : "oklch(1 0 0 / 8%)"}`,
-                    }}
-                    onClick={() => flyToStation(station)}
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex-1 min-w-0 mr-2">
-                        <div className="text-sm font-semibold truncate" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.95 0 0)" }}>
-                          {station.name}
+      {/* Map & Sidebar */}
+      <section className="pb-16">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Map */}
+            <div className="lg:col-span-2 rounded-2xl overflow-hidden" style={{ border: "1px solid oklch(0.88 0.02 240)", height: "600px" }}>
+              <MapView initialCenter={{ lat: 7.9465, lng: -1.0232 }} initialZoom={7} onMapReady={handleMapReady} />
+            </div>
+
+            {/* Sidebar */}
+            <div className="rounded-2xl p-6" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)", height: "600px", overflowY: "auto" }}>
+              <h3
+                className="text-lg font-bold mb-4"
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
+              >
+                Nearby Stations ({filtered.length})
+              </h3>
+
+              {filtered.length === 0 ? (
+                <p style={{ color: "oklch(0.45 0.05 240)" }}>No stations match your filters.</p>
+              ) : (
+                <div className="space-y-3">
+                  {filtered.map((station) => (
+                    <div
+                      key={station.id}
+                      onClick={() => flyToStation(station)}
+                      className="p-3 rounded-lg cursor-pointer transition-all duration-200"
+                      style={{
+                        background: selectedStation?.id === station.id ? "oklch(0.52 0.18 145 / 0.1)" : "oklch(0.92 0.02 240)",
+                        border: selectedStation?.id === station.id ? "1px solid oklch(0.52 0.18 145)" : "1px solid oklch(0.88 0.02 240)",
+                      }}
+                    >
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h4 className="font-semibold text-sm" style={{ color: "oklch(0.25 0.08 240)" }}>
+                            {station.name}
+                          </h4>
+                          <p className="text-xs mt-1" style={{ color: "oklch(0.45 0.05 240)" }}>
+                            {station.address}
+                          </p>
                         </div>
-                        <div className="text-xs mt-0.5 flex items-center gap-1" style={{ color: "oklch(0.55 0.01 240)" }}>
-                          <MapPin size={10} />
-                          {station.address}
+                        <div className="flex items-center gap-1">
+                          <Star size={14} style={{ color: "oklch(0.65 0.18 50)", fill: "oklch(0.65 0.18 50)" }} />
+                          <span className="text-xs font-semibold" style={{ color: "oklch(0.25 0.08 240)" }}>
+                            {station.rating}
+                          </span>
                         </div>
                       </div>
-                      <StatusBadge status={station.status} available={station.available} total={station.total} />
-                    </div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <span className="text-xs font-medium" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'JetBrains Mono', monospace" }}>
-                        {station.maxKw}kW
-                      </span>
-                      <span className="text-xs" style={{ color: "oklch(0.55 0.01 240)" }}>{station.type}</span>
-                      <span className="flex items-center gap-1 text-xs ml-auto" style={{ color: "oklch(0.75 0.15 80)" }}>
-                        <Star size={10} fill="currentColor" />
-                        {station.rating}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 flex-wrap mb-3">
-                      {station.amenities.slice(0, 3).map((a) => (
-                        <span key={a} className="text-xs px-2 py-0.5 rounded-full" style={{ background: "oklch(1 0 0 / 5%)", color: "oklch(0.62 0.01 240)" }}>
-                          {a}
+
+                      <div className="flex items-center justify-between">
+                        <StatusBadge status={station.status} available={station.available} total={station.total} />
+                        <span className="text-xs font-semibold" style={{ color: "oklch(0.52 0.18 145)" }}>
+                          {station.maxKw}kW
                         </span>
-                      ))}
+                      </div>
+
+                      {selectedStation?.id === station.id && (
+                        <button
+                          onClick={() => setShowReservation(true)}
+                          className="w-full mt-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200"
+                          style={{ background: "oklch(0.52 0.18 145)", color: "white" }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLElement).style.background = "oklch(0.42 0.18 145)";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.background = "oklch(0.52 0.18 145)";
+                          }}
+                        >
+                          Reserve Now
+                        </button>
+                      )}
                     </div>
-                    {station.status !== "offline" && (
-                      <button
-                        className="w-full py-2 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all"
-                        style={{
-                          background: "oklch(0.55 0.18 145 / 0.15)",
-                          color: "oklch(0.72 0.18 145)",
-                          border: "1px solid oklch(0.55 0.18 145 / 0.25)",
-                          fontFamily: "'Space Grotesk', sans-serif",
-                        }}
-                        onClick={(e) => { e.stopPropagation(); setReserveStation(station); }}
-                        onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.55 0.18 145 / 0.25)"; }}
-                        onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "oklch(0.55 0.18 145 / 0.15)"; }}
-                      >
-                        <Calendar size={12} />
-                        Reserve Slot
-                        <ChevronRight size={12} />
-                      </button>
-                    )}
-                  </div>
-                ))}
-                {filtered.length === 0 && (
-                  <div className="text-center py-12">
-                    <MapPin size={32} style={{ color: "oklch(0.35 0.01 240)", margin: "0 auto 12px" }} />
-                    <p className="text-sm" style={{ color: "oklch(0.55 0.01 240)" }}>No stations match your filters</p>
-                  </div>
-                )}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Map */}
-          <div className="flex-1 relative">
-            <MapView
-              onMapReady={handleMapReady}
-              className="w-full h-full"
-              initialCenter={{ lat: 7.9465, lng: -1.0232 }}
-              initialZoom={7}
-            />
-            {!mapReady && (
-              <div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ background: "oklch(0.12 0.015 240)" }}
+      {/* Reservation Modal */}
+      {showReservation && selectedStation && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+          onClick={() => setShowReservation(false)}
+        >
+          <div
+            className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+            style={{ background: "oklch(0.96 0.01 240)" }}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h2
+                className="text-2xl font-bold"
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
               >
-                <div className="text-center">
-                  <div className="w-12 h-12 rounded-full border-2 border-t-transparent animate-spin mx-auto mb-4" style={{ borderColor: "oklch(0.55 0.18 145)" }} />
-                  <p className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>Loading map...</p>
-                </div>
+                Reserve Charger
+              </h2>
+              <button
+                onClick={() => setShowReservation(false)}
+                className="p-2 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                <X size={20} style={{ color: "oklch(0.25 0.08 240)" }} />
+              </button>
+            </div>
+
+            <div className="mb-6 p-4 rounded-lg" style={{ background: "oklch(0.92 0.02 240)" }}>
+              <h3 className="font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                {selectedStation.name}
+              </h3>
+              <p className="text-sm" style={{ color: "oklch(0.45 0.05 240)" }}>
+                {selectedStation.address}
+              </p>
+            </div>
+
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                  <Calendar size={14} className="inline mr-2" />
+                  Date
+                </label>
+                <input
+                  type="date"
+                  className="w-full px-3 py-2 rounded-lg outline-none"
+                  style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
+                />
               </div>
-            )}
+
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                  <Clock size={14} className="inline mr-2" />
+                  Time
+                </label>
+                <input
+                  type="time"
+                  className="w-full px-3 py-2 rounded-lg outline-none"
+                  style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                  <Zap size={14} className="inline mr-2" />
+                  Duration (hours)
+                </label>
+                <input
+                  type="number"
+                  min="1"
+                  max="8"
+                  defaultValue="2"
+                  className="w-full px-3 py-2 rounded-lg outline-none"
+                  style={{ background: "oklch(0.92 0.02 240)", color: "oklch(0.25 0.08 240)", border: "1px solid oklch(0.88 0.02 240)" }}
+                />
+              </div>
+            </div>
+
+            <MoMoPaymentWidget
+              reservationId={1}
+              amount={(selectedStation.maxKw * 15).toString()}
+              estimatedCost={(selectedStation.maxKw * 15).toString()}
+              onPaymentSuccess={() => {
+                toast.success("Reservation confirmed!");
+                setShowReservation(false);
+              }}
+            />
           </div>
         </div>
-      </div>
+      )}
 
       <Footer />
     </div>
