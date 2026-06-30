@@ -163,3 +163,19 @@ export const notifications = mysqlTable("notifications", {
 
 export type Notification = typeof notifications.$inferSelect;
 export type InsertNotification = typeof notifications.$inferInsert;
+
+/**
+ * Charger status logs - tracks availability changes for admin management
+ */
+export const chargerStatusLogs = mysqlTable("charger_status_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  stationId: int("station_id").notNull(),
+  previousStatus: varchar("previous_status", { length: 50 }).notNull(), // available, busy, offline, maintenance
+  newStatus: varchar("new_status", { length: 50 }).notNull(),
+  changedBy: int("changed_by"), // admin user ID who made the change
+  reason: text("reason"), // maintenance, system update, manual override, etc.
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ChargerStatusLog = typeof chargerStatusLogs.$inferSelect;
+export type InsertChargerStatusLog = typeof chargerStatusLogs.$inferInsert;

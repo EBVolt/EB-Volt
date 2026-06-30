@@ -265,6 +265,53 @@ export const appRouter = router({
       return getUserRefundRequests(ctx.user.id);
     }),
   }),
+
+  admin: router({
+    getChargerStats: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Unauthorized: Admin access required");
+      }
+      const { getChargerStats } = await import("./db");
+      return getChargerStats();
+    }),
+
+    getAllChargers: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Unauthorized: Admin access required");
+      }
+      const { getAllChargingStations } = await import("./db");
+      return getAllChargingStations();
+    }),
+
+    updateChargerStatus: protectedProcedure
+      .input(z.object({
+        stationId: z.number(),
+        newStatus: z.enum(["available", "busy", "offline", "maintenance"]),
+        reason: z.string().optional(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        const { updateChargerStatus } = await import("./db");
+        return updateChargerStatus(
+          input.stationId,
+          input.newStatus,
+          ctx.user.id,
+          input.reason
+        );
+      }),
+
+    getChargerLogs: protectedProcedure
+      .input(z.object({ stationId: z.number() }))
+      .query(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        const { getChargerStatusLogs } = await import("./db");
+        return getChargerStatusLogs(input.stationId);
+      }),
+  }),
 });
 
 export type AppRouter = typeof appRouter;

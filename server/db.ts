@@ -1,4 +1,4 @@
-import { eq, and, sql } from "drizzle-orm";
+import { eq, and, desc, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -366,4 +366,81 @@ export async function getUnreadNotificationCount(userId: number) {
       )
     );
   return result[0]?.count || 0;
+}
+
+
+// ── Charger Status Management ──
+
+export async function getAllChargingStations() {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { chargingStations } = await import("../drizzle/schema");
+  return db.select().from(chargingStations);
+}
+
+export async function updateChargerStatus(
+  stationId: number,
+  newStatus: string,
+  changedBy: number,
+  reason?: string
+) {
+  const db = await getDb();
+  if (!db) return null;
+  
+  const { chargingStations, chargerStatusLogs } = await import("../drizzle/schema");
+  
+  // Get current status
+  const station = await db.select().from(chargingStations).where(eq(chargingStations.id, stationId)).limit(1);
+  const currentStatus = station[0]?.availableSlots === 0 ? "offline" : station[0]?.availableSlots === station[0]?.totalSlots ? "available" : "busy";
+  
+  // Log the status change
+  await db.insert(chargerStatusLogs).values({
+    stationId,
+    previousStatus: currentStatus,
+    newStatus,
+    changedBy,
+    reason,
+  });
+  
+  // Update available slots based on new status
+  let availableSlots = station[0]?.totalSlots || 4;
+  if (newStatus === "offline") {
+    availableSlots = 0;
+  } else if (newStatus === "maintenance") {
+    availableSlots = 0;
+  }
+  
+  return db.update(chargingStations)
+    .set({ availableSlots, updatedAt: new Date() })
+    .where(eq(chargingStations.id, stationId));
+}
+
+export async function getChargerStatusLogs(stationId: number, limit = 20) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { chargerStatusLogs } = await import("../drizzle/schema");
+  return db.select()
+    .from(chargerStatusLogs)
+    .where(eq(chargerStatusLogs.stationId, stationId))
+    .orderBy(desc(chargerStatusLogs.createdAt))
+    .limit(limit);
+}
+
+export async function getChargerStats() {
+  const db = await getDb();
+  if (!db) return { total: 0, available: 0, busy: 0, offline: 0 };
+  
+  const { chargingStations } = await import("../drizzle/schema");
+  const stations = await db.select().from(chargingStations);
+  
+  const stats = {
+    total: stations.length,
+    available: stations.filter(s => s.availableSlots === s.totalSlots).length,
+    busy: stations.filter(s => s.availableSlots > 0 && s.availableSlots < s.totalSlots).length,
+    offline: stations.filter(s => s.availableSlots === 0).length,
+  };
+  
+  return stats;
 }
