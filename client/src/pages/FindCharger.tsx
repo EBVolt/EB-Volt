@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { MapView } from "@/components/Map";
 import { MoMoPaymentWidget } from "@/components/MoMoPaymentWidget";
+import { AddressSearch } from "@/components/AddressSearch";
 import { toast } from "sonner";
 
 interface Station {
@@ -193,6 +194,21 @@ export default function FindCharger() {
               <option value="AC Level 2">AC Level 2</option>
             </select>
           </div>
+        </div>
+      </section>
+
+      {/* Address Search */}
+      <section className="pb-6">
+        <div className="container">
+          <AddressSearch
+            onLocationSelect={(location) => {
+              if (mapRef.current) {
+                mapRef.current.setCenter({ lat: location.lat, lng: location.lng });
+                mapRef.current.setZoom(14);
+              }
+              toast.success(`Centered on ${location.address}`);
+            }}
+          />
         </div>
       </section>
 
