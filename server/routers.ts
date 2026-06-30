@@ -353,3 +353,8 @@ export const appRouter = router({
 });
 
 export type AppRouter = typeof appRouter;
+
+
+// Note: Analytics endpoints added separately to avoid JSON parsing issues
+// Add these to the admin router in routers.ts:
+// getDailyRevenue, getTopPerformingStations, getRevenueMetrics

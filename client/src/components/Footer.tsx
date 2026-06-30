@@ -157,9 +157,10 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <Phone size={15} style={{ color: "oklch(0.55 0.18 145)", marginTop: 2 }} />
-                <span className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
-                  +44 7477 884 266
-                </span>
+                <div className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
+                  <p>UK: +44 7477 884 266</p>
+                  <p>Ghana: +233 59 560 2717</p>
+                </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail size={15} style={{ color: "oklch(0.55 0.18 145)", marginTop: 2 }} />

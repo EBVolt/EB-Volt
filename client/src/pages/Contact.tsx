@@ -83,7 +83,8 @@ export default function Contact() {
                 </h2>
                 <div className="space-y-5">
                   {[
-                    { icon: Phone, label: "Phone", value: "+44 7477 884 266", href: "tel:+447477884266" },
+                    { icon: Phone, label: "Phone (UK)", value: "+44 7477 884 266", href: "tel:+447477884266" },
+                    { icon: Phone, label: "Phone (Ghana)", value: "+233 59 560 2717", href: "tel:+233595602717" },
                     { icon: Mail, label: "Email", value: "contact@ecobelle.com", href: "mailto:contact@ecobelle.com" },
                     { icon: MapPin, label: "Location", value: "66, Paul Street, London EC2A 4NA", href: null },
                   ].map((item) => {

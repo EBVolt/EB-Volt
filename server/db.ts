@@ -1,4 +1,4 @@
-import { eq, and, desc, sql } from "drizzle-orm";
+import { eq, gte, and, desc, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -454,4 +454,89 @@ export async function getChargerStats() {
   };
   
   return stats;
+}
+
+/**
+ * Analytics Queries
+ */
+export async function getDailyRevenue(days = 30) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { paymentTransactions } = await import("../drizzle/schema");
+  const startDate = new Date();
+  startDate.setDate(startDate.getDate() - days);
+  
+  return db.select({
+    date: sql`DATE(${paymentTransactions.createdAt})`,
+    revenue: sql`SUM(CAST(${paymentTransactions.amount} AS DECIMAL(10,2)))`,
+    bookings: sql`COUNT(*)`,
+  })
+    .from(paymentTransactions)
+    .where(
+      and(
+        gte(paymentTransactions.createdAt, startDate),
+        eq(paymentTransactions.status, "completed")
+      )
+    )
+    .groupBy(sql`DATE(${paymentTransactions.createdAt})`)
+    .orderBy(sql`DATE(${paymentTransactions.createdAt})`);
+}
+
+export async function getTopPerformingStations(limit = 10) {
+  const db = await getDb();
+  if (!db) return [];
+  
+  const { paymentTransactions, chargingReservations, chargingStations } = await import("../drizzle/schema");
+  
+  return db.select({
+    stationId: chargingStations.id,
+    stationName: chargingStations.name,
+    location: chargingStations.location,
+    totalRevenue: sql`SUM(CAST(${paymentTransactions.amount} AS DECIMAL(10,2)))`,
+    bookingCount: sql`COUNT(${paymentTransactions.id})`,
+    avgBookingValue: sql`AVG(CAST(${paymentTransactions.amount} AS DECIMAL(10,2)))`,
+  })
+    .from(paymentTransactions)
+    .innerJoin(chargingReservations, eq(paymentTransactions.reservationId, chargingReservations.id))
+    .innerJoin(chargingStations, eq(chargingReservations.stationId, chargingStations.id))
+    .where(eq(paymentTransactions.status, "completed"))
+    .groupBy(chargingStations.id)
+    .orderBy(sql`SUM(CAST(${paymentTransactions.amount} AS DECIMAL(10,2))) DESC`)
+    .limit(limit);
+}
+
+export async function getRevenueMetrics() {
+  const db = await getDb();
+  if (!db) return { totalRevenue: 0, totalBookings: 0, avgBookingValue: 0, todayRevenue: 0 };
+  
+  const { paymentTransactions } = await import("../drizzle/schema");
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const allTimeResult = await db.select({
+    totalRevenue: sql`SUM(CAST(${paymentTransactions.amount} AS DECIMAL(10,2)))`,
+    totalBookings: sql`COUNT(*)`,
+    avgBookingValue: sql`AVG(CAST(${paymentTransactions.amount} AS DECIMAL(10,2)))`,
+  })
+    .from(paymentTransactions)
+    .where(eq(paymentTransactions.status, "completed"));
+  
+  const todayResult = await db.select({
+    todayRevenue: sql`SUM(CAST(${paymentTransactions.amount} AS DECIMAL(10,2)))`,
+  })
+    .from(paymentTransactions)
+    .where(
+      and(
+        gte(paymentTransactions.createdAt, today),
+        eq(paymentTransactions.status, "completed")
+      )
+    );
+  
+  return {
+    totalRevenue: allTimeResult[0]?.totalRevenue || 0,
+    totalBookings: allTimeResult[0]?.totalBookings || 0,
+    avgBookingValue: allTimeResult[0]?.avgBookingValue || 0,
+    todayRevenue: todayResult[0]?.todayRevenue || 0,
+  };
 }
