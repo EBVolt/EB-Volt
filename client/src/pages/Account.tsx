@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Account Dashboard Page
+   EcoBelle Volt - Account Dashboard Page
    Features: Reservation history, receipts, refund management
    ============================================================ */
 import { useState } from "react";

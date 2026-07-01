@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Address Search Component
+   EcoBelle Volt - Address Search Component
    Features: Ghana Digital Addresses, Google Places, Geocoding
    ============================================================ */
 import { useEffect, useRef, useState } from "react";

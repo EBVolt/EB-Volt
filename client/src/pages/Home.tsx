@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Home Page
+   EcoBelle Volt - Home Page
    Design: "Dark Charge" — deep navy + electric green
    Sections: Hero, Stats, How It Works, Map Preview, App, Sustainability, CTA
    ============================================================ */

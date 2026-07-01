@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Contact Page
+   EcoBelle Volt - Contact Page
    ============================================================ */
 import { useState } from "react";
 import { Mail, Phone, MapPin, Zap, Send, CheckCircle, Building, Users } from "lucide-react";
@@ -63,7 +63,7 @@ export default function Contact() {
               <span style={{ color: "oklch(0.72 0.18 145)" }}>EV</span>
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: "oklch(0.62 0.01 240)" }}>
-              Whether you're a driver, business owner, or fleet operator — we'd love to hear from you. Our team is ready to help.
+              Whether you're a driver, business owner, or fleet operator - we'd love to hear from you. Our team is ready to help.
             </p>
           </div>
         </div>

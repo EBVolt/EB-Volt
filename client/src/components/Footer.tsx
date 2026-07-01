@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Footer
+   EcoBelle Volt - Footer
    Design: Dark surface with green accents, Ghana-focused
    ============================================================ */
 import { Link } from "wouter";

@@ -18,6 +18,8 @@
 - [x] Database schema with all required tables
 
 ## Completed Features
+- [x] Remove em dashes from website content
+- [x] Replace logos in website images with EB Volt logo
 - [x] Complete email integration in approveRefund endpoint
 - [x] Complete email integration in rejectRefund endpoint
 - [x] Implement Booking Analytics section in Admin Dashboard

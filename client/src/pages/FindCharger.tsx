@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Find a Charger Page
+   EcoBelle Volt - Find a Charger Page
    Features: Google Maps with charger pins, filter panel, reservation modal, distance sorting
    ============================================================ */
 import { useState, useCallback, useRef } from "react";

@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — Navbar
+   EcoBelle Volt - Navbar
    Design: Transparent on hero, dark on scroll, sticky
    ============================================================ */
 import { useState, useEffect } from "react";
