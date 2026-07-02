@@ -44,3 +44,15 @@
 - [x] Favorite chargers system with database persistence
 - [x] Service pages for different charging types
 - [x] Responsive light theme design matching EcoBelle Volt branding
+
+## Notification System Enhancements (In Progress)
+- [x] Add user profile settings page with notification preferences
+- [x] Add notification logging schema
+- [x] Add preference-checking helper functions
+- [x] Update email functions to respect user preferences
+- [x] Update SMS functions to respect user preferences
+- [x] Implement email unsubscribe token system
+- [x] Create unsubscribe endpoint and landing page
+- [x] Build admin notification dashboard with delivery metrics
+- [x] Add error/retry states to notification dashboard queries
+- [x] Test all notification features (vitest integration suite: 7 passing)

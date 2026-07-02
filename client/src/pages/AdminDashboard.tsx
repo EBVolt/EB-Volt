@@ -8,6 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import RefundManagement from "@/components/RefundManagement";
 import BookingAnalyticsDashboard from "@/components/BookingAnalyticsDashboard";
+import NotificationDashboard from "@/components/NotificationDashboard";
 
 export default function AdminDashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -312,6 +313,11 @@ export default function AdminDashboard() {
             Booking Analytics
           </h2>
           <BookingAnalyticsDashboard />
+        </div>
+
+        {/* Notification Delivery Section */}
+        <div className="mt-12">
+          <NotificationDashboard />
         </div>
 
         {/* Refund Management Section */}

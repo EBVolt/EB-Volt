@@ -6,6 +6,7 @@
 import { notifyOwner } from "./_core/notification";
 
 export interface BookingConfirmationData {
+  unsubscribeUrl?: string;
   userEmail: string;
   userName: string;
   stationName: string;
@@ -21,6 +22,7 @@ export interface BookingConfirmationData {
 }
 
 export interface PaymentReceiptData {
+  unsubscribeUrl?: string;
   userEmail: string;
   userName: string;
   bookingReference: string;
@@ -40,6 +42,15 @@ export interface RefundNotificationData {
   currency: string;
   status: "approved" | "rejected";
   reason?: string;
+  unsubscribeUrl?: string;
+}
+
+/**
+ * Builds a standard unsubscribe footer appended to transactional emails.
+ */
+function unsubscribeFooter(url?: string): string {
+  if (!url) return "";
+  return `\n\n----------------------------------------\nDon't want to receive these emails? You can update your notification preferences or unsubscribe here:\n${url}\n`;
 }
 
 /**
@@ -77,6 +88,7 @@ Thank you for choosing EcoBelle Volt. Together, we're powering a greener Ghana!
 Best regards,
 EcoBelle Volt Team
 Charge Green. Drive Clean.
+${unsubscribeFooter(data.unsubscribeUrl)}
     `;
 
     // Send via Manus notification API
@@ -123,6 +135,7 @@ Thank you for your business!
 Best regards,
 EcoBelle Volt Team
 Charge Green. Drive Clean.
+${unsubscribeFooter(data.unsubscribeUrl)}
     `;
 
     const result = await notifyOwner({
@@ -166,6 +179,7 @@ If you have any questions about this decision, please contact our support team a
 Best regards,
 EcoBelle Volt Team
 Charge Green. Drive Clean.
+${unsubscribeFooter(data.unsubscribeUrl)}
     `;
 
     const result = await notifyOwner({

@@ -29,7 +29,7 @@ export function MoMoPaymentWidget({
 
   const initiatePaymentMutation = trpc.payment.initiatePayment.useMutation();
   const checkStatusQuery = trpc.payment.checkPaymentStatus.useQuery(
-    { referenceId: referenceId || "" },
+    { referenceId: referenceId || "", origin: window.location.origin },
     {
       enabled: paymentStatus === "pending" && !!referenceId,
       refetchInterval: 3000, // Poll every 3 seconds

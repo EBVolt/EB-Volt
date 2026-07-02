@@ -624,3 +624,206 @@ export async function updateUserProfile(
 
   return db.update(users).set(updateData).where(eq(users.id, userId));
 }
+
+/* ============================================================
+   Notification Preferences & Logging Helpers
+   ============================================================ */
+
+export type NotificationCategory =
+  | "booking_confirmation"
+  | "payment_receipt"
+  | "refund_status"
+  | "promotions";
+
+export type NotificationChannel = "email" | "sms";
+
+/**
+ * Maps a notification category and channel to the corresponding
+ * user preference field name in the users table.
+ */
+function preferenceField(
+  channel: NotificationChannel,
+  category: NotificationCategory
+): keyof typeof users.$inferSelect {
+  const map: Record<NotificationChannel, Record<NotificationCategory, keyof typeof users.$inferSelect>> = {
+    email: {
+      booking_confirmation: "emailBookingConfirmation",
+      payment_receipt: "emailPaymentReceipt",
+      refund_status: "emailRefundStatus",
+      promotions: "emailPromotions",
+    },
+    sms: {
+      booking_confirmation: "smsBookingConfirmation",
+      payment_receipt: "smsPaymentReceipt",
+      refund_status: "smsRefundStatus",
+      promotions: "smsPromotions",
+    },
+  };
+  return map[channel][category];
+}
+
+/**
+ * Checks whether a user has opted in to receive a given notification.
+ * Returns true (opt-in) by default when the user cannot be found, so that
+ * critical transactional notifications are not silently dropped.
+ */
+export async function checkNotificationPreference(
+  userId: number | null | undefined,
+  channel: NotificationChannel,
+  category: NotificationCategory
+): Promise<boolean> {
+  if (!userId) return true;
+  const user = await getUserById(userId);
+  if (!user) return true;
+  const field = preferenceField(channel, category);
+  const value = user[field];
+  // Preference fields are booleans; if undefined, default to opt-in.
+  return value === undefined || value === null ? true : Boolean(value);
+}
+
+/**
+ * Records a notification dispatch attempt in the notification_logs table.
+ */
+export async function logNotification(entry: {
+  userId?: number | null;
+  channel: NotificationChannel;
+  category: NotificationCategory;
+  recipient: string;
+  status: "sent" | "failed" | "skipped";
+  skipReason?: string;
+  errorMessage?: string;
+  subject?: string;
+}): Promise<void> {
+  const db = await getDb();
+  if (!db) return;
+  try {
+    const { notificationLogs } = await import("../drizzle/schema");
+    await db.insert(notificationLogs).values({
+      userId: entry.userId ?? null,
+      channel: entry.channel,
+      category: entry.category,
+      recipient: entry.recipient,
+      status: entry.status,
+      skipReason: entry.skipReason ?? null,
+      errorMessage: entry.errorMessage ?? null,
+      subject: entry.subject ?? null,
+    });
+  } catch (err) {
+    console.error("[NotificationLog] Failed to write log:", err);
+  }
+}
+
+/**
+ * Retrieves notification logs for the admin dashboard with optional filtering.
+ */
+export async function getNotificationLogs(options?: {
+  limit?: number;
+  channel?: NotificationChannel;
+  status?: "sent" | "failed" | "skipped";
+}) {
+  const db = await getDb();
+  if (!db) return [];
+  const { notificationLogs } = await import("../drizzle/schema");
+  const conditions = [];
+  if (options?.channel) conditions.push(eq(notificationLogs.channel, options.channel));
+  if (options?.status) conditions.push(eq(notificationLogs.status, options.status));
+
+  const query = db.select().from(notificationLogs);
+  const rows = conditions.length > 0
+    ? await query.where(and(...conditions)).orderBy(desc(notificationLogs.createdAt)).limit(options?.limit ?? 100)
+    : await query.orderBy(desc(notificationLogs.createdAt)).limit(options?.limit ?? 100);
+  return rows;
+}
+
+/**
+ * Computes aggregate notification delivery metrics for the admin dashboard.
+ */
+export async function getNotificationMetrics() {
+  const db = await getDb();
+  if (!db) {
+    return {
+      totalSent: 0,
+      totalFailed: 0,
+      totalSkipped: 0,
+      emailSent: 0,
+      smsSent: 0,
+      deliveryRate: 0,
+    };
+  }
+  const { notificationLogs } = await import("../drizzle/schema");
+  const rows = await db.select().from(notificationLogs);
+
+  const totalSent = rows.filter((r) => r.status === "sent").length;
+  const totalFailed = rows.filter((r) => r.status === "failed").length;
+  const totalSkipped = rows.filter((r) => r.status === "skipped").length;
+  const emailSent = rows.filter((r) => r.status === "sent" && r.channel === "email").length;
+  const smsSent = rows.filter((r) => r.status === "sent" && r.channel === "sms").length;
+  const attempted = totalSent + totalFailed;
+  const deliveryRate = attempted > 0 ? Math.round((totalSent / attempted) * 100) : 0;
+
+  return {
+    totalSent,
+    totalFailed,
+    totalSkipped,
+    emailSent,
+    smsSent,
+    deliveryRate,
+  };
+}
+
+/**
+ * Generates and persists an unsubscribe token for a user if one does not exist.
+ */
+export async function getOrCreateUnsubscribeToken(userId: number): Promise<string | null> {
+  const db = await getDb();
+  if (!db) return null;
+  const user = await getUserById(userId);
+  if (!user) return null;
+  if (user.unsubscribeToken) return user.unsubscribeToken;
+
+  const token = `unsub_${userId}_${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
+  await db.update(users).set({ unsubscribeToken: token }).where(eq(users.id, userId));
+  return token;
+}
+
+/**
+ * Finds a user by their unsubscribe token.
+ */
+export async function getUserByUnsubscribeToken(token: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(users).where(eq(users.unsubscribeToken, token)).limit(1);
+  return result.length > 0 ? result[0] : undefined;
+}
+
+/**
+ * Applies an unsubscribe action for a given user and category. When channel
+ * is provided, only that channel is disabled; otherwise both email and SMS
+ * are disabled for the category. Passing category "all" disables every
+ * notification channel/category combination.
+ */
+export async function applyUnsubscribe(
+  userId: number,
+  category: NotificationCategory | "all",
+  channel?: NotificationChannel
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const updateData: Record<string, boolean | Date> = { updatedAt: new Date() };
+
+  const categories: NotificationCategory[] =
+    category === "all"
+      ? ["booking_confirmation", "payment_receipt", "refund_status", "promotions"]
+      : [category];
+  const channels: NotificationChannel[] = channel ? [channel] : ["email", "sms"];
+
+  for (const cat of categories) {
+    for (const ch of channels) {
+      const field = preferenceField(ch, cat);
+      updateData[field] = false;
+    }
+  }
+
+  await db.update(users).set(updateData as any).where(eq(users.id, userId));
+}

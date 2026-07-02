@@ -43,6 +43,13 @@
       "when": 1783027789495,
       "tag": "0005_closed_maelstrom",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1783028317311,
+      "tag": "0006_next_ser_duncan",
+      "breakpoints": true
     }
   ]
 }

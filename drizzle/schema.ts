@@ -26,6 +26,7 @@ export const users = mysqlTable("users", {
   smsPaymentReceipt: boolean("smsPaymentReceipt").default(true).notNull(),
   smsRefundStatus: boolean("smsRefundStatus").default(true).notNull(),
   smsPromotions: boolean("smsPromotions").default(false).notNull(),
+  unsubscribeToken: varchar("unsubscribeToken", { length: 64 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -172,6 +173,26 @@ export const notifications = mysqlTable("notifications", {
 
 export type Notification = typeof notifications.$inferSelect;
 export type InsertNotification = typeof notifications.$inferInsert;
+
+/**
+ * Notification delivery logs - tracks all email and SMS dispatch attempts
+ * for the admin notification dashboard and delivery analytics.
+ */
+export const notificationLogs = mysqlTable("notification_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("user_id"),
+  channel: mysqlEnum("channel", ["email", "sms"]).notNull(),
+  category: varchar("category", { length: 50 }).notNull(), // booking_confirmation, payment_receipt, refund_status, promotions
+  recipient: varchar("recipient", { length: 320 }).notNull(), // email address or phone number
+  status: mysqlEnum("status", ["sent", "failed", "skipped"]).notNull(),
+  skipReason: varchar("skip_reason", { length: 255 }), // e.g. "user_opted_out", "no_contact_info"
+  errorMessage: text("error_message"),
+  subject: varchar("subject", { length: 500 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type NotificationLog = typeof notificationLogs.$inferSelect;
+export type InsertNotificationLog = typeof notificationLogs.$inferInsert;
 
 /**
  * Charger status logs - tracks availability changes for admin management

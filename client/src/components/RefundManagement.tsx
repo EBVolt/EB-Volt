@@ -196,7 +196,7 @@ export default function RefundManagement({ isAdmin = true }: RefundManagementPro
                         <div className="flex gap-2">
                           <Button
                             size="sm"
-                            onClick={() => approveMutation.mutate({ refundId: refund.id })}
+                            onClick={() => approveMutation.mutate({ refundId: refund.id, origin: window.location.origin })}
                             disabled={approveMutation.isPending}
                             style={{
                               background: "oklch(0.55 0.18 145)",
@@ -271,6 +271,7 @@ export default function RefundManagement({ isAdmin = true }: RefundManagementPro
                   rejectMutation.mutate({
                     refundId: selectedRefundId,
                     rejectionReason,
+                    origin: window.location.origin,
                   });
                 }}
                 disabled={rejectMutation.isPending}

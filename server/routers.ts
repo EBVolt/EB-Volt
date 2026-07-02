@@ -31,16 +31,10 @@ import { nanoid } from "nanoid";
 import { getUserById } from "./db";
 
 import {
-  sendBookingConfirmationEmail,
-  sendPaymentReceiptEmail,
-  sendRefundNotificationEmail,
-} from "./email";
-import {
-  sendBookingConfirmationSMS,
-  sendRefundApprovalSMS,
-  sendRefundRejectionSMS,
-  sendPaymentReceiptSMS,
-} from "./sms";
+  dispatchBookingConfirmation,
+  dispatchPaymentReceipt,
+  dispatchRefundStatus,
+} from "./notificationDispatcher";
 
 
 export const appRouter = router({
@@ -75,6 +69,7 @@ export const appRouter = router({
           durationMinutes: z.number(),
           estimatedCost: z.string(),
           phoneNumber: z.string(),
+          origin: z.string().optional(),
         })
       )
       .mutation(async ({ ctx, input }) => {
@@ -92,32 +87,38 @@ export const appRouter = router({
         const user = await getUserById(ctx.user.id);
 
         if (station && user) {
-          // Send booking confirmation email
-          await sendBookingConfirmationEmail({
-            userEmail: user.email || "customer@ecobellevolt.com",
-            userName: user.name || "Valued Customer",
-            stationName: station.name,
-            stationAddress: station.location,
-            reservationDate: new Date(input.reservationDate).toLocaleDateString(),
-            reservationTime: new Date(input.reservationDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-            duration: input.durationMinutes / 60,
-            chargerType: station.chargerType,
-            totalCost: parseFloat(input.estimatedCost),
-            currency: "GHS",
-            paymentMethod: "MTN_MOMO",
-            bookingReference: `RES-${(reservation as any).insertId}`
-          }).catch(err => console.error("[Email] Failed to send booking confirmation:", err));
+          const resDate = new Date(input.reservationDate).toLocaleDateString();
+          const resTime = new Date(input.reservationDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const bookingReference = `RES-${(reservation as any).insertId}`;
 
-          // Send booking confirmation SMS
-          if (user.phoneNumber) {
-            await sendBookingConfirmationSMS(
-              user.phoneNumber,
-              station.name,
-              new Date(input.reservationDate).toLocaleDateString(),
-              new Date(input.reservationDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-              parseFloat(input.estimatedCost)
-            ).catch(err => console.error("[SMS] Failed to send booking confirmation:", err));
-          }
+          // Dispatch booking confirmation across channels (preference-aware + logged)
+          await dispatchBookingConfirmation({
+            userId: user.id,
+            origin: input.origin,
+            email: {
+              userEmail: user.email || "customer@ecobellevolt.com",
+              userName: user.name || "Valued Customer",
+              stationName: station.name,
+              stationAddress: station.location,
+              reservationDate: resDate,
+              reservationTime: resTime,
+              duration: input.durationMinutes / 60,
+              chargerType: station.chargerType,
+              totalCost: parseFloat(input.estimatedCost),
+              currency: "GHS",
+              paymentMethod: "MTN_MOMO",
+              bookingReference,
+            },
+            sms: user.phoneNumber
+              ? {
+                  phoneNumber: user.phoneNumber,
+                  stationName: station.name,
+                  bookingDate: resDate,
+                  bookingTime: resTime,
+                  cost: parseFloat(input.estimatedCost),
+                }
+              : undefined,
+          }).catch(err => console.error("[Notify] Failed to dispatch booking confirmation:", err));
         }
 
         return reservation;
@@ -183,7 +184,7 @@ export const appRouter = router({
       }),
 
     checkPaymentStatus: protectedProcedure
-      .input(z.object({ referenceId: z.string() }))
+      .input(z.object({ referenceId: z.string(), origin: z.string().optional() }))
       .query(async ({ input }) => {
         try {
           const transaction = await getPaymentByReferenceId(input.referenceId);
@@ -212,27 +213,31 @@ export const appRouter = router({
               const station = reservation ? await getChargingStationById(reservation.stationId) : null;
 
               if (user) {
-                if (user.email) {
-                  await sendPaymentReceiptEmail({
-                    userEmail: user.email,
-                    userName: user.name || "Valued Customer",
-                    bookingReference: input.referenceId,
-                    amount: parseFloat(transaction.amount),
-                    currency: transaction.currency,
-                    paymentMethod: transaction.paymentMethod,
-                    transactionId: transaction.transactionId || "",
-                    timestamp: new Date().toISOString(),
-                    stationName: station?.name || "EcoBelle Volt Station",
-                  }).catch(err => console.error("[Email] Failed to send receipt:", err));
-                }
-                if (user.phoneNumber) {
-                  await sendPaymentReceiptSMS(
-                    user.phoneNumber,
-                    input.referenceId,
-                    parseFloat(transaction.amount),
-                    station?.name || "EcoBelle Volt Station"
-                  ).catch(err => console.error("[SMS] Failed to send payment receipt:", err));
-                }
+                await dispatchPaymentReceipt({
+                  userId: user.id,
+                  origin: input.origin,
+                  email: user.email
+                    ? {
+                        userEmail: user.email,
+                        userName: user.name || "Valued Customer",
+                        bookingReference: input.referenceId,
+                        amount: parseFloat(transaction.amount),
+                        currency: transaction.currency,
+                        paymentMethod: transaction.paymentMethod,
+                        transactionId: transaction.transactionId || "",
+                        timestamp: new Date().toISOString(),
+                        stationName: station?.name || "EcoBelle Volt Station",
+                      }
+                    : undefined,
+                  sms: user.phoneNumber
+                    ? {
+                        phoneNumber: user.phoneNumber,
+                        receiptNumber: input.referenceId,
+                        amount: parseFloat(transaction.amount),
+                        stationName: station?.name || "EcoBelle Volt Station",
+                      }
+                    : undefined,
+                }).catch(err => console.error("[Notify] Failed to dispatch payment receipt:", err));
               }
             }
           }
@@ -321,6 +326,50 @@ export const appRouter = router({
         smsPromotions: user.smsPromotions,
       };
     }),
+
+    getUnsubscribeInfo: publicProcedure
+      .input(z.object({ token: z.string() }))
+      .query(async ({ input }) => {
+        const { getUserByUnsubscribeToken } = await import("./db");
+        const user = await getUserByUnsubscribeToken(input.token);
+        if (!user) {
+          return { valid: false as const };
+        }
+        return {
+          valid: true as const,
+          email: user.email,
+          preferences: {
+            emailBookingConfirmation: user.emailBookingConfirmation,
+            emailPaymentReceipt: user.emailPaymentReceipt,
+            emailRefundStatus: user.emailRefundStatus,
+            emailPromotions: user.emailPromotions,
+          },
+        };
+      }),
+
+    unsubscribe: publicProcedure
+      .input(
+        z.object({
+          token: z.string(),
+          category: z.enum([
+            "booking_confirmation",
+            "payment_receipt",
+            "refund_status",
+            "promotions",
+            "all",
+          ]),
+          channel: z.enum(["email", "sms"]).optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const { getUserByUnsubscribeToken, applyUnsubscribe } = await import("./db");
+        const user = await getUserByUnsubscribeToken(input.token);
+        if (!user) {
+          throw new Error("Invalid or expired unsubscribe link");
+        }
+        await applyUnsubscribe(user.id, input.category, input.channel);
+        return { success: true };
+      }),
 
     updateNotificationPreferences: protectedProcedure
       .input(
@@ -453,10 +502,35 @@ export const appRouter = router({
       return getAllRefunds();
     }),
 
+    getNotificationMetrics: protectedProcedure.query(async ({ ctx }) => {
+      if (ctx.user.role !== "admin") {
+        throw new Error("Unauthorized: Admin access required");
+      }
+      const { getNotificationMetrics } = await import("./db");
+      return getNotificationMetrics();
+    }),
+
+    getNotificationLogs: protectedProcedure
+      .input(
+        z.object({
+          limit: z.number().min(1).max(500).optional(),
+          channel: z.enum(["email", "sms"]).optional(),
+          status: z.enum(["sent", "failed", "skipped"]).optional(),
+        })
+      )
+      .query(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        const { getNotificationLogs } = await import("./db");
+        return getNotificationLogs(input);
+      }),
+
     approveRefund: protectedProcedure
       .input(z.object({
         refundId: z.number(),
         approvalNotes: z.string().optional(),
+        origin: z.string().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         if (ctx.user.role !== "admin") {
@@ -468,27 +542,32 @@ export const appRouter = router({
         
         await updateRefundStatus(input.refundId, "approved", ctx.user.id, input.approvalNotes);
         
-        // Send approval notification email and SMS
+        // Dispatch approval notification (preference-aware + logged)
         try {
           const user = await getUserById(refund.userId);
           if (user) {
-            if (user.email) {
-              await sendRefundNotificationEmail({
-                userEmail: user.email,
-                userName: user.name || "Valued Customer",
-                bookingReference: `RES-${refund.reservationId}`,
-                refundAmount: parseFloat(refund.refundAmount),
-                currency: "GHS",
-                status: "approved",
-              }).catch(err => console.error("[Email] Failed to send refund approval:", err));
-            }
-            if (user.phoneNumber) {
-              await sendRefundApprovalSMS(
-                user.phoneNumber,
-                parseFloat(refund.refundAmount),
-                input.approvalNotes || "Refund approved"
-              ).catch(err => console.error("[SMS] Failed to send refund approval:", err));
-            }
+            await dispatchRefundStatus({
+              userId: user.id,
+              origin: input.origin,
+              status: "approved",
+              email: user.email
+                ? {
+                    userEmail: user.email,
+                    userName: user.name || "Valued Customer",
+                    bookingReference: `RES-${refund.reservationId}`,
+                    refundAmount: parseFloat(refund.refundAmount),
+                    currency: "GHS",
+                    status: "approved",
+                  }
+                : undefined,
+              sms: user.phoneNumber
+                ? {
+                    phoneNumber: user.phoneNumber,
+                    refundAmount: parseFloat(refund.refundAmount),
+                    reason: input.approvalNotes || "Refund approved",
+                  }
+                : undefined,
+            });
           }
         } catch (err) {
           console.error("[Refund] Error sending approval notifications:", err);
@@ -501,6 +580,7 @@ export const appRouter = router({
       .input(z.object({
         refundId: z.number(),
         rejectionReason: z.string(),
+        origin: z.string().optional(),
       }))
       .mutation(async ({ ctx, input }) => {
         if (ctx.user.role !== "admin") {
@@ -512,27 +592,33 @@ export const appRouter = router({
         
         await updateRefundStatus(input.refundId, "rejected", ctx.user.id, input.rejectionReason);
         
-        // Send rejection notification email and SMS
+        // Dispatch rejection notification (preference-aware + logged)
         try {
           const user = await getUserById(refund.userId);
           if (user) {
-            if (user.email) {
-              await sendRefundNotificationEmail({
-                userEmail: user.email,
-                userName: user.name || "Valued Customer",
-                bookingReference: `RES-${refund.reservationId}`,
-                refundAmount: parseFloat(refund.refundAmount),
-                currency: "GHS",
-                status: "rejected",
-                reason: input.rejectionReason,
-              }).catch(err => console.error("[Email] Failed to send refund rejection:", err));
-            }
-            if (user.phoneNumber) {
-              await sendRefundRejectionSMS(
-                user.phoneNumber,
-                input.rejectionReason
-              ).catch(err => console.error("[SMS] Failed to send refund rejection:", err));
-            }
+            await dispatchRefundStatus({
+              userId: user.id,
+              origin: input.origin,
+              status: "rejected",
+              email: user.email
+                ? {
+                    userEmail: user.email,
+                    userName: user.name || "Valued Customer",
+                    bookingReference: `RES-${refund.reservationId}`,
+                    refundAmount: parseFloat(refund.refundAmount),
+                    currency: "GHS",
+                    status: "rejected",
+                    reason: input.rejectionReason,
+                  }
+                : undefined,
+              sms: user.phoneNumber
+                ? {
+                    phoneNumber: user.phoneNumber,
+                    refundAmount: parseFloat(refund.refundAmount),
+                    reason: input.rejectionReason,
+                  }
+                : undefined,
+            });
           }
         } catch (err) {
           console.error("[Refund] Error sending rejection notifications:", err);
