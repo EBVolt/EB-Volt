@@ -24,8 +24,9 @@ import { toast } from "sonner";
 import RefundModal from "@/components/RefundModal";
 import ReservationFilterBar, { ReservationFilters } from "@/components/ReservationFilterBar";
 import ReservationStats from "@/components/ReservationStats";
+import ProfileSettings from "./ProfileSettings";
 
-type Tab = "reservations" | "receipts" | "refunds";
+type Tab = "reservations" | "receipts" | "refunds" | "settings";
 
 const StatusBadge = ({ status }: { status: string }) => {
   const styles: Record<string, { bg: string; color: string; border: string; label: string }> = {
@@ -207,7 +208,7 @@ export default function Account() {
 
           {/* Tabs */}
           <div className="flex gap-2 mb-8 flex-wrap">
-            {(["reservations", "receipts", "refunds"] as const).map((tab) => (
+            {(["reservations", "receipts", "refunds", "settings"] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -460,6 +461,13 @@ export default function Account() {
             refundsQuery.refetch();
           }}
         />
+      )}
+
+      {/* Settings Tab */}
+      {activeTab === "settings" && (
+        <div>
+          <ProfileSettings />
+        </div>
       )}
 
       <Footer />

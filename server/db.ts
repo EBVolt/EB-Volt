@@ -552,3 +552,75 @@ export async function getRevenueMetrics() {
     todayRevenue: todayResult[0]?.todayRevenue || 0,
   };
 }
+
+export async function updateNotificationPreferences(
+  userId: number,
+  preferences: {
+    emailBookingConfirmation?: boolean;
+    emailPaymentReceipt?: boolean;
+    emailRefundStatus?: boolean;
+    emailPromotions?: boolean;
+    smsBookingConfirmation?: boolean;
+    smsPaymentReceipt?: boolean;
+    smsRefundStatus?: boolean;
+    smsPromotions?: boolean;
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const updateData: any = { updatedAt: new Date() };
+  
+  if (preferences.emailBookingConfirmation !== undefined) {
+    updateData.emailBookingConfirmation = preferences.emailBookingConfirmation;
+  }
+  if (preferences.emailPaymentReceipt !== undefined) {
+    updateData.emailPaymentReceipt = preferences.emailPaymentReceipt;
+  }
+  if (preferences.emailRefundStatus !== undefined) {
+    updateData.emailRefundStatus = preferences.emailRefundStatus;
+  }
+  if (preferences.emailPromotions !== undefined) {
+    updateData.emailPromotions = preferences.emailPromotions;
+  }
+  if (preferences.smsBookingConfirmation !== undefined) {
+    updateData.smsBookingConfirmation = preferences.smsBookingConfirmation;
+  }
+  if (preferences.smsPaymentReceipt !== undefined) {
+    updateData.smsPaymentReceipt = preferences.smsPaymentReceipt;
+  }
+  if (preferences.smsRefundStatus !== undefined) {
+    updateData.smsRefundStatus = preferences.smsRefundStatus;
+  }
+  if (preferences.smsPromotions !== undefined) {
+    updateData.smsPromotions = preferences.smsPromotions;
+  }
+
+  return db.update(users).set(updateData).where(eq(users.id, userId));
+}
+
+export async function updateUserProfile(
+  userId: number,
+  data: {
+    name?: string;
+    email?: string;
+    phoneNumber?: string;
+  }
+) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  const updateData: any = { updatedAt: new Date() };
+  
+  if (data.name !== undefined) {
+    updateData.name = data.name;
+  }
+  if (data.email !== undefined) {
+    updateData.email = data.email;
+  }
+  if (data.phoneNumber !== undefined) {
+    updateData.phoneNumber = data.phoneNumber;
+  }
+
+  return db.update(users).set(updateData).where(eq(users.id, userId));
+}

@@ -288,6 +288,58 @@ export const appRouter = router({
         await incrementReceiptDownloadCount(input.receiptId);
         return { success: true, url: receipt.receiptUrl };
       }),
+
+    getProfile: protectedProcedure.query(async ({ ctx }) => {
+      return getUserById(ctx.user.id);
+    }),
+
+    updateProfile: protectedProcedure
+      .input(
+        z.object({
+          name: z.string().optional(),
+          email: z.string().email().optional(),
+          phoneNumber: z.string().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const { updateUserProfile } = await import("./db");
+        await updateUserProfile(ctx.user.id, input);
+        return { success: true };
+      }),
+
+    getNotificationPreferences: protectedProcedure.query(async ({ ctx }) => {
+      const user = await getUserById(ctx.user.id);
+      if (!user) throw new Error("User not found");
+      return {
+        emailBookingConfirmation: user.emailBookingConfirmation,
+        emailPaymentReceipt: user.emailPaymentReceipt,
+        emailRefundStatus: user.emailRefundStatus,
+        emailPromotions: user.emailPromotions,
+        smsBookingConfirmation: user.smsBookingConfirmation,
+        smsPaymentReceipt: user.smsPaymentReceipt,
+        smsRefundStatus: user.smsRefundStatus,
+        smsPromotions: user.smsPromotions,
+      };
+    }),
+
+    updateNotificationPreferences: protectedProcedure
+      .input(
+        z.object({
+          emailBookingConfirmation: z.boolean().optional(),
+          emailPaymentReceipt: z.boolean().optional(),
+          emailRefundStatus: z.boolean().optional(),
+          emailPromotions: z.boolean().optional(),
+          smsBookingConfirmation: z.boolean().optional(),
+          smsPaymentReceipt: z.boolean().optional(),
+          smsRefundStatus: z.boolean().optional(),
+          smsPromotions: z.boolean().optional(),
+        })
+      )
+      .mutation(async ({ ctx, input }) => {
+        const { updateNotificationPreferences } = await import("./db");
+        await updateNotificationPreferences(ctx.user.id, input);
+        return { success: true };
+      }),
   }),
 
   refund: router({
@@ -517,8 +569,3 @@ export const appRouter = router({
 });
 
 export type AppRouter = typeof appRouter;
-
-
-// Note: Analytics endpoints added separately to avoid JSON parsing issues
-// Add these to the admin router in routers.ts:
-// getDailyRevenue, getTopPerformingStations, getRevenueMetrics
