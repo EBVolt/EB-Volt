@@ -20,7 +20,7 @@ const serviceLinks = [
   { href: "/services/fleet-charging", label: "Fleet Charging" },
   { href: "/services/business-partnerships", label: "Business Partnerships" },
   { href: "/services/charger-installation", label: "Charger Installation" },
-  { href: "/services/support", label: "24/7 Support" },
+  { href: "/services/support", label: "Support" },
 ];
 
 export default function Navbar() {

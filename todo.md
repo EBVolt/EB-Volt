@@ -65,30 +65,33 @@
 - [x] Surface one-click resubscribe on /unsubscribe page
 - [x] Add date-range filter to notification logs endpoint and UI
 - [x] Add CSV export to notification logs table
-- [ ] Test all v1.1 enhancements
+- [x] Test all v1.1 enhancements (7/7 vitest passing, admin dashboard verified in preview)
 
 ## Roadmap Notes (deferred, out of scope for v1.0)
 - Multi-language support (Twi, Ga): English only for v1.0
 - Telecel Cash direct API: covered by Paystack in v1.0
 
 ## Live Provider Integration (email + SMS)
-- [ ] Confirm email provider (Resend/SendGrid/Mailgun) and collect API key + verified sender
-- [ ] Confirm SMS provider (Twilio/Hubtel/Arkesel) and collect credentials + sender ID
-- [ ] Implement per-recipient email delivery (replace notifyOwner for customer emails)
-- [ ] Implement real SMS dispatch in sendGenericSMS
-- [ ] Keep notifyOwner as fallback/owner-alert channel
-- [ ] Validate live delivery with test-send buttons using real credentials
-- [ ] Add/adjust vitest coverage for provider adapters (mocked)
+- [ ] (BLOCKED: awaiting user credentials) Confirm email provider (Resend/SendGrid/Mailgun) and collect API key + verified sender
+- [ ] (BLOCKED: awaiting user credentials) Confirm SMS provider (Twilio/Hubtel/Arkesel) and collect credentials + sender ID
+- [ ] (BLOCKED: awaiting user credentials) Implement per-recipient email delivery (replace notifyOwner for customer emails)
+- [ ] (BLOCKED: awaiting user credentials) Implement real SMS dispatch in sendGenericSMS
+- [ ] (BLOCKED: awaiting user credentials) Keep notifyOwner as fallback/owner-alert channel
+- [ ] (BLOCKED: awaiting user credentials) Validate live delivery with test-send buttons using real credentials
+- [ ] (BLOCKED: awaiting user credentials) Add/adjust vitest coverage for provider adapters (mocked)
 
 ## Website Copy Review & Improvement
-- [ ] Replace fabricated testimonials section with honest trust content (policy compliance)
-- [ ] Standardize contact details to Ghana-based, single canonical email
-- [ ] Soften overpromises (response-time guarantees, "most trusted", "trusted by thousands")
-- [ ] Fix Footer legal links (Privacy Policy / Terms) to real routes or remove
-- [ ] Improve Home page hero, features, sections copy
-- [ ] Improve About page copy (mission, story, values)
-- [ ] Improve HowItWorks page copy
-- [ ] Improve Contact page copy
-- [ ] Improve Support page copy
-- [ ] Improve service pages (Public/Fleet/Installation/Partnerships) copy
-- [ ] Verify no em dashes remain and rendering is clean
+- [x] Replace fabricated testimonials section with honest trust content (policy compliance)
+- [x] Standardize contact details to Ghana-based, single canonical email
+- [x] Soften overpromises (response-time guarantees, "most trusted", "trusted by thousands", 24/7/anytime, priority/dedicated support, refund timing)
+- [x] Fix Footer legal links (Privacy Policy / Terms) to real routes
+- [x] Create Privacy Policy page (/privacy)
+- [x] Create Terms & Conditions page (/terms)
+- [x] Rename "24/7 Support" nav/footer label to "Support"
+- [x] Improve Home page hero, features, sections copy
+- [x] Improve About page copy (mission, story, values)
+- [x] Improve HowItWorks page copy
+- [x] Improve Contact page copy
+- [x] Improve Support page copy
+- [x] Improve service pages (Public/Fleet/Installation/Partnerships) copy
+- [x] Verify no em dashes remain and rendering is clean

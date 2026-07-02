@@ -37,10 +37,10 @@ export default function FleetCharging() {
             {[
               { icon: Truck, title: "Dedicated Chargers", desc: "Install chargers at your depot or facility" },
               { icon: BarChart3, title: "Fleet Analytics", desc: "Track charging costs and vehicle efficiency" },
-              { icon: Zap, title: "Priority Access", desc: "Priority charging slots for your vehicles" },
+              { icon: Zap, title: "Reserved Slots", desc: "Book charging slots ahead for your vehicles" },
               { icon: Lock, title: "Secure Access", desc: "RFID-based access control for your fleet" },
               { icon: Users, title: "Team Management", desc: "Manage multiple drivers and vehicles" },
-              { icon: Headphones, title: "Dedicated Support", desc: "A dedicated fleet management support team" },
+              { icon: Headphones, title: "Fleet Support", desc: "A named point of contact for your fleet account" },
             ].map((benefit, idx) => (
               <div key={idx} className="p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
                 <benefit.icon size={32} style={{ color: "oklch(0.65 0.18 50)", marginBottom: "1rem" }} />

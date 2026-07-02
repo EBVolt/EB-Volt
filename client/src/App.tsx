@@ -17,6 +17,8 @@ import ChargerInstallation from "./pages/ChargerInstallation";
 import Support from "./pages/Support";
 import AdminDashboard from "./pages/AdminDashboard";
 import Unsubscribe from "./pages/Unsubscribe";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -35,6 +37,8 @@ function Router() {
       <Route path="/services/support" component={Support} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/unsubscribe" component={Unsubscribe} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

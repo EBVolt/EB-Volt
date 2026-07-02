@@ -16,7 +16,7 @@ export default function PublicCharging() {
               Public Charging Network
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              Fast, reliable, and accessible EV charging stations across Ghana. Charge anywhere, anytime with our expanding network.
+              Fast, reliable, and accessible EV charging stations across Ghana. Charge with confidence as our network grows across the country.
             </p>
             <Link href="/find-charger">
               <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "white", color: "oklch(0.52 0.18 145)" }}>
@@ -36,8 +36,8 @@ export default function PublicCharging() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: Zap, title: "Fast Charging", desc: "DC Fast chargers deliver 80% charge in 30 minutes" },
-              { icon: MapPin, title: "Wide Coverage", desc: "8+ stations across major cities in Ghana" },
-              { icon: Clock, title: "24/7 Availability", desc: "Round-the-clock charging access whenever you need it" },
+              { icon: MapPin, title: "Growing Coverage", desc: "Stations opening across major cities in Ghana" },
+              { icon: Clock, title: "Convenient Access", desc: "Charge during station hours at locations near you" },
               { icon: Shield, title: "Secure & Safe", desc: "CCTV monitored stations with professional support" },
               { icon: TrendingUp, title: "Real-time Status", desc: "Live availability updates on the mobile app" },
               { icon: Users, title: "Community Driven", desc: "Part of Ghana's growing community of EV drivers" },

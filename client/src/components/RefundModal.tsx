@@ -76,7 +76,7 @@ export default function RefundModal({ isOpen, reservationId, onClose, onSuccess 
             >
               <AlertCircle className="w-5 h-5 flex-shrink-0" style={{ color: "oklch(0.75 0.18 50)" }} />
               <p className="text-sm" style={{ color: "oklch(0.75 0.18 50)" }}>
-                Refunds are processed within 24 hours to your MTN MoMo account.
+                Approved refunds are processed to your MTN MoMo account, usually within a few business days.
               </p>
             </div>
 
@@ -143,7 +143,7 @@ export default function RefundModal({ isOpen, reservationId, onClose, onSuccess 
               Refund Request Submitted
             </h4>
             <p style={{ color: "oklch(0.62 0.01 240)" }}>
-              Your refund will be processed within 24 hours. You'll receive the amount back to your MoMo account.
+              Once approved, your refund will be processed to your MoMo account, usually within a few business days.
             </p>
           </div>
         )}

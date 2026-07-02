@@ -133,7 +133,7 @@ export default function Footer() {
                 { label: "Fleet Charging", href: "/services/fleet-charging" },
                 { label: "Business Partnerships", href: "/services/business-partnerships" },
                 { label: "Charger Installation", href: "/services/charger-installation" },
-                { label: "24/7 Support", href: "/services/support" },
+                { label: "Support", href: "/services/support" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link href={item.href}>
@@ -207,7 +207,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <a
-              href="mailto:hello@ebvolt.com?subject=Privacy%20Policy%20Request"
+              href="/privacy"
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: "oklch(0.5 0.01 240)" }}
               onMouseEnter={(e) => {
@@ -220,7 +220,7 @@ export default function Footer() {
               Privacy Policy
             </a>
             <a
-              href="mailto:hello@ebvolt.com?subject=Terms%20%26%20Conditions%20Request"
+              href="/terms"
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: "oklch(0.5 0.01 240)" }}
               onMouseEnter={(e) => {

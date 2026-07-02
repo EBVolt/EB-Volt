@@ -31,7 +31,7 @@ export default function Contact() {
     await new Promise((r) => setTimeout(r, 1200));
     setLoading(false);
     setSubmitted(true);
-    toast.success("Message sent! We'll be in touch within 24 hours.");
+    toast.success("Message sent. Our team will get back to you as soon as we can.");
   };
 
   return (
@@ -186,7 +186,7 @@ export default function Contact() {
                       Message Sent!
                     </h3>
                     <p style={{ color: "oklch(0.62 0.01 240)" }}>
-                      Thank you for reaching out. Our team will get back to you within 24 hours.
+                      Thank you for reaching out. Our team will get back to you as soon as we can.
                     </p>
                     <button
                       className="btn-outline-green mt-8"
