@@ -56,3 +56,26 @@
 - [x] Build admin notification dashboard with delivery metrics
 - [x] Add error/retry states to notification dashboard queries
 - [x] Test all notification features (vitest integration suite: 7 passing)
+
+## Notification System v1.1 Enhancements
+- [x] Add admin "Run Now" test-send endpoint for sample email
+- [x] Add admin "Run Now" test-send endpoint for sample SMS
+- [x] Add Run Now buttons to NotificationDashboard UI
+- [x] Add resubscribe (re-enable) capability to account unsubscribe endpoint
+- [x] Surface one-click resubscribe on /unsubscribe page
+- [x] Add date-range filter to notification logs endpoint and UI
+- [x] Add CSV export to notification logs table
+- [ ] Test all v1.1 enhancements
+
+## Roadmap Notes (deferred, out of scope for v1.0)
+- Multi-language support (Twi, Ga): English only for v1.0
+- Telecel Cash direct API: covered by Paystack in v1.0
+
+## Live Provider Integration (email + SMS)
+- [ ] Confirm email provider (Resend/SendGrid/Mailgun) and collect API key + verified sender
+- [ ] Confirm SMS provider (Twilio/Hubtel/Arkesel) and collect credentials + sender ID
+- [ ] Implement per-recipient email delivery (replace notifyOwner for customer emails)
+- [ ] Implement real SMS dispatch in sendGenericSMS
+- [ ] Keep notifyOwner as fallback/owner-alert channel
+- [ ] Validate live delivery with test-send buttons using real credentials
+- [ ] Add/adjust vitest coverage for provider adapters (mocked)

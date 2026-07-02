@@ -132,3 +132,13 @@ export async function sendGenericSMS(
     return false;
   }
 }
+
+/**
+ * Send a test SMS so admins can verify the SMS channel is working end to end.
+ * @param phoneNumber Recipient phone number in international format
+ */
+export async function sendTestSMS(phoneNumber: string): Promise<boolean> {
+  const message =
+    "EcoBelle Volt: This is a test SMS from the admin dashboard confirming SMS notifications are working. No action needed.";
+  return sendGenericSMS(phoneNumber, message);
+}

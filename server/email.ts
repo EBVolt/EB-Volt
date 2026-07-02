@@ -239,3 +239,41 @@ Charge Green. Drive Clean.
     return false;
   }
 }
+
+/**
+ * Send a test email so admins can verify the email channel is working
+ * end to end. Delivered through the same Manus notification API used by
+ * all transactional emails.
+ */
+export async function sendTestEmail(
+  recipientEmail: string,
+  recipientName: string
+): Promise<boolean> {
+  try {
+    const emailContent = `
+Dear ${recipientName},
+
+This is a test email from the EcoBelle Volt admin dashboard, sent to confirm that email notifications are configured and reaching recipients.
+
+If you received this message, the email channel is working correctly. No action is required.
+
+Sent: ${new Date().toLocaleString()}
+
+Best regards,
+EcoBelle Volt Team
+Charge Green. Drive Clean.
+    `;
+    const result = await notifyOwner({
+      title: "EcoBelle Volt: Test Email Notification",
+      content: emailContent,
+    });
+    if (result) {
+      console.log(`[Email] Test email sent to ${recipientEmail}`);
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error("[Email] Failed to send test email:", error);
+    return false;
+  }
+}

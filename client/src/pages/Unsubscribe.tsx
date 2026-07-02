@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2, MailX, AlertCircle } from "lucide-react";
+import { CheckCircle2, Loader2, MailX, AlertCircle, Undo2 } from "lucide-react";
 
 type Category =
   | "booking_confirmation"
@@ -29,6 +29,7 @@ export default function Unsubscribe() {
       : "promotions"
   );
   const [done, setDone] = useState(false);
+  const [resubscribed, setResubscribed] = useState(false);
 
   const infoQuery = trpc.account.getUnsubscribeInfo.useQuery(
     { token },
@@ -36,7 +37,14 @@ export default function Unsubscribe() {
   );
 
   const unsubscribeMutation = trpc.account.unsubscribe.useMutation({
-    onSuccess: () => setDone(true),
+    onSuccess: () => {
+      setResubscribed(false);
+      setDone(true);
+    },
+  });
+
+  const resubscribeMutation = trpc.account.resubscribe.useMutation({
+    onSuccess: () => setResubscribed(true),
   });
 
   useEffect(() => {
@@ -125,14 +133,51 @@ export default function Unsubscribe() {
           </>
         )}
 
-        {done && (
+        {done && !resubscribed && (
           <div className="flex flex-col items-center text-center gap-3 py-4">
             <CheckCircle2 size={48} style={{ color: "oklch(0.55 0.18 145)" }} />
             <p className="text-lg font-semibold" style={heading}>
               You're all set
             </p>
             <p className="text-sm" style={{ color: "oklch(0.45 0.05 240)" }}>
-              You've been unsubscribed from {CATEGORY_LABELS[category]}. You can re-enable notifications anytime from your account settings.
+              You've been unsubscribed from {CATEGORY_LABELS[category]}. Changed your mind? You can re-enable it with one click below.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => resubscribeMutation.mutate({ token, category })}
+              disabled={resubscribeMutation.isPending}
+              className="mt-1 bg-white font-semibold"
+              style={{ borderColor: "oklch(0.5 0.15 145)", color: "oklch(0.45 0.15 145)" }}
+            >
+              {resubscribeMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 animate-spin" size={16} /> Re-enabling...
+                </>
+              ) : (
+                <>
+                  <Undo2 className="mr-2" size={16} /> Re-enable {CATEGORY_LABELS[category]}
+                </>
+              )}
+            </Button>
+            {resubscribeMutation.isError && (
+              <p className="text-sm" style={{ color: "oklch(0.6 0.2 25)" }}>
+                {resubscribeMutation.error?.message || "Could not re-enable. Please try again."}
+              </p>
+            )}
+            <a href="/account" className="mt-2 text-sm font-semibold underline" style={{ color: "oklch(0.5 0.15 145)" }}>
+              Go to Account Settings
+            </a>
+          </div>
+        )}
+
+        {done && resubscribed && (
+          <div className="flex flex-col items-center text-center gap-3 py-4">
+            <CheckCircle2 size={48} style={{ color: "oklch(0.55 0.18 145)" }} />
+            <p className="text-lg font-semibold" style={heading}>
+              Notifications re-enabled
+            </p>
+            <p className="text-sm" style={{ color: "oklch(0.45 0.05 240)" }}>
+              You'll continue to receive {CATEGORY_LABELS[category]} from EcoBelle Volt. You can change this anytime from your account settings.
             </p>
             <a href="/account" className="mt-2 text-sm font-semibold underline" style={{ color: "oklch(0.5 0.15 145)" }}>
               Go to Account Settings

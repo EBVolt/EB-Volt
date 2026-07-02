@@ -343,6 +343,10 @@ export const appRouter = router({
             emailPaymentReceipt: user.emailPaymentReceipt,
             emailRefundStatus: user.emailRefundStatus,
             emailPromotions: user.emailPromotions,
+            smsBookingConfirmation: user.smsBookingConfirmation,
+            smsPaymentReceipt: user.smsPaymentReceipt,
+            smsRefundStatus: user.smsRefundStatus,
+            smsPromotions: user.smsPromotions,
           },
         };
       }),
@@ -368,6 +372,30 @@ export const appRouter = router({
           throw new Error("Invalid or expired unsubscribe link");
         }
         await applyUnsubscribe(user.id, input.category, input.channel);
+        return { success: true };
+      }),
+
+    resubscribe: publicProcedure
+      .input(
+        z.object({
+          token: z.string(),
+          category: z.enum([
+            "booking_confirmation",
+            "payment_receipt",
+            "refund_status",
+            "promotions",
+            "all",
+          ]),
+          channel: z.enum(["email", "sms"]).optional(),
+        })
+      )
+      .mutation(async ({ input }) => {
+        const { getUserByUnsubscribeToken, applyResubscribe } = await import("./db");
+        const user = await getUserByUnsubscribeToken(input.token);
+        if (!user) {
+          throw new Error("Invalid or expired link");
+        }
+        await applyResubscribe(user.id, input.category, input.channel);
         return { success: true };
       }),
 
@@ -516,6 +544,8 @@ export const appRouter = router({
           limit: z.number().min(1).max(500).optional(),
           channel: z.enum(["email", "sms"]).optional(),
           status: z.enum(["sent", "failed", "skipped"]).optional(),
+          startDate: z.number().optional(),
+          endDate: z.number().optional(),
         })
       )
       .query(async ({ ctx, input }) => {
@@ -523,7 +553,59 @@ export const appRouter = router({
           throw new Error("Unauthorized: Admin access required");
         }
         const { getNotificationLogs } = await import("./db");
-        return getNotificationLogs(input);
+        return getNotificationLogs({
+          limit: input.limit,
+          channel: input.channel,
+          status: input.status,
+          startDate: input.startDate ? new Date(input.startDate) : undefined,
+          endDate: input.endDate ? new Date(input.endDate) : undefined,
+        });
+      }),
+
+    sendTestNotification: protectedProcedure
+      .input(z.object({ channel: z.enum(["email", "sms"]) }))
+      .mutation(async ({ ctx, input }) => {
+        if (ctx.user.role !== "admin") {
+          throw new Error("Unauthorized: Admin access required");
+        }
+        const { logNotification, getUserById } = await import("./db");
+        const admin = await getUserById(ctx.user.id);
+
+        if (input.channel === "email") {
+          const recipient = admin?.email || ctx.user.email;
+          if (!recipient) {
+            throw new Error("No email address on file for your admin account");
+          }
+          const { sendTestEmail } = await import("./email");
+          const ok = await sendTestEmail(recipient, admin?.name || "Admin");
+          await logNotification({
+            userId: ctx.user.id,
+            channel: "email",
+            category: "promotions",
+            recipient,
+            status: ok ? "sent" : "failed",
+            subject: "Test Email Notification",
+            errorMessage: ok ? undefined : "Provider returned a failure",
+          });
+          return { success: ok, recipient };
+        }
+
+        const recipient = admin?.phoneNumber;
+        if (!recipient) {
+          throw new Error("No phone number on file. Add one in Profile Settings to test SMS.");
+        }
+        const { sendTestSMS } = await import("./sms");
+        const ok = await sendTestSMS(recipient);
+        await logNotification({
+          userId: ctx.user.id,
+          channel: "sms",
+          category: "promotions",
+          recipient,
+          status: ok ? "sent" : "failed",
+          subject: "Test SMS Notification",
+          errorMessage: ok ? undefined : "Provider returned a failure",
+        });
+        return { success: ok, recipient };
       }),
 
     approveRefund: protectedProcedure

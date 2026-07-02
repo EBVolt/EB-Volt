@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, MessageSquare, CheckCircle2, XCircle, MinusCircle, TrendingUp } from "lucide-react";
+import {
+  Mail,
+  MessageSquare,
+  CheckCircle2,
+  XCircle,
+  MinusCircle,
+  TrendingUp,
+  Download,
+  Send,
+} from "lucide-react";
 
 const CATEGORY_LABELS: Record<string, string> = {
   booking_confirmation: "Booking",
@@ -17,9 +28,25 @@ const STATUS_STYLE: Record<string, { color: string; label: string }> = {
   skipped: { color: "oklch(0.65 0.02 240)", label: "Skipped" },
 };
 
+// Converts a yyyy-mm-dd date input into a UTC-based epoch millisecond value.
+// endOfDay pushes the timestamp to 23:59:59.999 so the range is inclusive.
+function dateInputToEpoch(value: string, endOfDay = false): number | undefined {
+  if (!value) return undefined;
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return undefined;
+  if (endOfDay) d.setHours(23, 59, 59, 999);
+  else d.setHours(0, 0, 0, 0);
+  return d.getTime();
+}
+
 export default function NotificationDashboard() {
   const [channelFilter, setChannelFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+  const [feedback, setFeedback] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const utils = trpc.useUtils();
 
   const {
     data: metrics,
@@ -28,15 +55,38 @@ export default function NotificationDashboard() {
     refetch: refetchMetrics,
   } = trpc.admin.getNotificationMetrics.useQuery();
 
+  const logsInput = useMemo(
+    () => ({
+      limit: 200,
+      channel: channelFilter === "all" ? undefined : (channelFilter as "email" | "sms"),
+      status: statusFilter === "all" ? undefined : (statusFilter as "sent" | "failed" | "skipped"),
+      startDate: dateInputToEpoch(startDate),
+      endDate: dateInputToEpoch(endDate, true),
+    }),
+    [channelFilter, statusFilter, startDate, endDate]
+  );
+
   const {
     data: logs,
     isLoading: logsLoading,
     isError: logsError,
     refetch: refetchLogs,
-  } = trpc.admin.getNotificationLogs.useQuery({
-    limit: 100,
-    channel: channelFilter === "all" ? undefined : (channelFilter as "email" | "sms"),
-    status: statusFilter === "all" ? undefined : (statusFilter as "sent" | "failed" | "skipped"),
+  } = trpc.admin.getNotificationLogs.useQuery(logsInput);
+
+  const testSend = trpc.admin.sendTestNotification.useMutation({
+    onSuccess: (res, variables) => {
+      setFeedback({
+        type: res.success ? "success" : "error",
+        text: res.success
+          ? `Test ${variables.channel.toUpperCase()} dispatched to ${res.recipient}.`
+          : `Test ${variables.channel.toUpperCase()} could not be delivered.`,
+      });
+      utils.admin.getNotificationLogs.invalidate();
+      utils.admin.getNotificationMetrics.invalidate();
+    },
+    onError: (err) => {
+      setFeedback({ type: "error", text: err.message });
+    },
   });
 
   const cardBorder = { border: "1px solid oklch(0.9 0.01 240)" };
@@ -48,6 +98,34 @@ export default function NotificationDashboard() {
     { label: "Failed", value: metrics?.totalFailed ?? 0, icon: XCircle, color: "oklch(0.6 0.2 25)" },
     { label: "Skipped (Opt-out)", value: metrics?.totalSkipped ?? 0, icon: MinusCircle, color: "oklch(0.65 0.02 240)" },
   ];
+
+  function exportCsv() {
+    if (!logs || logs.length === 0) return;
+    const headers = ["Time", "Channel", "Category", "Recipient", "Status", "Detail"];
+    const escape = (v: string) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const rows = logs.map((log) =>
+      [
+        new Date(log.createdAt).toISOString(),
+        log.channel,
+        CATEGORY_LABELS[log.category] ?? log.category,
+        log.recipient,
+        log.status,
+        log.skipReason || log.errorMessage || log.subject || "",
+      ]
+        .map(escape)
+        .join(",")
+    );
+    const csv = [headers.map(escape).join(","), ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `notification-logs-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
 
   if (metricsError || logsError) {
     return (
@@ -80,9 +158,49 @@ export default function NotificationDashboard() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6" style={heading}>
-        Notification Delivery
-      </h2>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <h2 className="text-2xl font-bold" style={heading}>
+          Notification Delivery
+        </h2>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="outline"
+            className="bg-white"
+            disabled={testSend.isPending}
+            onClick={() => {
+              setFeedback(null);
+              testSend.mutate({ channel: "email" });
+            }}
+          >
+            <Send size={15} className="mr-2" />
+            Test Email
+          </Button>
+          <Button
+            variant="outline"
+            className="bg-white"
+            disabled={testSend.isPending}
+            onClick={() => {
+              setFeedback(null);
+              testSend.mutate({ channel: "sms" });
+            }}
+          >
+            <MessageSquare size={15} className="mr-2" />
+            Test SMS
+          </Button>
+        </div>
+      </div>
+
+      {feedback && (
+        <div
+          className="mb-4 rounded-lg px-4 py-3 text-sm"
+          style={{
+            background: feedback.type === "success" ? "oklch(0.95 0.05 145)" : "oklch(0.96 0.05 25)",
+            color: feedback.type === "success" ? "oklch(0.4 0.15 145)" : "oklch(0.5 0.2 25)",
+          }}
+        >
+          {feedback.text}
+        </div>
+      )}
 
       {/* Metric cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -124,28 +242,85 @@ export default function NotificationDashboard() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-4 mb-4">
-        <Select value={channelFilter} onValueChange={setChannelFilter}>
-          <SelectTrigger className="w-40" style={{ borderColor: "oklch(0.9 0.01 240)" }}>
-            <SelectValue placeholder="Channel" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Channels</SelectItem>
-            <SelectItem value="email">Email</SelectItem>
-            <SelectItem value="sms">SMS</SelectItem>
-          </SelectContent>
-        </Select>
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-40" style={{ borderColor: "oklch(0.9 0.01 240)" }}>
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="sent">Sent</SelectItem>
-            <SelectItem value="failed">Failed</SelectItem>
-            <SelectItem value="skipped">Skipped</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="flex flex-wrap items-end gap-4 mb-4">
+        <div>
+          <label className="mb-1 block text-xs font-medium" style={{ color: "oklch(0.62 0.01 240)" }}>
+            Channel
+          </label>
+          <Select value={channelFilter} onValueChange={setChannelFilter}>
+            <SelectTrigger className="w-40" style={{ borderColor: "oklch(0.9 0.01 240)" }}>
+              <SelectValue placeholder="Channel" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Channels</SelectItem>
+              <SelectItem value="email">Email</SelectItem>
+              <SelectItem value="sms">SMS</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-medium" style={{ color: "oklch(0.62 0.01 240)" }}>
+            Status
+          </label>
+          <Select value={statusFilter} onValueChange={setStatusFilter}>
+            <SelectTrigger className="w-40" style={{ borderColor: "oklch(0.9 0.01 240)" }}>
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Statuses</SelectItem>
+              <SelectItem value="sent">Sent</SelectItem>
+              <SelectItem value="failed">Failed</SelectItem>
+              <SelectItem value="skipped">Skipped</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-medium" style={{ color: "oklch(0.62 0.01 240)" }}>
+            From
+          </label>
+          <Input
+            type="date"
+            value={startDate}
+            max={endDate || undefined}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="w-40 bg-white"
+            style={{ borderColor: "oklch(0.9 0.01 240)" }}
+          />
+        </div>
+        <div>
+          <label className="mb-1 block text-xs font-medium" style={{ color: "oklch(0.62 0.01 240)" }}>
+            To
+          </label>
+          <Input
+            type="date"
+            value={endDate}
+            min={startDate || undefined}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="w-40 bg-white"
+            style={{ borderColor: "oklch(0.9 0.01 240)" }}
+          />
+        </div>
+        {(startDate || endDate) && (
+          <Button
+            variant="outline"
+            className="bg-white"
+            onClick={() => {
+              setStartDate("");
+              setEndDate("");
+            }}
+          >
+            Clear dates
+          </Button>
+        )}
+        <Button
+          variant="outline"
+          className="ml-auto bg-white"
+          disabled={!logs || logs.length === 0}
+          onClick={exportCsv}
+        >
+          <Download size={15} className="mr-2" />
+          Export CSV
+        </Button>
       </div>
 
       {/* Logs table */}
@@ -171,7 +346,7 @@ export default function NotificationDashboard() {
               ) : !logs || logs.length === 0 ? (
                 <tr>
                   <td colSpan={6} className="px-4 py-8 text-center" style={{ color: "oklch(0.62 0.01 240)" }}>
-                    No notifications logged yet. They will appear here as bookings, payments, and refunds are processed.
+                    No notifications match the current filters. They will appear here as bookings, payments, and refunds are processed.
                   </td>
                 </tr>
               ) : (

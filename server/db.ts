@@ -1,4 +1,4 @@
-import { eq, gte, and, desc, sql } from "drizzle-orm";
+import { eq, gte, lte, and, desc, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -720,6 +720,8 @@ export async function getNotificationLogs(options?: {
   limit?: number;
   channel?: NotificationChannel;
   status?: "sent" | "failed" | "skipped";
+  startDate?: Date;
+  endDate?: Date;
 }) {
   const db = await getDb();
   if (!db) return [];
@@ -727,6 +729,8 @@ export async function getNotificationLogs(options?: {
   const conditions = [];
   if (options?.channel) conditions.push(eq(notificationLogs.channel, options.channel));
   if (options?.status) conditions.push(eq(notificationLogs.status, options.status));
+  if (options?.startDate) conditions.push(gte(notificationLogs.createdAt, options.startDate));
+  if (options?.endDate) conditions.push(lte(notificationLogs.createdAt, options.endDate));
 
   const query = db.select().from(notificationLogs);
   const rows = conditions.length > 0
@@ -807,6 +811,32 @@ export async function applyUnsubscribe(
   category: NotificationCategory | "all",
   channel?: NotificationChannel
 ): Promise<void> {
+  return setPreferenceState(userId, category, false, channel);
+}
+
+/**
+ * Re-enables notifications for a given user and category (one-click resubscribe).
+ * When channel is provided, only that channel is enabled; otherwise both email
+ * and SMS are enabled for the category. Passing category "all" re-enables every
+ * notification channel/category combination.
+ */
+export async function applyResubscribe(
+  userId: number,
+  category: NotificationCategory | "all",
+  channel?: NotificationChannel
+): Promise<void> {
+  return setPreferenceState(userId, category, true, channel);
+}
+
+/**
+ * Shared helper that toggles notification preference fields on or off.
+ */
+async function setPreferenceState(
+  userId: number,
+  category: NotificationCategory | "all",
+  enabled: boolean,
+  channel?: NotificationChannel
+): Promise<void> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
@@ -821,7 +851,7 @@ export async function applyUnsubscribe(
   for (const cat of categories) {
     for (const ch of channels) {
       const field = preferenceField(ch, cat);
-      updateData[field] = false;
+      updateData[field] = enabled;
     }
   }
 
