@@ -10,6 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChargerIllustration } from "@/components/ChargerIllustration";
 import { useAuth } from "@/_core/hooks/useAuth";
+import Testimonials from "@/components/Testimonials";
 
 // Intersection observer hook for scroll animations
 function useInView(threshold = 0.15) {
@@ -730,6 +731,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials Section */}
+      <Testimonials />
 
       <Footer />
     </div>

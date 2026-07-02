@@ -18,6 +18,9 @@
 - [x] Database schema with all required tables
 
 ## Completed Features
+- [x] Implement live booking analytics dashboard
+- [x] Implement SMS notification system for bookings and refunds
+- [x] Create user testimonials section on homepage
 - [x] Remove em dashes from website content
 - [x] Replace logos in website images with EB Volt logo
 - [x] Complete email integration in approveRefund endpoint

@@ -7,6 +7,7 @@ import { AlertCircle, CheckCircle, Zap, Wifi } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import RefundManagement from "@/components/RefundManagement";
+import BookingAnalyticsDashboard from "@/components/BookingAnalyticsDashboard";
 
 export default function AdminDashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -301,6 +302,17 @@ export default function AdminDashboard() {
             </div>
           </Card>
         )}
+
+        {/* Booking Analytics Section */}
+        <div className="mt-12">
+          <h2
+            className="text-2xl font-bold mb-6"
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
+          >
+            Booking Analytics
+          </h2>
+          <BookingAnalyticsDashboard />
+        </div>
 
         {/* Refund Management Section */}
         <div className="mt-12">

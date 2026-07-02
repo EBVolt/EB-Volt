@@ -28,11 +28,20 @@ import {
 } from "./db";
 import { getMoMoService } from "./momo";
 import { nanoid } from "nanoid";
+import { getUserById } from "./db";
+
 import {
   sendBookingConfirmationEmail,
   sendPaymentReceiptEmail,
   sendRefundNotificationEmail,
 } from "./email";
+import {
+  sendBookingConfirmationSMS,
+  sendRefundApprovalSMS,
+  sendRefundRejectionSMS,
+  sendPaymentReceiptSMS,
+} from "./sms";
+
 
 export const appRouter = router({
   system: systemRouter,
@@ -78,6 +87,39 @@ export const appRouter = router({
           phoneNumber: input.phoneNumber,
           status: "pending",
         });
+
+        const station = await getChargingStationById(input.stationId);
+        const user = await getUserById(ctx.user.id);
+
+        if (station && user) {
+          // Send booking confirmation email
+          await sendBookingConfirmationEmail({
+            userEmail: user.email || "customer@ecobellevolt.com",
+            userName: user.name || "Valued Customer",
+            stationName: station.name,
+            stationAddress: station.location,
+            reservationDate: new Date(input.reservationDate).toLocaleDateString(),
+            reservationTime: new Date(input.reservationDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            duration: input.durationMinutes / 60,
+            chargerType: station.chargerType,
+            totalCost: parseFloat(input.estimatedCost),
+            currency: "GHS",
+            paymentMethod: "MTN_MOMO",
+            bookingReference: `RES-${(reservation as any).insertId}`
+          }).catch(err => console.error("[Email] Failed to send booking confirmation:", err));
+
+          // Send booking confirmation SMS
+          if (user.phoneNumber) {
+            await sendBookingConfirmationSMS(
+              user.phoneNumber,
+              station.name,
+              new Date(input.reservationDate).toLocaleDateString(),
+              new Date(input.reservationDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+              parseFloat(input.estimatedCost)
+            ).catch(err => console.error("[SMS] Failed to send booking confirmation:", err));
+          }
+        }
+
         return reservation;
       }),
 
@@ -163,19 +205,35 @@ export const appRouter = router({
               newStatus
             );
 
-            // Send payment receipt email when completed
+            // Send payment receipt email and SMS when completed
             if (newStatus === "completed") {
-              await sendPaymentReceiptEmail({
-                userEmail: "customer@ecobellevolt.com",
-                userName: "Valued Customer",
-                bookingReference: input.referenceId,
-                amount: parseFloat(transaction.amount),
-                currency: transaction.currency,
-                paymentMethod: transaction.paymentMethod,
-                transactionId: transaction.transactionId || "",
-                timestamp: new Date().toISOString(),
-                stationName: "EcoBelle Volt Station",
-              }).catch(err => console.error("[Email] Failed to send receipt:", err));
+              const user = await getUserById(transaction.userId);
+              const reservation = await getReservationById(transaction.reservationId);
+              const station = reservation ? await getChargingStationById(reservation.stationId) : null;
+
+              if (user) {
+                if (user.email) {
+                  await sendPaymentReceiptEmail({
+                    userEmail: user.email,
+                    userName: user.name || "Valued Customer",
+                    bookingReference: input.referenceId,
+                    amount: parseFloat(transaction.amount),
+                    currency: transaction.currency,
+                    paymentMethod: transaction.paymentMethod,
+                    transactionId: transaction.transactionId || "",
+                    timestamp: new Date().toISOString(),
+                    stationName: station?.name || "EcoBelle Volt Station",
+                  }).catch(err => console.error("[Email] Failed to send receipt:", err));
+                }
+                if (user.phoneNumber) {
+                  await sendPaymentReceiptSMS(
+                    user.phoneNumber,
+                    input.referenceId,
+                    parseFloat(transaction.amount),
+                    station?.name || "EcoBelle Volt Station"
+                  ).catch(err => console.error("[SMS] Failed to send payment receipt:", err));
+                }
+              }
             }
           }
 
@@ -358,21 +416,30 @@ export const appRouter = router({
         
         await updateRefundStatus(input.refundId, "approved", ctx.user.id, input.approvalNotes);
         
-        // Send approval notification email
+        // Send approval notification email and SMS
         try {
           const user = await getUserById(refund.userId);
-          if (user && user.email) {
-            await sendRefundNotificationEmail({
-              userEmail: user.email,
-              userName: user.name || "Valued Customer",
-              bookingReference: `RES-${refund.reservationId}`,
-              refundAmount: parseFloat(refund.refundAmount),
-              currency: "GHS",
-              status: "approved",
-            }).catch(err => console.error("[Email] Failed to send refund approval:", err));
+          if (user) {
+            if (user.email) {
+              await sendRefundNotificationEmail({
+                userEmail: user.email,
+                userName: user.name || "Valued Customer",
+                bookingReference: `RES-${refund.reservationId}`,
+                refundAmount: parseFloat(refund.refundAmount),
+                currency: "GHS",
+                status: "approved",
+              }).catch(err => console.error("[Email] Failed to send refund approval:", err));
+            }
+            if (user.phoneNumber) {
+              await sendRefundApprovalSMS(
+                user.phoneNumber,
+                parseFloat(refund.refundAmount),
+                input.approvalNotes || "Refund approved"
+              ).catch(err => console.error("[SMS] Failed to send refund approval:", err));
+            }
           }
         } catch (err) {
-          console.error("[Refund] Error sending approval email:", err);
+          console.error("[Refund] Error sending approval notifications:", err);
         }
         
         return { success: true };
@@ -393,22 +460,30 @@ export const appRouter = router({
         
         await updateRefundStatus(input.refundId, "rejected", ctx.user.id, input.rejectionReason);
         
-        // Send rejection notification email
+        // Send rejection notification email and SMS
         try {
           const user = await getUserById(refund.userId);
-          if (user && user.email) {
-            await sendRefundNotificationEmail({
-              userEmail: user.email,
-              userName: user.name || "Valued Customer",
-              bookingReference: `RES-${refund.reservationId}`,
-              refundAmount: parseFloat(refund.refundAmount),
-              currency: "GHS",
-              status: "rejected",
-              reason: input.rejectionReason,
-            }).catch(err => console.error("[Email] Failed to send refund rejection:", err));
+          if (user) {
+            if (user.email) {
+              await sendRefundNotificationEmail({
+                userEmail: user.email,
+                userName: user.name || "Valued Customer",
+                bookingReference: `RES-${refund.reservationId}`,
+                refundAmount: parseFloat(refund.refundAmount),
+                currency: "GHS",
+                status: "rejected",
+                reason: input.rejectionReason,
+              }).catch(err => console.error("[Email] Failed to send refund rejection:", err));
+            }
+            if (user.phoneNumber) {
+              await sendRefundRejectionSMS(
+                user.phoneNumber,
+                input.rejectionReason
+              ).catch(err => console.error("[SMS] Failed to send refund rejection:", err));
+            }
           }
         } catch (err) {
-          console.error("[Refund] Error sending rejection email:", err);
+          console.error("[Refund] Error sending rejection notifications:", err);
         }
         
         return { success: true };
