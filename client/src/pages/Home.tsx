@@ -1,6 +1,6 @@
 /* ============================================================
    EcoBelle Volt - Home Page
-   Design: "Dark Charge" — deep navy + electric green
+   Design: "Dark Charge" - deep navy + electric green
    Sections: Hero, Stats, How It Works, Map Preview, App, Sustainability, CTA
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
@@ -10,7 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { ChargerIllustration } from "@/components/ChargerIllustration";
 import { useAuth } from "@/_core/hooks/useAuth";
-import Testimonials from "@/components/Testimonials";
+import TrustSection from "@/components/Testimonials";
 
 // Intersection observer hook for scroll animations
 function useInView(threshold = 0.15) {
@@ -49,7 +49,7 @@ function CountUp({ end, suffix = "", duration = 2000 }: { end: number; suffix?: 
 
 const stats = [
   { value: 50, suffix: "+", label: "Charging Stations", icon: Zap },
-  { value: 24, suffix: "/7", label: "Always Available", icon: Clock },
+  { value: 24, suffix: "/7", label: "App Access", icon: Clock },
   { value: 100, suffix: "kW", label: "Max Charge Speed", icon: Battery },
   { value: 5, suffix: " Cities", label: "Across Ghana", icon: MapPin },
 ];
@@ -73,7 +73,7 @@ const features = [
   {
     icon: Shield,
     title: "Secure & Reliable",
-    desc: "24/7 monitoring, contactless payment, and round-the-clock customer support.",
+    desc: "Station monitoring, contactless payment, and a support team ready to help when you need it.",
   },
 ];
 
@@ -162,7 +162,7 @@ export default function Home() {
               className="text-lg lg:text-xl leading-relaxed mb-10 max-w-xl"
               style={{ color: "oklch(0.78 0.005 240)" }}
             >
-              EcoBelle Volt is Ghana's first clean and off-grid EV charging platform giving drivers fast, reliable charging with real-time availability and easy reservations.
+              EcoBelle Volt is building Ghana's clean, off-grid EV charging network, giving drivers fast, dependable charging with real-time availability and simple slot reservations.
             </p>
 
             <div className="flex flex-wrap gap-4">
@@ -264,7 +264,7 @@ export default function Home() {
                 Built for Ghana's Roads
               </h2>
               <p className="text-lg max-w-xl mx-auto" style={{ color: "oklch(0.62 0.01 240)" }}>
-                Every feature designed around the needs of Ghanaian EV drivers.
+                Every feature is designed around how Ghanaian EV drivers actually charge, from the daily commute to the long-haul trip.
               </p>
             </div>
 
@@ -325,7 +325,7 @@ export default function Home() {
               Charging Technology
             </h2>
             <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.62 0.01 240)" }}>
-              Choose the charging speed that works for you. DC Fast for quick top-ups, or AC Level 2 for longer sessions.
+              Choose the charging speed that fits your day. DC Fast for quick top-ups, or AC Level 2 for longer sessions.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -438,7 +438,7 @@ export default function Home() {
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
-                Nationwide Coverage
+                Growing Coverage
               </div>
               <h2
                 className="text-4xl lg:text-5xl font-bold mb-6"
@@ -448,11 +448,11 @@ export default function Home() {
                 <span style={{ color: "oklch(0.72 0.18 145)" }}>Near You</span>
               </h2>
               <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.62 0.01 240)" }}>
-                Our interactive map shows all EB Volt charging stations across Ghana in real time. Filter by speed, availability, and amenities to find your perfect charging spot.
+                Our interactive map shows EB Volt charging stations across Ghana in real time. Filter by speed, availability, and amenities to find the right spot for your charge.
               </p>
               <ul className="space-y-4 mb-10">
                 {[
-                  "Live availability — see open chargers instantly",
+                  "Live availability, so you can see open chargers instantly",
                   "Filter by charging speed (AC / DC Fast)",
                   "Reserve a slot before you arrive",
                   "Get directions with one tap",
@@ -552,7 +552,7 @@ export default function Home() {
                 <span style={{ color: "oklch(0.72 0.18 145)" }}>Command Centre</span>
               </h2>
               <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.62 0.01 240)" }}>
-                The EB Volt app puts Ghana's entire charging network in your pocket. Find chargers, reserve slots, track your charge, and manage payments — all in one place.
+                The EB Volt app puts Ghana's charging network in your pocket. Find chargers, reserve slots, track your charge, and manage payments, all in one place.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
@@ -589,7 +589,7 @@ export default function Home() {
                     fontFamily: "'Space Grotesk', sans-serif",
                   }}
                 >
-                  Coming Soon — App Store
+                  Coming Soon: App Store
                 </div>
                 <div
                   className="px-5 py-3 rounded-xl text-sm font-medium flex items-center gap-2"
@@ -600,7 +600,7 @@ export default function Home() {
                     fontFamily: "'Space Grotesk', sans-serif",
                   }}
                 >
-                  Coming Soon — Google Play
+                  Coming Soon: Google Play
                 </div>
               </div>
             </div>
@@ -651,13 +651,13 @@ export default function Home() {
               <span style={{ color: "oklch(0.72 0.18 145)" }}>Green Future</span>
             </h2>
             <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.82 0.005 240)" }}>
-              Our solar-integrated charging stations reduce carbon emissions while powering Ghana's growing EV fleet. Every charge with EB Volt is a step toward a cleaner, greener Ghana.
+              We are integrating solar power into our charging stations to cut emissions while supporting Ghana's growing EV fleet. Every charge with EB Volt is a step toward a cleaner, greener Ghana.
             </p>
             <div className="grid grid-cols-3 gap-6 mb-10">
               {[
                 { value: "100%", label: "Renewable Energy Goal" },
                 { value: "0 kg", label: "CO₂ Per Charge" },
-                { value: "2030", label: "Net Zero Target" },
+                { value: "2030", label: "Net Zero Ambition" },
               ].map((item) => (
                 <div key={item.label}>
                   <div
@@ -711,7 +711,7 @@ export default function Home() {
                 Ready to Drive Green?
               </h2>
               <p className="text-lg mb-10 max-w-lg mx-auto" style={{ color: "oklch(0.62 0.01 240)" }}>
-                Find your nearest EB Volt charger and join Ghana's electric revolution today.
+                Find your nearest EB Volt charger and be part of Ghana's shift to clean, electric driving.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Link href="/find-charger">
@@ -732,8 +732,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <Testimonials />
+      {/* Why Choose EB Volt (trust signals) */}
+      <TrustSection />
 
       <Footer />
     </div>

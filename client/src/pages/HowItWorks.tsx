@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt — How It Works Page
+   EcoBelle Volt - How It Works Page
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { CreditCard, Plug, Smartphone, MapPin, Calendar, CheckCircle, Zap, ArrowRight } from "lucide-react";
@@ -28,22 +28,22 @@ const steps = [
     number: "01",
     icon: MapPin,
     title: "Find a Charger",
-    desc: "Use the EB Volt app or website to locate the nearest charging station. Our interactive map shows real-time availability across Ghana — filter by speed, location, or amenities.",
-    detail: "Available 24/7 across Accra, Kumasi, Takoradi, Tamale, and more cities.",
+    desc: "Use the EB Volt app or website to locate the nearest charging station. Our interactive map shows real-time availability across Ghana, filtered by speed, location, or amenities.",
+    detail: "Chargers accessible around the clock across Accra, Kumasi, Takoradi, Tamale, and more cities.",
   },
   {
     number: "02",
     icon: Calendar,
     title: "Reserve Your Slot",
-    desc: "Book a charging slot in advance to guarantee your spot. Choose your date, time, and duration — your charger will be ready and waiting when you arrive.",
+    desc: "Book a charging slot in advance to reserve your spot. Choose your date, time, and duration, and your charger will be ready and waiting when you arrive.",
     detail: "Reservations can be made up to 7 days in advance.",
   },
   {
     number: "03",
     icon: CreditCard,
     title: "Tap to Start",
-    desc: "Arrive at the station and tap your contactless card or use the EB Volt app to start your session. No membership required — just tap and charge.",
-    detail: "Accepts Visa, Mastercard, Mobile Money (MTN, Vodafone, AirtelTigo).",
+    desc: "Arrive at the station and tap your contactless card or use the EB Volt app to start your session. No membership required, just tap and charge.",
+    detail: "Accepts Visa, Mastercard, and mobile money (MTN, Telecel, AirtelTigo).",
   },
   {
     number: "04",
@@ -56,7 +56,7 @@ const steps = [
     number: "05",
     icon: Smartphone,
     title: "Track Your Charge",
-    desc: "Monitor your charging session in real time through the EB Volt app. See battery level, energy delivered, time remaining, and cost — all in one place.",
+    desc: "Monitor your charging session in real time through the EB Volt app. See battery level, energy delivered, time remaining, and cost, all in one place.",
     detail: "Push notifications when your charge is complete.",
   },
   {
@@ -71,10 +71,10 @@ const steps = [
 const faqs = [
   { q: "Do I need a membership to use EB Volt chargers?", a: "No membership is required. You can pay with any contactless card or mobile money. However, registering for the free EB Volt account gives you access to reservations, session history, and exclusive rates." },
   { q: "What connectors are available?", a: "Our DC fast chargers support CCS (Combined Charging System), CHAdeMO, and Type 2 AC connectors. This covers all major EV brands including Tesla (with adapter), Hyundai, Kia, Nissan, BMW, and more." },
-  { q: "How fast will my car charge?", a: "Charging speed depends on your vehicle's onboard charger and our station's output. Our DC fast chargers deliver up to 100kW, which can add 100km of range in approximately 15–20 minutes for compatible vehicles." },
-  { q: "What if a charger is faulty?", a: "Our stations are monitored 24/7. If you encounter a fault, use the app to report it or call our support line. We aim to resolve issues within 2 hours. You will never be charged for a failed session." },
+  { q: "How fast will my car charge?", a: "Charging speed depends on your vehicle's onboard charger and our station's output. Our DC fast chargers deliver up to 100kW, which can add roughly 100km of range in about 15 to 20 minutes for compatible vehicles." },
+  { q: "What if a charger is faulty?", a: "Our stations are monitored for uptime. If you encounter a fault, use the app to report it or call our support line, and our team will work to resolve it as quickly as possible. You are not charged for a failed session." },
   { q: "Can I charge any electric vehicle?", a: "Yes. EB Volt chargers are compatible with all standard EVs sold in Ghana. If you're unsure about your vehicle's compatibility, contact our support team." },
-  { q: "How do I pay?", a: "We accept Visa, Mastercard, MTN Mobile Money, Vodafone Cash, and AirtelTigo Money. Payment is processed automatically at the end of your session." },
+  { q: "How do I pay?", a: "We accept Visa, Mastercard, MTN Mobile Money, Telecel Cash, and AirtelTigo Money. Payment is processed automatically at the end of your session." },
 ];
 
 export default function HowItWorks() {
@@ -120,7 +120,7 @@ export default function HowItWorks() {
               <span style={{ color: "oklch(0.72 0.18 145)" }}>Easy</span>
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: "oklch(0.62 0.01 240)" }}>
-              From finding a charger to driving away — the entire EB Volt experience is designed to be fast, simple, and stress-free.
+              From finding a charger to driving away, the entire EB Volt experience is designed to be fast, simple, and stress-free.
             </p>
           </div>
         </div>

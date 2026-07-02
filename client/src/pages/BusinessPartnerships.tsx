@@ -83,8 +83,8 @@ export default function BusinessPartnerships() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: TrendingUp, title: "Growing Market", desc: "EV adoption in Ghana is accelerating rapidly" },
-              { icon: Globe, title: "Market Leader", desc: "We're Ghana's premier EV charging platform" },
-              { icon: Award, title: "Proven Track Record", desc: "Trusted by thousands of drivers and businesses" },
+              { icon: Globe, title: "Ghana-Focused", desc: "A charging network built specifically for Ghana" },
+              { icon: Award, title: "Reliable Technology", desc: "Purpose-built charging hardware and local support" },
               { icon: Zap, title: "Latest Technology", desc: "State-of-the-art charging infrastructure" },
               { icon: Users, title: "Support Team", desc: "Dedicated partnership support and training" },
               { icon: Handshake, title: "Fair Terms", desc: "Transparent, mutually beneficial agreements" },

@@ -40,7 +40,7 @@ export default function PublicCharging() {
               { icon: Clock, title: "24/7 Availability", desc: "Round-the-clock charging access whenever you need it" },
               { icon: Shield, title: "Secure & Safe", desc: "CCTV monitored stations with professional support" },
               { icon: TrendingUp, title: "Real-time Status", desc: "Live availability updates on the mobile app" },
-              { icon: Users, title: "Community Driven", desc: "Join thousands of EV drivers across Ghana" },
+              { icon: Users, title: "Community Driven", desc: "Part of Ghana's growing community of EV drivers" },
             ].map((feature, idx) => (
               <div key={idx} className="p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
                 <feature.icon size={32} style={{ color: "oklch(0.52 0.18 145)", marginBottom: "1rem" }} />

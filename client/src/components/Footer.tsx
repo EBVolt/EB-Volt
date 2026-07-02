@@ -158,14 +158,13 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Phone size={15} style={{ color: "oklch(0.55 0.18 145)", marginTop: 2 }} />
                 <div className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
-                  <p>UK: +44 7477 884 266</p>
-                  <p>Ghana: +233 59 560 2717</p>
+                  <p>+233 59 560 2717</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <Mail size={15} style={{ color: "oklch(0.55 0.18 145)", marginTop: 2 }} />
                 <a
-                  href="mailto:contact@ecobelle.com"
+                  href="mailto:hello@ebvolt.com"
                   className="text-sm transition-colors duration-200"
                   style={{ color: "oklch(0.62 0.01 240)" }}
                   onMouseEnter={(e) => {
@@ -175,15 +174,13 @@ export default function Footer() {
                     (e.target as HTMLElement).style.color = "oklch(0.62 0.01 240)";
                   }}
                 >
-                  contact@ecobelle.com
+                  hello@ebvolt.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={15} style={{ color: "oklch(0.55 0.18 145)", marginTop: 2 }} />
                 <div className="text-sm" style={{ color: "oklch(0.62 0.01 240)" }}>
-                  <p>66, Paul Street</p>
-                  <p>London EC2A 4NA</p>
-                  <p>United Kingdom</p>
+                  <p>Accra, Ghana</p>
                 </div>
               </li>
             </ul>
@@ -194,7 +191,7 @@ export default function Footer() {
             >
               <Zap size={14} style={{ color: "oklch(0.72 0.18 145)" }} />
               <span className="text-xs font-medium" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}>
-                24/7 Emergency Support Available
+                Charging Support Available
               </span>
             </div>
           </div>
@@ -209,7 +206,8 @@ export default function Footer() {
             © 2026 EcoBelle Volt. All rights reserved. Launching in Ghana.
           </p>
           <div className="flex items-center gap-6">
-            <span
+            <a
+              href="mailto:hello@ebvolt.com?subject=Privacy%20Policy%20Request"
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: "oklch(0.5 0.01 240)" }}
               onMouseEnter={(e) => {
@@ -220,8 +218,9 @@ export default function Footer() {
               }}
             >
               Privacy Policy
-            </span>
-            <span
+            </a>
+            <a
+              href="mailto:hello@ebvolt.com?subject=Terms%20%26%20Conditions%20Request"
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: "oklch(0.5 0.01 240)" }}
               onMouseEnter={(e) => {
@@ -232,7 +231,7 @@ export default function Footer() {
               }}
             >
               Terms & Conditions
-            </span>
+            </a>
           </div>
         </div>
       </div>

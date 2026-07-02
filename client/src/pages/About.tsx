@@ -25,9 +25,9 @@ function useInView(threshold = 0.15) {
 
 const values = [
   { icon: Leaf, title: "Sustainability", desc: "Every station we build moves Ghana closer to a zero-emission future. We integrate renewable energy wherever possible." },
-  { icon: Zap, title: "Reliability", desc: "Our network is monitored 24/7. When you need to charge, we're there — no surprises, no excuses." },
-  { icon: Users, title: "Accessibility", desc: "EV charging should be for everyone. We're building in cities, towns, and along major highways across Ghana." },
-  { icon: Globe, title: "Innovation", desc: "We're pioneering smart charging technology tailored for African infrastructure and the unique needs of Ghanaian drivers." },
+  { icon: Zap, title: "Reliability", desc: "We monitor our stations for uptime and design for dependable charging, so you can plan your day with confidence." },
+  { icon: Users, title: "Accessibility", desc: "EV charging should be for everyone. We are expanding across Ghana's cities and key routes, one station at a time." },
+  { icon: Globe, title: "Innovation", desc: "We build smart charging technology suited to local infrastructure and the everyday needs of Ghanaian drivers." },
 ];
 
 export default function About() {
@@ -73,7 +73,7 @@ export default function About() {
               <span style={{ color: "oklch(0.72 0.18 145)" }}>Electric Future</span>
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: "oklch(0.62 0.01 240)" }}>
-              EcoBelle Volt was founded with a single mission: to make electric vehicle charging as easy, reliable, and accessible as filling up with petrol - and far cleaner.
+              EcoBelle Volt was founded with a single mission: to make electric vehicle charging as easy, reliable, and accessible as filling up with petrol, and far cleaner.
             </p>
           </div>
         </div>
@@ -115,7 +115,7 @@ export default function About() {
                 Our Mission
               </h2>
               <p className="text-base leading-relaxed" style={{ color: "oklch(0.68 0.01 240)" }}>
-                To build Ghana's most trusted, reliable, and accessible EV charging network - enabling every Ghanaian driver to make the switch to electric with confidence.
+                To build a reliable and accessible EV charging network across Ghana, helping more drivers make the switch to electric with confidence.
               </p>
             </div>
             <div
@@ -138,7 +138,7 @@ export default function About() {
                 Our Vision
               </h2>
               <p className="text-base leading-relaxed" style={{ color: "oklch(0.68 0.01 240)" }}>
-                A Ghana where clean, electric mobility is the norm — where every major road, shopping centre, and business district has an EB Volt charger, powered by renewable energy.
+                A Ghana where clean, electric mobility is the norm, with EB Volt chargers across major roads, shopping centres, and business districts, increasingly powered by renewable energy.
               </p>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function About() {
               Our founders set out to solve this problem by building a smart, reliable charging network from the ground up, designed specifically for Ghana's cities, climate, and culture. We partnered with leading charging technology providers and worked closely with local businesses to site our stations where drivers actually need them.
             </p>
             <p>
-              Today, EB Volt is launching across Ghana's major cities, with ambitious plans to expand to every region. We believe that clean mobility shouldn't be a privilege — it should be available to every Ghanaian who wants to drive electric.
+              Today, EB Volt is launching across Ghana's major cities, with plans to expand into more regions over time. We believe clean mobility shouldn't be a privilege; it should be within reach of every Ghanaian who wants to drive electric.
             </p>
           </div>
         </div>

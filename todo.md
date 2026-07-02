@@ -79,3 +79,16 @@
 - [ ] Keep notifyOwner as fallback/owner-alert channel
 - [ ] Validate live delivery with test-send buttons using real credentials
 - [ ] Add/adjust vitest coverage for provider adapters (mocked)
+
+## Website Copy Review & Improvement
+- [ ] Replace fabricated testimonials section with honest trust content (policy compliance)
+- [ ] Standardize contact details to Ghana-based, single canonical email
+- [ ] Soften overpromises (response-time guarantees, "most trusted", "trusted by thousands")
+- [ ] Fix Footer legal links (Privacy Policy / Terms) to real routes or remove
+- [ ] Improve Home page hero, features, sections copy
+- [ ] Improve About page copy (mission, story, values)
+- [ ] Improve HowItWorks page copy
+- [ ] Improve Contact page copy
+- [ ] Improve Support page copy
+- [ ] Improve service pages (Public/Fleet/Installation/Partnerships) copy
+- [ ] Verify no em dashes remain and rendering is clean

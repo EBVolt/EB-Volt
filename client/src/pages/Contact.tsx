@@ -63,7 +63,7 @@ export default function Contact() {
               <span style={{ color: "oklch(0.72 0.18 145)" }}>EV</span>
             </h1>
             <p className="text-lg leading-relaxed" style={{ color: "oklch(0.62 0.01 240)" }}>
-              Whether you're a driver, business owner, or fleet operator - we'd love to hear from you. Our team is ready to help.
+              Whether you're a driver, business owner, or fleet operator, we'd love to hear from you. Our team is ready to help.
             </p>
           </div>
         </div>
@@ -83,10 +83,9 @@ export default function Contact() {
                 </h2>
                 <div className="space-y-5">
                   {[
-                    { icon: Phone, label: "Phone (UK)", value: "+44 7477 884 266", href: "tel:+447477884266" },
-                    { icon: Phone, label: "Phone (Ghana)", value: "+233 59 560 2717", href: "tel:+233595602717" },
-                    { icon: Mail, label: "Email", value: "contact@ecobelle.com", href: "mailto:contact@ecobelle.com" },
-                    { icon: MapPin, label: "Location", value: "66, Paul Street, London EC2A 4NA", href: null },
+                    { icon: Phone, label: "Phone", value: "+233 59 560 2717", href: "tel:+233595602717" },
+                    { icon: Mail, label: "Email", value: "hello@ebvolt.com", href: "mailto:hello@ebvolt.com" },
+                    { icon: MapPin, label: "Location", value: "Accra, Ghana", href: null },
                   ].map((item) => {
                     const Icon = item.icon;
                     return (
@@ -162,11 +161,11 @@ export default function Contact() {
                 <div className="flex items-center gap-2 mb-2">
                   <Zap size={14} style={{ color: "oklch(0.72 0.18 145)" }} />
                   <span className="text-xs font-semibold" style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}>
-                    24/7 Emergency Support
+                    Charging Support
                   </span>
                 </div>
                 <p className="text-xs" style={{ color: "oklch(0.62 0.01 240)" }}>
-                  For urgent charging issues, call our emergency line. We respond within 2 hours.
+                  For urgent charging issues, call our support line and our team will help you as quickly as possible.
                 </p>
               </div>
             </div>

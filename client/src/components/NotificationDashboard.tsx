@@ -372,7 +372,7 @@ export default function NotificationDashboard() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-xs" style={{ color: "oklch(0.62 0.01 240)" }}>
-                        {log.skipReason || log.errorMessage || log.subject || "—"}
+                        {log.skipReason || log.errorMessage || log.subject || "-"}
                       </td>
                     </tr>
                   );

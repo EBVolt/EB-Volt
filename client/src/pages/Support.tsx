@@ -13,10 +13,10 @@ export default function Support() {
         <div className="container">
           <div className="max-w-2xl">
             <h1 className="text-5xl font-bold text-white mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              24/7 Support
+              We're Here to Help
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              We're always here to help. Get instant support whenever you need it.
+              Questions about charging, payments, or your account? Our support team is ready to assist.
             </p>
           </div>
         </div>
@@ -34,29 +34,29 @@ export default function Support() {
                 icon: Phone,
                 title: "Call Us",
                 desc: "Speak to our team directly",
-                contact: "+233 (0) 800 123 456",
-                time: "24/7 Available",
+                contact: "+233 59 560 2717",
+                time: "During support hours",
               },
               {
                 icon: Mail,
                 title: "Email",
                 desc: "Send us your inquiry",
-                contact: "support@ecobellvolt.com",
-                time: "Reply within 2 hours",
+                contact: "hello@ebvolt.com",
+                time: "We aim to reply the same day",
               },
               {
                 icon: MessageSquare,
                 title: "Live Chat",
                 desc: "Chat with support instantly",
                 contact: "Available on website",
-                time: "24/7 Available",
+                time: "During support hours",
               },
               {
                 icon: AlertCircle,
-                title: "Emergency",
-                desc: "Urgent charger issues",
-                contact: "+233 (0) 800 999 999",
-                time: "Immediate response",
+                title: "Urgent Issues",
+                desc: "Charger faults or safety concerns",
+                contact: "+233 59 560 2717",
+                time: "Prioritised response",
               },
             ].map((method, idx) => (
               <div key={idx} className="p-6 rounded-xl text-center" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
@@ -131,7 +131,7 @@ export default function Support() {
             {[
               {
                 q: "What should I do if a charger is not working?",
-                a: "Contact our emergency support line immediately at +233 (0) 800 999 999. We'll dispatch a technician to fix the issue.",
+                a: "Call our support line at +233 59 560 2717 and our team will work to resolve the issue as quickly as possible. You will not be charged for a failed charging session.",
               },
               {
                 q: "How do I cancel a reservation?",
@@ -165,9 +165,9 @@ export default function Support() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { type: "Emergency Issues", time: "5 minutes", desc: "Charger malfunction or safety concerns" },
-              { type: "Urgent Support", time: "30 minutes", desc: "Payment issues or booking problems" },
-              { type: "General Inquiries", time: "2 hours", desc: "Account or technical questions" },
+              { type: "Urgent Issues", time: "Prioritised", desc: "Charger malfunction or safety concerns" },
+              { type: "Urgent Support", time: "Same day", desc: "Payment issues or booking problems" },
+              { type: "General Inquiries", time: "Within 1 business day", desc: "Account or technical questions" },
             ].map((item, idx) => (
               <div key={idx} className="p-8 rounded-xl text-center" style={{ background: "white", border: "2px solid oklch(0.52 0.18 145)" }}>
                 <Clock size={32} style={{ color: "oklch(0.52 0.18 145)", margin: "0 auto 1rem" }} />
@@ -191,7 +191,7 @@ export default function Support() {
             Need Help Right Now?
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="tel:+233800123456" className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "oklch(0.52 0.18 145)", color: "white" }}>
+            <a href="tel:+233595602717" className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "oklch(0.52 0.18 145)", color: "white" }}>
               Call Support
             </a>
             <Link href="/contact">
