@@ -1,7 +1,10 @@
-import { MapPin, Zap, Clock, Users, Shield, TrendingUp } from "lucide-react";
+/*
+   EcoBelle Volt - Public Charging Page
+   ============================================================ */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
+import { Zap, MapPin, Clock, Shield, TrendingUp, Users, CreditCard } from "lucide-react";
 
 export default function PublicCharging() {
   return (
@@ -37,7 +40,7 @@ export default function PublicCharging() {
             {[
               { icon: Zap, title: "Fast Charging", desc: "DC Fast chargers deliver 80% charge in 30 minutes" },
               { icon: MapPin, title: "Growing Coverage", desc: "Stations opening across major cities in Ghana" },
-              { icon: Clock, title: "Convenient Access", desc: "Charge during station hours at locations near you" },
+              { icon: Clock, title: "Convenient Access", desc: "24/7 availability — solar-powered so chargers keep running even when the grid goes down." },
               { icon: Shield, title: "Secure & Safe", desc: "CCTV monitored stations with professional support" },
               { icon: TrendingUp, title: "Real-time Status", desc: "Live availability updates on the mobile app" },
               { icon: Users, title: "Community Driven", desc: "Part of Ghana's growing community of EV drivers" },
@@ -50,6 +53,16 @@ export default function PublicCharging() {
                 <p style={{ color: "oklch(0.45 0.05 240)" }}>{feature.desc}</p>
               </div>
             ))}
+            {/* Pay with Mobile Money Card */}
+            <div className="p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "#FFC72C" }}>
+                <span className="font-bold text-sm" style={{ color: "#000" }}>MTN</span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                Pay with Mobile Money
+              </h3>
+              <p style={{ color: "oklch(0.45 0.05 240)" }}>No bank card or app required. Pay instantly with MTN MoMo, Telecel Cash, or AirtelTigo at the charger screen.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -66,7 +79,7 @@ export default function PublicCharging() {
                 DC Fast Charging
               </h3>
               <p className="text-4xl font-bold mb-4" style={{ color: "oklch(0.25 0.08 240)" }}>
-                ₵0.85 <span className="text-lg">/kWh</span>
+                ₵4.50 <span className="text-lg">/kWh</span>
               </p>
               <ul className="space-y-2" style={{ color: "oklch(0.45 0.05 240)" }}>
                 <li>✓ 100kW charging speed</li>
@@ -79,7 +92,7 @@ export default function PublicCharging() {
                 AC Level 2 Charging
               </h3>
               <p className="text-4xl font-bold mb-4" style={{ color: "oklch(0.25 0.08 240)" }}>
-                ₵0.45 <span className="text-lg">/kWh</span>
+                ₵2.50 <span className="text-lg">/kWh</span>
               </p>
               <ul className="space-y-2" style={{ color: "oklch(0.45 0.05 240)" }}>
                 <li>✓ 50kW charging speed</li>
