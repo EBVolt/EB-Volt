@@ -159,13 +159,49 @@ export default function Home() {
             </h1>
 
             <p
-              className="text-lg lg:text-xl leading-relaxed mb-10 max-w-xl"
+              className="text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl"
               style={{ color: "oklch(0.78 0.005 240)" }}
             >
-              EcoBelle Volt is building Ghana's clean, off-grid EV charging network, giving drivers fast, dependable charging with real-time availability and simple slot reservations.
+              Ghana's first solar-powered rapid EV charging network. No bank account needed – pay instantly with MTN MoMo.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            {/* Payment logos */}
+            <div className="flex items-center gap-8 mb-10">
+              {/* MTN MoMo */}
+              <div className="flex flex-col items-center">
+                <div
+                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-2"
+                  style={{ background: "#FFC72C" }}
+                >
+                  <span className="font-bold text-sm" style={{ color: "#000" }}>MTN</span>
+                </div>
+                <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>MTN MoMo</span>
+              </div>
+
+              {/* Telecel Cash */}
+              <div className="flex flex-col items-center">
+                <div
+                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-2"
+                  style={{ background: "#FF6B35" }}
+                >
+                  <span className="font-bold text-sm" style={{ color: "#FFF" }}>TC</span>
+                </div>
+                <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>Telecel Cash</span>
+              </div>
+
+              {/* AirtelTigo Money */}
+              <div className="flex flex-col items-center">
+                <div
+                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-2"
+                  style={{ background: "#E60000" }}
+                >
+                  <span className="font-bold text-sm" style={{ color: "#FFF" }}>ATM</span>
+                </div>
+                <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>AirtelTigo Money</span>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4 mt-6">
               <Link href="/find-charger">
                 <button className="btn-primary flex items-center gap-2 text-base px-8 py-4">
                   <MapPin size={18} />
