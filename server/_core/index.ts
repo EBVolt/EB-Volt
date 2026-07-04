@@ -7,6 +7,7 @@ import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
 import { syncRouter } from "../syncRoutes";
 import { syncAuthMiddleware } from "../syncAuth";
+import { ussdRouter } from "../ussd/routes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
@@ -40,6 +41,8 @@ async function startServer() {
   registerOAuthRoutes(app);
   // Offline-first sync endpoint
   app.use("/api/sync", syncAuthMiddleware, syncRouter);
+  // USSD webhook endpoint (no auth — aggregator calls this)
+  app.use("/api/ussd", ussdRouter);
   // tRPC API
   app.use(
     "/api/trpc",

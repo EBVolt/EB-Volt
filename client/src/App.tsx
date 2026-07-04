@@ -20,6 +20,7 @@ import Unsubscribe from "./pages/Unsubscribe";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import { OfflineBanner } from "./components/OfflineBanner";
+import UssdSimulator from "./pages/UssdSimulator";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -40,6 +41,7 @@ function Router() {
       <Route path="/unsubscribe" component={Unsubscribe} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/ussd-simulator" component={UssdSimulator} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

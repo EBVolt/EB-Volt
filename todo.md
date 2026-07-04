@@ -109,11 +109,11 @@
 - [x] Vitest coverage for sync endpoint + idempotency (7 tests passing)
 
 ## USSD Fallback Payment (backend + simulator)
-- [ ] Schema: ussd_sessions + payment_intents tables
-- [ ] USSD webhook handler (session start/continue/end) with menu state machine
-- [ ] Payment intent creation + reference generation for USSD flow
-- [ ] Reconciliation endpoint (aggregator payment callback) with idempotency
-- [ ] Admin visibility: list USSD sessions + payment intents
-- [ ] In-app USSD simulator page to test the flow end-to-end
-- [ ] Vitest coverage for USSD state machine + reconciliation
-- [ ] Document aggregator registration steps (Hubtel/Nsano) for real shortcode
+- [x] Schema: ussd_sessions + payment_intents tables
+- [x] USSD webhook handler (session start/continue/end) with menu state machine
+- [x] Payment intent creation + reference generation for USSD flow
+- [x] Reconciliation endpoint (aggregator payment callback) with idempotency
+- [x] Admin visibility: list USSD sessions + payment intents
+- [x] In-app USSD simulator page to test the flow end-to-end
+- [x] Vitest coverage for USSD state machine + reconciliation (20 tests passing)
+- [x] Document aggregator registration steps (Hubtel/Nsano) for real shortcode

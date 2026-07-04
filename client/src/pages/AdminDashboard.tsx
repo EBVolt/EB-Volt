@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import RefundManagement from "@/components/RefundManagement";
 import BookingAnalyticsDashboard from "@/components/BookingAnalyticsDashboard";
 import NotificationDashboard from "@/components/NotificationDashboard";
+import UssdAdminPanel from "@/components/UssdAdminPanel";
 
 export default function AdminDashboard() {
   const { user, isAuthenticated } = useAuth();
@@ -323,6 +324,11 @@ export default function AdminDashboard() {
         {/* Refund Management Section */}
         <div className="mt-12">
           <RefundManagement isAdmin={user?.role === "admin"} />
+        </div>
+
+        {/* USSD Payment System Section */}
+        <div className="mt-12">
+          <UssdAdminPanel />
         </div>
       </div>
     </div>

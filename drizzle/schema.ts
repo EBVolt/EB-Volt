@@ -239,3 +239,61 @@ export const queuedTransactions = mysqlTable("queued_transactions", {
 
 export type QueuedTransaction = typeof queuedTransactions.$inferSelect;
 export type InsertQueuedTransaction = typeof queuedTransactions.$inferInsert;
+
+/**
+ * USSD Sessions table - tracks each USSD session from dial to end.
+ * A session is identified by the aggregator-provided sessionId.
+ * The state machine position is stored in `menuState`.
+ */
+export const ussdSessions = mysqlTable("ussd_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Aggregator-provided session identifier (unique per session). */
+  sessionId: varchar("session_id", { length: 128 }).notNull().unique(),
+  /** MSISDN of the dialling user (e.g. 233501234567). */
+  msisdn: varchar("msisdn", { length: 20 }).notNull(),
+  /** Current menu state in the state machine. */
+  menuState: varchar("menu_state", { length: 50 }).default("main_menu").notNull(),
+  /** JSON blob of accumulated user selections (station, amount, etc.). */
+  sessionData: text("session_data"),
+  /** Whether the session is still active. */
+  status: mysqlEnum("status", ["active", "completed", "timeout", "error"]).default("active").notNull(),
+  /** Linked payment intent (set when user confirms payment). */
+  paymentIntentId: int("payment_intent_id"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type UssdSession = typeof ussdSessions.$inferSelect;
+export type InsertUssdSession = typeof ussdSessions.$inferInsert;
+
+/**
+ * USSD Payment Intents - created when a USSD user confirms a payment.
+ * Linked back to the USSD session and optionally to a paymentTransaction
+ * once the aggregator confirms collection.
+ */
+export const ussdPaymentIntents = mysqlTable("ussd_payment_intents", {
+  id: int("id").autoincrement().primaryKey(),
+  /** Reference code shown to the user (short, human-friendly). */
+  referenceCode: varchar("reference_code", { length: 20 }).notNull().unique(),
+  /** MSISDN that initiated the payment. */
+  msisdn: varchar("msisdn", { length: 20 }).notNull(),
+  /** Amount in GHS. */
+  amount: text("amount").notNull(),
+  currency: varchar("currency", { length: 3 }).default("GHS").notNull(),
+  /** Station being paid for (optional context). */
+  stationId: int("station_id"),
+  stationName: varchar("station_name", { length: 255 }),
+  /** Processing status. */
+  status: mysqlEnum("status", ["pending", "processing", "completed", "failed", "expired"]).default("pending").notNull(),
+  /** Aggregator callback transaction ID (set on reconciliation). */
+  aggregatorTransactionId: varchar("aggregator_transaction_id", { length: 255 }),
+  /** Linked to main paymentTransactions table once reconciled. */
+  linkedPaymentId: int("linked_payment_id"),
+  /** Error or failure reason. */
+  errorMessage: text("error_message"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type UssdPaymentIntent = typeof ussdPaymentIntents.$inferSelect;
+export type InsertUssdPaymentIntent = typeof ussdPaymentIntents.$inferInsert;
