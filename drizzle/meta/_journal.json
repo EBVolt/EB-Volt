@@ -50,6 +50,13 @@
       "when": 1783028317311,
       "tag": "0006_next_ser_duncan",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1783035447515,
+      "tag": "0007_goofy_dark_beast",
+      "breakpoints": true
     }
   ]
 }

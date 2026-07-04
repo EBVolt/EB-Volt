@@ -209,3 +209,33 @@ export const chargerStatusLogs = mysqlTable("charger_status_logs", {
 
 export type ChargerStatusLog = typeof chargerStatusLogs.$inferSelect;
 export type InsertChargerStatusLog = typeof chargerStatusLogs.$inferInsert;
+
+/**
+ * Queued transactions table - server-side landing zone for payment intents that
+ * were created on the client while offline and then synced when connectivity
+ * returned. The clientRef is a client-generated idempotency key: replaying the
+ * same queued item (e.g. after a flaky reconnect) is a no-op.
+ */
+export const queuedTransactions = mysqlTable("queued_transactions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("user_id").notNull(),
+  /** Client-generated idempotency key (unique). Prevents double-processing on replay. */
+  clientRef: varchar("client_ref", { length: 64 }).notNull().unique(),
+  stationId: int("station_id"),
+  stationName: varchar("station_name", { length: 255 }),
+  amount: text("amount").notNull(), // GHS amount, string for precision
+  currency: varchar("currency", { length: 3 }).default("GHS").notNull(),
+  phoneNumber: varchar("phone_number", { length: 20 }).notNull(),
+  /** Kind of queued action. Currently only charging payment intents. */
+  kind: varchar("kind", { length: 40 }).default("charging_payment").notNull(),
+  /** Server-side processing status after sync. */
+  status: mysqlEnum("status", ["queued", "synced", "failed"]).default("synced").notNull(),
+  /** When the action was originally created on the client (UTC ms captured as Date). */
+  clientCreatedAt: timestamp("client_created_at").notNull(),
+  errorMessage: text("error_message"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type QueuedTransaction = typeof queuedTransactions.$inferSelect;
+export type InsertQueuedTransaction = typeof queuedTransactions.$inferInsert;

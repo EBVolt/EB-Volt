@@ -2,30 +2,39 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertCircle, CheckCircle2, Loader2, Phone } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader2, Phone, WifiOff, CloudUpload } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
+import { useOfflineQueue } from "@/hooks/useOfflineQueue";
 
 interface MoMoPaymentWidgetProps {
   reservationId: number;
   amount: string;
   estimatedCost: string;
+  stationId?: number;
+  stationName?: string;
   onPaymentSuccess?: (transactionId: string) => void;
   onPaymentFailed?: (error: string) => void;
+  onPaymentQueued?: (clientRef: string) => void;
 }
 
 export function MoMoPaymentWidget({
   reservationId,
   amount,
   estimatedCost,
+  stationId,
+  stationName,
   onPaymentSuccess,
   onPaymentFailed,
+  onPaymentQueued,
 }: MoMoPaymentWidgetProps) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<"idle" | "pending" | "completed" | "failed">("idle");
+  const [paymentStatus, setPaymentStatus] = useState<"idle" | "pending" | "completed" | "failed" | "queued">("idle");
   const [referenceId, setReferenceId] = useState<string | null>(null);
   const [pollCount, setPollCount] = useState(0);
+
+  const { isOnline, addToQueue } = useOfflineQueue();
 
   const initiatePaymentMutation = trpc.payment.initiatePayment.useMutation();
   const checkStatusQuery = trpc.payment.checkPaymentStatus.useQuery(
@@ -43,6 +52,28 @@ export function MoMoPaymentWidget({
     }
 
     setIsProcessing(true);
+
+    // If offline, queue the transaction locally
+    if (!isOnline) {
+      try {
+        const clientRef = await addToQueue({
+          stationId,
+          stationName,
+          amount,
+          phoneNumber,
+        });
+        setPaymentStatus("queued");
+        toast.success("Payment queued! It will be processed when you reconnect.");
+        onPaymentQueued?.(clientRef);
+      } catch (err) {
+        toast.error("Failed to queue payment locally");
+      } finally {
+        setIsProcessing(false);
+      }
+      return;
+    }
+
+    // Online: proceed with normal MoMo payment flow
     setPaymentStatus("pending");
 
     try {
@@ -57,10 +88,28 @@ export function MoMoPaymentWidget({
       toast.success("Payment request sent! Check your phone for the MoMo prompt.");
       setPollCount(0);
     } catch (error) {
-      setPaymentStatus("failed");
-      const errorMessage = error instanceof Error ? error.message : "Failed to initiate payment";
-      toast.error(errorMessage);
-      onPaymentFailed?.(errorMessage);
+      // If the request failed due to network, queue it
+      if (!navigator.onLine) {
+        try {
+          const clientRef = await addToQueue({
+            stationId,
+            stationName,
+            amount,
+            phoneNumber,
+          });
+          setPaymentStatus("queued");
+          toast.success("Connection lost. Payment queued for later sync.");
+          onPaymentQueued?.(clientRef);
+        } catch {
+          setPaymentStatus("failed");
+          toast.error("Failed to queue payment");
+        }
+      } else {
+        setPaymentStatus("failed");
+        const errorMessage = error instanceof Error ? error.message : "Failed to initiate payment";
+        toast.error(errorMessage);
+        onPaymentFailed?.(errorMessage);
+      }
     } finally {
       setIsProcessing(false);
     }
@@ -97,13 +146,24 @@ export function MoMoPaymentWidget({
           <div>
             <CardTitle className="text-lg text-white">MTN Mobile Money Payment</CardTitle>
             <CardDescription className="text-slate-400">
-              Fast and secure payment via MoMo
+              {isOnline ? "Fast and secure payment via MoMo" : "Offline mode - payment will be queued"}
             </CardDescription>
           </div>
+          {!isOnline && <WifiOff className="w-4 h-4 text-amber-400 ml-auto" />}
         </div>
       </CardHeader>
 
       <CardContent className="space-y-4">
+        {/* Offline notice */}
+        {!isOnline && paymentStatus === "idle" && (
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-3 flex gap-2 items-start">
+            <WifiOff className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-amber-300">
+              You are currently offline. Your payment will be securely queued on this device and processed automatically when connectivity returns.
+            </p>
+          </div>
+        )}
+
         {/* Amount Display */}
         <div className="bg-slate-800/50 rounded-lg p-4 border border-green-500/20">
           <p className="text-sm text-slate-400 mb-1">Amount to Pay</p>
@@ -111,7 +171,7 @@ export function MoMoPaymentWidget({
         </div>
 
         {/* Phone Number Input */}
-        {paymentStatus === "idle" && (
+        {(paymentStatus === "idle") && (
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-300">
               Mobile Money Phone Number
@@ -146,6 +206,18 @@ export function MoMoPaymentWidget({
               </p>
               <p className="text-xs text-blue-300 mt-2">
                 Reference ID: {referenceId?.substring(0, 8)}...
+              </p>
+            </div>
+          </div>
+        )}
+
+        {paymentStatus === "queued" && (
+          <div className="bg-amber-500/10 border border-amber-500/30 rounded-lg p-4 flex gap-3">
+            <CloudUpload className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium text-amber-300">Payment Queued</p>
+              <p className="text-sm text-amber-200 mt-1">
+                Your payment has been saved locally and will be processed automatically when you reconnect to the internet.
               </p>
             </div>
           </div>
@@ -186,12 +258,12 @@ export function MoMoPaymentWidget({
               {isProcessing ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Sending Request...
+                  {isOnline ? "Sending Request..." : "Queuing..."}
                 </>
               ) : (
                 <>
-                  <Phone className="w-4 h-4 mr-2" />
-                  Pay with MoMo
+                  {isOnline ? <Phone className="w-4 h-4 mr-2" /> : <CloudUpload className="w-4 h-4 mr-2" />}
+                  {isOnline ? "Pay with MoMo" : "Queue Payment for Later"}
                 </>
               )}
             </Button>
@@ -222,12 +294,26 @@ export function MoMoPaymentWidget({
               Try Again
             </Button>
           )}
+
+          {paymentStatus === "queued" && (
+            <Button
+              onClick={() => {
+                setPaymentStatus("idle");
+                setPhoneNumber("");
+              }}
+              className="w-full bg-slate-600 hover:bg-slate-700 text-white font-semibold"
+            >
+              Queue Another Payment
+            </Button>
+          )}
         </div>
 
         {/* Security Notice */}
         <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
           <p className="text-xs text-slate-400">
-            🔒 Your payment is secured by MTN Mobile Money encryption. Your phone number is never stored.
+            {isOnline
+              ? "🔒 Your payment is secured by MTN Mobile Money encryption. Your phone number is never stored."
+              : "🔒 Queued payments are encrypted locally on your device and synced securely when you reconnect."}
           </p>
         </div>
       </CardContent>

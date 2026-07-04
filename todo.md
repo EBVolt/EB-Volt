@@ -72,6 +72,7 @@
 - Telecel Cash direct API: covered by Paystack in v1.0
 
 ## Live Provider Integration (email + SMS)
+> Status: BLOCKED - all items below require the user to choose providers and supply credentials (Resend/Hubtel recommended). No further action possible until then.
 - [ ] (BLOCKED: awaiting user credentials) Confirm email provider (Resend/SendGrid/Mailgun) and collect API key + verified sender
 - [ ] (BLOCKED: awaiting user credentials) Confirm SMS provider (Twilio/Hubtel/Arkesel) and collect credentials + sender ID
 - [ ] (BLOCKED: awaiting user credentials) Implement per-recipient email delivery (replace notifyOwner for customer emails)
@@ -95,3 +96,24 @@
 - [x] Improve Support page copy
 - [x] Improve service pages (Public/Fleet/Installation/Partnerships) copy
 - [x] Verify no em dashes remain and rendering is clean
+
+## Favicon
+- [x] Set site favicon to EB Volt logo (generate favicon.ico/png, reference in index.html)
+
+## Offline-First Transaction Queue
+- [x] Create client-side queue store (IndexedDB) for pending transactions
+- [x] Detect online/offline status and surface a "pending sync" UI state
+- [x] Queue payment/charging actions when offline; auto-sync when reconnected
+- [x] Server sync endpoint with idempotency keys (no double-charge)
+- [x] Persist synced transactions to DB; reconcile client + server state
+- [x] Vitest coverage for sync endpoint + idempotency (7 tests passing)
+
+## USSD Fallback Payment (backend + simulator)
+- [ ] Schema: ussd_sessions + payment_intents tables
+- [ ] USSD webhook handler (session start/continue/end) with menu state machine
+- [ ] Payment intent creation + reference generation for USSD flow
+- [ ] Reconciliation endpoint (aggregator payment callback) with idempotency
+- [ ] Admin visibility: list USSD sessions + payment intents
+- [ ] In-app USSD simulator page to test the flow end-to-end
+- [ ] Vitest coverage for USSD state machine + reconciliation
+- [ ] Document aggregator registration steps (Hubtel/Nsano) for real shortcode

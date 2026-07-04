@@ -456,8 +456,14 @@ export default function FindCharger() {
               reservationId={1}
               amount={(selectedStation.maxKw * 15).toString()}
               estimatedCost={(selectedStation.maxKw * 15).toString()}
+              stationId={parseInt(selectedStation.id.replace('s', ''))}
+              stationName={selectedStation.name}
               onPaymentSuccess={() => {
                 toast.success("Reservation confirmed!");
+                setShowReservation(false);
+              }}
+              onPaymentQueued={() => {
+                toast.success("Payment queued for when you reconnect.");
                 setShowReservation(false);
               }}
             />
