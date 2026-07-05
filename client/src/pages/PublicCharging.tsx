@@ -12,7 +12,7 @@ export default function PublicCharging() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-16" style={{ background: "linear-gradient(135deg, oklch(0.52 0.18 145) 0%, oklch(0.65 0.18 50) 100%)" }}>
+      <section className="py-16" style={{ background: "#0F6E56" }}>
         <div className="container">
           <div className="max-w-2xl">
             <h1 className="text-5xl font-bold text-white mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
@@ -22,7 +22,7 @@ export default function PublicCharging() {
               Fast, reliable, and accessible EV charging stations across Ghana. Charge with confidence as our network grows across the country.
             </p>
             <Link href="/find-charger">
-              <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "white", color: "oklch(0.52 0.18 145)" }}>
+              <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "transparent", color: "white", border: "2px solid white" }}>
                 Find a Station
               </a>
             </Link>

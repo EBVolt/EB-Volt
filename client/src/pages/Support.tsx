@@ -9,7 +9,7 @@ export default function Support() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-16" style={{ background: "linear-gradient(135deg, oklch(0.52 0.18 145) 0%, oklch(0.65 0.18 50) 100%)" }}>
+      <section className="py-16" style={{ background: "#0F6E56" }}>
         <div className="container">
           <div className="max-w-2xl">
             <h1 className="text-5xl font-bold text-white mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
