@@ -62,9 +62,9 @@ export default function FleetCharging() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { name: "Starter", vehicles: "5-10", price: "₵500", features: ["Basic analytics", "1 charger", "Email support"] },
-              { name: "Professional", vehicles: "11-50", price: "₵2,500", features: ["Advanced analytics", "5 chargers", "Priority support"], highlight: true },
-              { name: "Enterprise", vehicles: "50+", price: "Custom", features: ["Full analytics", "Unlimited chargers", "Dedicated account manager"] },
+              { name: "Starter", vehicles: "5-10", price: "₵600/month", description: "Billed monthly via MTN MoMo. Includes 1 RFID card per driver.", features: ["Basic analytics", "1 charger", "Email support"] },
+              { name: "Professional", vehicles: "11-50", price: "₵3,200/month", description: "Billed monthly via MTN MoMo. Includes RFID cards per driver and a web portal with per-card usage reports.", features: ["Advanced analytics", "5 chargers", "Priority support"], highlight: true },
+              { name: "Enterprise", vehicles: "50+", price: "Custom", description: "Billed monthly via MTN MoMo or bank transfer. Dedicated account manager and custom RFID card allocation.", features: ["Full analytics", "Unlimited chargers", "Dedicated account manager"] },
             ].map((plan, idx) => (
               <div key={idx} className="p-8 rounded-xl" style={{ background: plan.highlight ? "oklch(0.52 0.18 145)" : "white", border: plan.highlight ? "none" : "1px solid oklch(0.88 0.02 240)" }}>
                 <h3 className="text-2xl font-bold mb-2" style={{ color: plan.highlight ? "white" : "oklch(0.25 0.08 240)" }}>
@@ -73,8 +73,11 @@ export default function FleetCharging() {
                 <p className="mb-4" style={{ color: plan.highlight ? "rgba(255,255,255,0.8)" : "oklch(0.45 0.05 240)" }}>
                   {plan.vehicles} vehicles
                 </p>
-                <p className="text-3xl font-bold mb-6" style={{ color: plan.highlight ? "white" : "oklch(0.25 0.08 240)" }}>
+                <p className="text-3xl font-bold mb-2" style={{ color: plan.highlight ? "white" : "oklch(0.25 0.08 240)" }}>
                   {plan.price}
+                </p>
+                <p className="mb-6" style={{ color: plan.highlight ? "rgba(255,255,255,0.8)" : "oklch(0.45 0.05 240)", fontSize: "0.875rem" }}>
+                  {plan.description}
                 </p>
                 <ul className="space-y-2 mb-6" style={{ color: plan.highlight ? "rgba(255,255,255,0.9)" : "oklch(0.45 0.05 240)" }}>
                   {plan.features.map((f, i) => (
