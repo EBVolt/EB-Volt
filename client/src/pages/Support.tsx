@@ -46,10 +46,11 @@ export default function Support() {
               },
               {
                 icon: MessageSquare,
-                title: "Live Chat",
-                desc: "Chat with support instantly",
-                contact: "Available on website",
-                time: "During support hours",
+                title: "WhatsApp Us",
+                desc: "Message our team on WhatsApp for fast support",
+                contact: "Chat on WhatsApp",
+                link: "https://wa.me/233595602717",
+                time: "Typically replies within 2 hours",
               },
               {
                 icon: AlertCircle,
@@ -67,9 +68,15 @@ export default function Support() {
                 <p className="text-sm mb-3" style={{ color: "oklch(0.45 0.05 240)" }}>
                   {method.desc}
                 </p>
-                <p className="font-semibold mb-2" style={{ color: "oklch(0.52 0.18 145)" }}>
-                  {method.contact}
-                </p>
+                {method.link ? (
+                  <a href={method.link} target="_blank" rel="noopener noreferrer" className="font-semibold mb-2 block" style={{ color: "#1D9E75" }}>
+                    {method.contact}
+                  </a>
+                ) : (
+                  <p className="font-semibold mb-2" style={{ color: "oklch(0.52 0.18 145)" }}>
+                    {method.contact}
+                  </p>
+                )}
                 <p className="text-xs" style={{ color: "oklch(0.65 0.18 50)" }}>
                   {method.time}
                 </p>
