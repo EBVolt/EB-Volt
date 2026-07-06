@@ -33,7 +33,7 @@ export default function BusinessPartnerships() {
           <h2 className="text-3xl font-bold mb-12" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}>
             Partnership Opportunities
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 title: "Retail Partners",
@@ -49,11 +49,6 @@ export default function BusinessPartnerships() {
                 title: "Corporate Partners",
                 desc: "Provide employee charging at your workplace",
                 benefits: ["Employee benefits", "CSR initiatives", "Tax incentives"],
-              },
-              {
-                title: "Distributor Partners",
-                desc: "Become an authorized EB Volt distributor",
-                benefits: ["Wholesale pricing", "Territory rights", "Marketing support"],
               },
             ].map((partner, idx) => (
               <div key={idx} className="p-8 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
