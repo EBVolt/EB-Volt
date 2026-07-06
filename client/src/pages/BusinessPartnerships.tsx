@@ -51,7 +51,7 @@ export default function BusinessPartnerships() {
                 benefits: ["Employee benefits", "CSR initiatives", "Tax incentives"],
               },
             ].map((partner, idx) => (
-              <div key={idx} className="p-8 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
+              <div key={idx} className="p-8 rounded-xl transition-all duration-300 cursor-pointer" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)", transform: "translateY(0)", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.borderColor = "#1D9E75"; e.currentTarget.style.boxShadow = "0 12px 24px rgba(0,0,0,0.15)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "oklch(0.88 0.02 240)"; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.1)"; }}>
                 <h3 className="text-2xl font-bold mb-3" style={{ color: "oklch(0.25 0.08 240)" }}>
                   {partner.title}
                 </h3>
