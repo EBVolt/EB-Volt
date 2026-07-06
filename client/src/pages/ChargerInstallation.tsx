@@ -16,7 +16,7 @@ export default function ChargerInstallation() {
               Charger Installation
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              Professional installation services for residential, commercial, and fleet charging solutions.
+              Professional installation services for commercial locations and EV fleet operators across Ghana.
             </p>
             <Link href="/contact">
               <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "#1D9E75", color: "white", border: "none" }}>
@@ -89,12 +89,6 @@ export default function ChargerInstallation() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                icon: Zap,
-                title: "Home Charging",
-                desc: "AC Level 2 chargers for residential use",
-                price: "₵3,500 - ₵5,000",
-              },
-              {
                 icon: Wrench,
                 title: "Commercial Charging",
                 desc: "DC Fast and AC Level 2 for businesses",
@@ -105,12 +99,6 @@ export default function ChargerInstallation() {
                 title: "Fleet Charging",
                 desc: "Multi-unit installations for fleet operators",
                 price: "Custom Quote",
-              },
-              {
-                icon: Shield,
-                title: "Maintenance Plans",
-                desc: "Annual maintenance and support contracts",
-                price: "₵500 - ₵2,000/year",
               },
             ].map((service, idx) => (
               <div key={idx} className="p-8 rounded-xl" style={{ background: "white", border: "1px solid oklch(0.88 0.02 240)" }}>
