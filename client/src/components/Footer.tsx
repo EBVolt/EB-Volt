@@ -207,7 +207,7 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6">
             <a
-              href="/privacy"
+              href="/privacy-policy"
               className="text-xs transition-colors duration-200 cursor-pointer"
               style={{ color: "oklch(0.5 0.01 240)" }}
               onMouseEnter={(e) => {

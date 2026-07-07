@@ -1,4 +1,4 @@
-import { Wrench, CheckCircle, Zap, Shield, Truck, Calendar } from "lucide-react";
+import { Wrench, CheckCircle, Zap, Shield, Truck, Calendar, Home } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
@@ -16,7 +16,7 @@ export default function ChargerInstallation() {
               Charger Installation
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              Professional installation services for commercial locations and EV fleet operators across Ghana.
+              Professional installation services for residential, commercial, and fleet charging solutions across Ghana.
             </p>
             <Link href="/contact">
               <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "#1D9E75", color: "white", border: "none" }}>
@@ -87,33 +87,70 @@ export default function ChargerInstallation() {
             Installation Services
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                icon: Wrench,
-                title: "Commercial Charging",
-                desc: "DC Fast and AC Level 2 for businesses",
-                price: "₵8,000 - ₵25,000",
-              },
-              {
-                icon: Truck,
-                title: "Fleet Charging",
-                desc: "Multi-unit installations for fleet operators",
-                price: "Custom Quote",
-              },
-            ].map((service, idx) => (
-              <div key={idx} className="p-8 rounded-xl" style={{ background: "white", border: "1px solid oklch(0.88 0.02 240)" }}>
-                <service.icon size={32} style={{ color: "oklch(0.52 0.18 145)", marginBottom: "1rem" }} />
-                <h3 className="text-xl font-bold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                  {service.title}
-                </h3>
-                <p className="mb-4" style={{ color: "oklch(0.45 0.05 240)" }}>
-                  {service.desc}
-                </p>
-                <p className="text-lg font-semibold" style={{ color: "oklch(0.65 0.18 50)" }}>
-                  {service.price}
-                </p>
-              </div>
-            ))}
+            {/* Home Charging Card */}
+            <div className="p-8 rounded-xl" style={{ background: "white", border: "1px solid oklch(0.88 0.02 240)" }}>
+              <Home size={32} style={{ color: "#1D9E75", marginBottom: "1rem" }} />
+              <h3 className="text-xl font-bold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                Home Charging
+              </h3>
+              <p className="mb-4" style={{ color: "oklch(0.45 0.05 240)" }}>
+                AC Level 2 charger installation for private residences. Charge your EV safely and affordably at home, with professional installation by certified technicians.
+              </p>
+              <p className="text-lg font-semibold mb-4" style={{ color: "oklch(0.65 0.18 50)" }}>
+                ₵3,500 – ₵5,000
+              </p>
+              <ul className="space-y-2 mb-6">
+                <li className="flex items-start gap-2" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  <CheckCircle size={16} style={{ color: "#1D9E75", marginTop: "2px", flexShrink: 0 }} />
+                  <span>Certified electrician installation</span>
+                </li>
+                <li className="flex items-start gap-2" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  <CheckCircle size={16} style={{ color: "#1D9E75", marginTop: "2px", flexShrink: 0 }} />
+                  <span>Safety inspection included</span>
+                </li>
+                <li className="flex items-start gap-2" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  <CheckCircle size={16} style={{ color: "#1D9E75", marginTop: "2px", flexShrink: 0 }} />
+                  <span>Works with all EV models</span>
+                </li>
+                <li className="flex items-start gap-2" style={{ color: "oklch(0.45 0.05 240)" }}>
+                  <CheckCircle size={16} style={{ color: "#1D9E75", marginTop: "2px", flexShrink: 0 }} />
+                  <span>12-month installation warranty</span>
+                </li>
+              </ul>
+              <Link href="/contact?reason=installation">
+                <a className="inline-block w-full text-center px-6 py-2 rounded-lg font-semibold transition-all" style={{ background: "#1D9E75", color: "white", border: "none" }}>
+                  Request Home Installation
+                </a>
+              </Link>
+            </div>
+
+            {/* Commercial Charging Card */}
+            <div className="p-8 rounded-xl" style={{ background: "white", border: "1px solid oklch(0.88 0.02 240)" }}>
+              <Wrench size={32} style={{ color: "oklch(0.52 0.18 145)", marginBottom: "1rem" }} />
+              <h3 className="text-xl font-bold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                Commercial Charging
+              </h3>
+              <p className="mb-4" style={{ color: "oklch(0.45 0.05 240)" }}>
+                DC Fast and AC Level 2 for businesses
+              </p>
+              <p className="text-lg font-semibold" style={{ color: "oklch(0.65 0.18 50)" }}>
+                ₵8,000 - ₵25,000
+              </p>
+            </div>
+
+            {/* Fleet Charging Card */}
+            <div className="p-8 rounded-xl" style={{ background: "white", border: "1px solid oklch(0.88 0.02 240)" }}>
+              <Truck size={32} style={{ color: "oklch(0.52 0.18 145)", marginBottom: "1rem" }} />
+              <h3 className="text-xl font-bold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                Fleet Charging
+              </h3>
+              <p className="mb-4" style={{ color: "oklch(0.45 0.05 240)" }}>
+                Multi-unit installations for fleet operators
+              </p>
+              <p className="text-lg font-semibold" style={{ color: "oklch(0.65 0.18 50)" }}>
+                Custom Quote
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -126,36 +163,36 @@ export default function ChargerInstallation() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { icon: CheckCircle, title: "Certified Technicians", desc: "Trained and certified installation professionals" },
-              { icon: Calendar, title: "Quick Turnaround", desc: "Fast installation with minimal disruption" },
-              { icon: Shield, title: "Warranty Coverage", desc: "2-year warranty on all installations" },
-              { icon: Truck, title: "Nationwide Service", desc: "Service available across all major cities" },
+              {
+                icon: Shield,
+                title: "Safety First",
+                desc: "All installations meet international safety standards and local regulations",
+              },
+              {
+                icon: Zap,
+                title: "Expert Technicians",
+                desc: "Certified and experienced electricians handle every installation",
+              },
+              {
+                icon: Calendar,
+                title: "Quick Turnaround",
+                desc: "Most installations completed within 2-4 weeks",
+              },
+              {
+                icon: CheckCircle,
+                title: "Warranty Coverage",
+                desc: "12-month warranty on all installation work and equipment",
+              },
             ].map((item, idx) => (
-              <div key={idx} className="flex gap-4 p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
-                <item.icon size={32} style={{ color: "oklch(0.52 0.18 145)", flexShrink: 0 }} />
-                <div>
-                  <h3 className="text-lg font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                    {item.title}
-                  </h3>
-                  <p style={{ color: "oklch(0.45 0.05 240)" }}>{item.desc}</p>
-                </div>
+              <div key={idx} className="p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
+                <item.icon size={32} style={{ color: "oklch(0.52 0.18 145)", marginBottom: "1rem" }} />
+                <h3 className="text-lg font-bold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                  {item.title}
+                </h3>
+                <p style={{ color: "oklch(0.45 0.05 240)" }}>{item.desc}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16">
-        <div className="container text-center">
-          <h2 className="text-3xl font-bold mb-6" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}>
-            Get Your Charger Installed Today
-          </h2>
-          <Link href="/contact">
-            <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "oklch(0.65 0.18 50)", color: "white" }}>
-              Schedule a Site Visit
-            </a>
-          </Link>
         </div>
       </section>
 

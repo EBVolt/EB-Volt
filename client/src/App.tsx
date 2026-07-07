@@ -19,6 +19,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Unsubscribe from "./pages/Unsubscribe";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import { OfflineBanner } from "./components/OfflineBanner";
 import UssdSimulator from "./pages/UssdSimulator";
 
@@ -40,6 +41,7 @@ function Router() {
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/unsubscribe" component={Unsubscribe} />
       <Route path="/privacy" component={Privacy} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms" component={Terms} />
       <Route path="/ussd-simulator" component={UssdSimulator} />
       <Route path="/404" component={NotFound} />
