@@ -3,7 +3,7 @@
    Design: Dark surface with green accents, Ghana-focused
    ============================================================ */
 import { Link } from "wouter";
-import { Zap, Mail, Phone, MapPin, Instagram, Twitter } from "lucide-react";
+import { Zap, Mail, Phone, MapPin, Instagram, Twitter, MessageCircle } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -14,9 +14,9 @@ export default function Footer() {
       }}
     >
       <div className="container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2">
             <img
               src="/manus-storage/ecobelle_logo_e4538568.webp"
               alt="EB Volt"
@@ -80,6 +80,24 @@ export default function Footer() {
               >
                 TK
               </a>
+              <a
+                href="https://wa.me/233595602717"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
+                style={{
+                  background: "oklch(1 0 0 / 6%)",
+                  color: "oklch(0.72 0.18 145)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "oklch(0.55 0.18 145 / 0.2)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.background = "oklch(1 0 0 / 6%)";
+                }}
+              >
+                <MessageCircle size={16} />
+              </a>
             </div>
           </div>
 
@@ -119,6 +137,32 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Company */}
+          <div>
+            <h4
+              className="text-sm font-semibold uppercase tracking-wider mb-5"
+              style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              Company
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { label: "About Us", href: "/about" },
+                { label: "Investors", href: "/contact" },
+                { label: "Careers", href: "/contact" },
+                { label: "Press", href: "/contact" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href}>
+                    <span className="text-sm hover:text-white transition-colors cursor-pointer inline-block" style={{ color: "oklch(0.62 0.01 240)" }}>
+                      {item.label}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Services */}
           <div>
             <h4
@@ -141,6 +185,38 @@ export default function Footer() {
                       {item.label}
                     </span>
                   </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4
+              className="text-sm font-semibold uppercase tracking-wider mb-5"
+              style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              Legal
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { label: "Privacy Policy", href: "/privacy-policy" },
+                { label: "Terms of Service", href: "/terms-of-service" },
+              ].map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="text-sm transition-colors duration-200"
+                    style={{ color: "oklch(0.62 0.01 240)" }}
+                    onMouseEnter={(e) => {
+                      (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
+                    }}
+                    onMouseLeave={(e) => {
+                      (e.target as HTMLElement).style.color = "oklch(0.62 0.01 240)";
+                    }}
+                  >
+                    {item.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -199,40 +275,15 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          className="mt-12 pt-8 flex flex-col gap-4"
           style={{ borderTop: "1px solid oklch(1 0 0 / 8%)" }}
         >
           <p className="text-xs" style={{ color: "oklch(0.5 0.01 240)" }}>
             © 2026 EcoBelle Volt. All rights reserved. Launching in Ghana.
           </p>
-          <div className="flex items-center gap-6">
-            <a
-              href="/privacy-policy"
-              className="text-xs transition-colors duration-200 cursor-pointer"
-              style={{ color: "oklch(0.5 0.01 240)" }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.color = "oklch(0.5 0.01 240)";
-              }}
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="/terms-of-service"
-              className="text-xs transition-colors duration-200 cursor-pointer"
-              style={{ color: "oklch(0.5 0.01 240)" }}
-              onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
-              }}
-              onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.color = "oklch(0.5 0.01 240)";
-              }}
-            >
-              Terms of Service
-            </a>
-          </div>
+          <p className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>
+            EcoBelle Volt Ltd is registered in England and Wales. Operating in Ghana under Energy Commission authorisation.
+          </p>
         </div>
       </div>
     </footer>
