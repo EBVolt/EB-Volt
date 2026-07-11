@@ -5,7 +5,7 @@ export default function TermsOfService() {
   const sections = [
     {
       title: "About us",
-      content: "EB Volt is an electric vehicle charging network operated by EB Volt Ghana Limited, a company registered in Ghana. These terms govern your use of our charging stations, installation services, and website.",
+      content: "EB Volt is an electric vehicle charging network operating in Ghana. The service is provided by EB Volt Ghana Limited, a company registered in Ghana and a subsidiary of EcoBelle Volt Ltd, registered in the United Kingdom. These terms govern your use of our charging stations, installation services, and website.",
     },
     {
       title: "Acceptance",
@@ -37,7 +37,7 @@ export default function TermsOfService() {
     },
     {
       title: "Governing law",
-      content: "These terms are governed by the laws of the Republic of Ghana.",
+      content: "These terms are governed by the laws of the Republic of Ghana, where the service is provided.",
     },
     {
       title: "Changes",
