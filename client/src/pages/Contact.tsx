@@ -13,6 +13,7 @@ const contactReasons = [
   { value: "fleet", label: "Fleet Account Enquiry" },
   { value: "partnership", label: "Site Partnership Enquiry" },
   { value: "investor", label: "Investor Enquiry" },
+  { value: "careers", label: "Careers" },
   { value: "media", label: "Press & Media" },
   { value: "installation", label: "Charger Installation Enquiry" },
   { value: "other", label: "Other" },
