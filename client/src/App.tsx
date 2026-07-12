@@ -23,6 +23,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import { OfflineBanner } from "./components/OfflineBanner";
 import UssdSimulator from "./pages/UssdSimulator";
+import Investors from "./pages/Investors";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -46,6 +47,7 @@ function Router() {
       <Route path="/terms" component={Terms} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/ussd-simulator" component={UssdSimulator} />
+      <Route path="/investors" component={Investors} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
