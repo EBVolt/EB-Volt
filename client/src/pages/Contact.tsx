@@ -72,6 +72,23 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* Join the Team Section */}
+      <section className="py-16" style={{ background: "oklch(0.14 0.012 240)" }}>
+        <div className="container max-w-3xl">
+          <div className="rounded-2xl p-8" style={{ background: "oklch(0.17 0.012 240)", border: "1px solid oklch(0.55 0.18 145 / 0.2)" }}>
+            <h2
+              className="text-3xl font-bold mb-6"
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}
+            >
+              Join the Team
+            </h2>
+            <p className="text-base leading-relaxed" style={{ color: "oklch(0.68 0.01 240)" }}>
+              We're a young company building something new in Ghana, and we're always interested in hearing from talented, driven people who want to be part of the electric future. As we grow, we'll be looking for people across operations, field technical work, customer support, sales, and partnerships. If you're excited about clean energy, electric mobility, and building something from the ground up, we'd love to hear from you. Send us your CV and a short note about what you'd like to do at EB Volt, and we'll be in touch as opportunities open up.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="py-16">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
