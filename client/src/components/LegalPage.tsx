@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt - Legal Page Layout
+   EB Volt - Legal Page Layout
    Shared shell for Privacy Policy and Terms & Conditions.
    Renders a dark-theme hero and a readable prose body.
    ============================================================ */

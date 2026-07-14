@@ -30,7 +30,7 @@ export default function PrivacyPolicy() {
                 Who we are
               </h2>
               <p className="text-lg leading-relaxed" style={{ color: "oklch(0.45 0.05 240)" }}>
-                EcoBelle Volt Ltd is an EV charging network operator registered in the United Kingdom and operating in Ghana. Our website is ebvolt.com.
+                EB Volt Ltd is an EV charging network operator registered in the United Kingdom and operating in Ghana. Our website is ebvolt.com.
               </p>
             </div>
 
@@ -80,7 +80,7 @@ export default function PrivacyPolicy() {
                 Contact
               </h2>
               <p className="text-lg leading-relaxed" style={{ color: "oklch(0.45 0.05 240)" }}>
-                For privacy enquiries contact hello@ebvolt.com or write to EcoBelle Volt Ltd, United Kingdom.
+                For privacy enquiries contact hello@ebvolt.com or write to EB Volt Ltd, United Kingdom.
               </p>
             </div>
           </div>

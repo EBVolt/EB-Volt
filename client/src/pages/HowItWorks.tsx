@@ -1,5 +1,5 @@
 /*
-   EcoBelle Volt - How It Works Page
+   EB Volt - How It Works Page
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { QrCode, CreditCard, Plug, CheckCircle, Zap, ArrowRight } from "lucide-react";

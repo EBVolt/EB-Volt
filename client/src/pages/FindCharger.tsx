@@ -1,5 +1,5 @@
 /*
-   EcoBelle Volt - Find a Charger Page
+   EB Volt - Find a Charger Page
    Features: Google Maps zoomed to Accra, waitlist signup card
    ============================================================ */
 import { useState, useCallback, useRef } from "react";

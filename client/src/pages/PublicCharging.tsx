@@ -1,5 +1,5 @@
 /*
-   EcoBelle Volt - Public Charging Page
+   EB Volt - Public Charging Page
    ============================================================ */
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";

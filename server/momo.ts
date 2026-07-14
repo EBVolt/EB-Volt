@@ -126,8 +126,8 @@ class MoMoPaymentService {
           partyIdType: "MSISDN",
           partyId: formattedPhone,
         },
-        payerMessage: `EcoBelle Volt: ${description}`,
-        payeeNote: "EcoBelle Volt Charging Payment",
+        payerMessage: `EB Volt: ${description}`,
+        payeeNote: "EB Volt Charging Payment",
       };
 
       const response = await this.client.post(
@@ -211,8 +211,8 @@ class MoMoPaymentService {
           partyIdType: "MSISDN",
           partyId: formattedPhone,
         },
-        payerMessage: `EcoBelle Volt: ${description}`,
-        payeeNote: "EcoBelle Volt Transfer",
+        payerMessage: `EB Volt: ${description}`,
+        payeeNote: "EB Volt Transfer",
       };
 
       const response = await this.client.post(

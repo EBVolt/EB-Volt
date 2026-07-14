@@ -226,7 +226,7 @@ export const appRouter = router({
                         paymentMethod: transaction.paymentMethod,
                         transactionId: transaction.transactionId || "",
                         timestamp: new Date().toISOString(),
-                        stationName: station?.name || "EcoBelle Volt Station",
+                        stationName: station?.name || "EB Volt Station",
                       }
                     : undefined,
                   sms: user.phoneNumber
@@ -234,7 +234,7 @@ export const appRouter = router({
                         phoneNumber: user.phoneNumber,
                         receiptNumber: input.referenceId,
                         amount: parseFloat(transaction.amount),
-                        stationName: station?.name || "EcoBelle Volt Station",
+                        stationName: station?.name || "EB Volt Station",
                       }
                     : undefined,
                 }).catch(err => console.error("[Notify] Failed to dispatch payment receipt:", err));

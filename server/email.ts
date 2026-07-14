@@ -61,7 +61,7 @@ export async function sendBookingConfirmationEmail(data: BookingConfirmationData
     const emailContent = `
 Dear ${data.userName},
 
-Your EcoBelle Volt charging reservation has been confirmed!
+Your EB Volt charging reservation has been confirmed!
 
 BOOKING DETAILS
 Booking Reference: ${data.bookingReference}
@@ -83,10 +83,10 @@ Next Steps:
 
 If you need to cancel or modify your reservation, please visit your account dashboard or contact our support team at +233 59 560 2717.
 
-Thank you for choosing EcoBelle Volt. Together, we're powering a greener Ghana!
+Thank you for choosing EB Volt. Together, we're powering a greener Ghana!
 
 Best regards,
-EcoBelle Volt Team
+EB Volt Team
 Charge Green. Drive Clean.
 ${unsubscribeFooter(data.unsubscribeUrl)}
     `;
@@ -133,7 +133,7 @@ If you have any questions about this charge, please contact our support team at 
 Thank you for your business!
 
 Best regards,
-EcoBelle Volt Team
+EB Volt Team
 Charge Green. Drive Clean.
 ${unsubscribeFooter(data.unsubscribeUrl)}
     `;
@@ -177,7 +177,7 @@ ${statusMessage}
 If you have any questions about this decision, please contact our support team at +233 59 560 2717 or email support@ecobellevolt.com.
 
 Best regards,
-EcoBelle Volt Team
+EB Volt Team
 Charge Green. Drive Clean.
 ${unsubscribeFooter(data.unsubscribeUrl)}
     `;
@@ -211,7 +211,7 @@ export async function sendSupportTicketEmail(
     const emailContent = `
 Dear ${userName},
 
-Thank you for contacting EcoBelle Volt support. We have received your inquiry and assigned it ticket ID: ${ticketId}.
+Thank you for contacting EB Volt support. We have received your inquiry and assigned it ticket ID: ${ticketId}.
 
 Subject: ${subject}
 
@@ -220,7 +220,7 @@ Our support team will review your request and respond within 24 hours. You can c
 For urgent matters, please call us at +233 59 560 2717.
 
 Best regards,
-EcoBelle Volt Support Team
+EB Volt Support Team
 Charge Green. Drive Clean.
     `;
 
@@ -253,18 +253,18 @@ export async function sendTestEmail(
     const emailContent = `
 Dear ${recipientName},
 
-This is a test email from the EcoBelle Volt admin dashboard, sent to confirm that email notifications are configured and reaching recipients.
+This is a test email from the EB Volt admin dashboard, sent to confirm that email notifications are configured and reaching recipients.
 
 If you received this message, the email channel is working correctly. No action is required.
 
 Sent: ${new Date().toLocaleString()}
 
 Best regards,
-EcoBelle Volt Team
+EB Volt Team
 Charge Green. Drive Clean.
     `;
     const result = await notifyOwner({
-      title: "EcoBelle Volt: Test Email Notification",
+      title: "EB Volt: Test Email Notification",
       content: emailContent,
     });
     if (result) {

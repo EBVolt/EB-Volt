@@ -1,5 +1,5 @@
 /**
- * Distance calculation utilities for EcoBelle Volt
+ * Distance calculation utilities for EB Volt
  * Uses Haversine formula to calculate great-circle distance between two points
  */
 

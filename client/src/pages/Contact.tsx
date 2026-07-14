@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt - Contact Page
+   EB Volt - Contact Page
    ============================================================ */
 import { useState } from "react";
 import { Mail, Phone, MapPin, Zap, Send, CheckCircle, Building, Users } from "lucide-react";

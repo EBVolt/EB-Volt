@@ -19,7 +19,7 @@ export async function sendBookingConfirmationSMS(
   cost: number
 ): Promise<boolean> {
   try {
-    const message = `EcoBelle Volt Booking Confirmed! Station: ${stationName}, Date: ${bookingDate}, Time: ${bookingTime}, Cost: GHS ${cost.toFixed(2)}. Thank you for choosing EB Volt!`;
+    const message = `EB Volt Booking Confirmed! Station: ${stationName}, Date: ${bookingDate}, Time: ${bookingTime}, Cost: GHS ${cost.toFixed(2)}. Thank you for choosing EB Volt!`;
 
     // Call MTN MoMo SMS API or alternative SMS provider
     // For now, we'll log the SMS that would be sent
@@ -101,7 +101,7 @@ export async function sendPaymentReceiptSMS(
   stationName: string
 ): Promise<boolean> {
   try {
-    const message = `Payment received! Receipt #${receiptNumber}, Amount: GHS ${amount.toFixed(2)}, Station: ${stationName}. Download receipt from your account. - EcoBelle Volt`;
+    const message = `Payment received! Receipt #${receiptNumber}, Amount: GHS ${amount.toFixed(2)}, Station: ${stationName}. Download receipt from your account. - EB Volt`;
 
     console.log(`[SMS] Payment receipt to ${phoneNumber}: ${message}`);
 
@@ -139,6 +139,6 @@ export async function sendGenericSMS(
  */
 export async function sendTestSMS(phoneNumber: string): Promise<boolean> {
   const message =
-    "EcoBelle Volt: This is a test SMS from the admin dashboard confirming SMS notifications are working. No action needed.";
+    "EB Volt: This is a test SMS from the admin dashboard confirming SMS notifications are working. No action needed.";
   return sendGenericSMS(phoneNumber, message);
 }

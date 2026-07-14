@@ -48,7 +48,7 @@ export default function Unsubscribe() {
   });
 
   useEffect(() => {
-    document.title = "Unsubscribe | EcoBelle Volt";
+    document.title = "Unsubscribe | EB Volt";
   }, []);
 
   const bg = { background: "oklch(0.98 0.01 240)" };
@@ -177,7 +177,7 @@ export default function Unsubscribe() {
               Notifications re-enabled
             </p>
             <p className="text-sm" style={{ color: "oklch(0.45 0.05 240)" }}>
-              You'll continue to receive {CATEGORY_LABELS[category]} from EcoBelle Volt. You can change this anytime from your account settings.
+              You'll continue to receive {CATEGORY_LABELS[category]} from EB Volt. You can change this anytime from your account settings.
             </p>
             <a href="/account" className="mt-2 text-sm font-semibold underline" style={{ color: "oklch(0.5 0.15 145)" }}>
               Go to Account Settings

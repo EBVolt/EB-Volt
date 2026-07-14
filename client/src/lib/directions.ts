@@ -1,5 +1,5 @@
 /**
- * Google Maps Directions utilities for EcoBelle Volt
+ * Google Maps Directions utilities for EB Volt
  * Handles route planning and navigation
  */
 

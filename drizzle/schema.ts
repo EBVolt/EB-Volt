@@ -36,7 +36,7 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
 /**
- * Charging stations table - stores EcoBelle Volt charging locations
+ * Charging stations table - stores EB Volt charging locations
  */
 export const chargingStations = mysqlTable("charging_stations", {
   id: int("id").autoincrement().primaryKey(),

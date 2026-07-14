@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt - Footer
+   EB Volt - Footer
    Design: Dark surface with green accents, Ghana-focused
    ============================================================ */
 import { Link } from "wouter";
@@ -279,10 +279,10 @@ export default function Footer() {
           style={{ borderTop: "1px solid oklch(1 0 0 / 8%)" }}
         >
           <p className="text-xs" style={{ color: "oklch(0.5 0.01 240)" }}>
-            © 2026 EcoBelle Volt. All rights reserved. Launching in Ghana.
+            © 2026 EB Volt. All rights reserved. Launching in Ghana.
           </p>
           <p className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>
-            EcoBelle Volt Ltd is registered in England and Wales. Operating in Ghana under Energy Commission authorisation.
+            EB Volt Ltd is registered in England and Wales. Operating in Ghana under Energy Commission authorisation.
           </p>
         </div>
       </div>

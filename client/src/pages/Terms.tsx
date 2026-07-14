@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt - Terms & Conditions
+   EB Volt - Terms & Conditions
    ============================================================ */
 import LegalPage, { LegalSection } from "@/components/LegalPage";
 
@@ -7,7 +7,7 @@ const sections: LegalSection[] = [
   {
     heading: "1. About These Terms",
     paragraphs: [
-      "These terms govern your use of the EcoBelle Volt (EB Volt) website, mobile app, and charging network in Ghana. By creating an account, reserving a charger, or using our stations, you agree to these terms.",
+      "These terms govern your use of the EB Volt (EB Volt) website, mobile app, and charging network in Ghana. By creating an account, reserving a charger, or using our stations, you agree to these terms.",
     ],
   },
   {

@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt - About Page
+   EB Volt - About Page
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
 import { Leaf, Zap, Users, Globe, ArrowRight, Target, Eye } from "lucide-react";

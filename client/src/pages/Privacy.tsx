@@ -1,5 +1,5 @@
 /* ============================================================
-   EcoBelle Volt - Privacy Policy
+   EB Volt - Privacy Policy
    ============================================================ */
 import LegalPage, { LegalSection } from "@/components/LegalPage";
 
@@ -7,7 +7,7 @@ const sections: LegalSection[] = [
   {
     heading: "1. Who We Are",
     paragraphs: [
-      "EcoBelle Volt (EB Volt) operates an electric vehicle charging network in Ghana, along with a website and mobile app that let you find chargers, reserve slots, pay for charging, and manage your account. This policy explains what personal information we collect and how we use it.",
+      "EB Volt (EB Volt) operates an electric vehicle charging network in Ghana, along with a website and mobile app that let you find chargers, reserve slots, pay for charging, and manage your account. This policy explains what personal information we collect and how we use it.",
     ],
   },
   {
