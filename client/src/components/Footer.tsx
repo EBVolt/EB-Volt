@@ -114,7 +114,6 @@ export default function Footer() {
                 { href: "/", label: "Home" },
                 { href: "/find-charger", label: "Find a Charger" },
                 { href: "/how-it-works", label: "How It Works" },
-                { href: "/about", label: "About Us" },
                 { href: "/contact", label: "Contact" },
               ].map((link) => (
                 <li key={link.href}>
