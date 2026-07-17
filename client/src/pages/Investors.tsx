@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
@@ -12,6 +13,7 @@ const opportunities = [
 ];
 
 export default function Investors() {
+  useEffect(() => { document.title = "Investors - EB Volt"; }, []);
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
       <Navbar />

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 /*
    EB Volt - Public Charging Page
    ============================================================ */
@@ -7,6 +8,7 @@ import { Link } from "wouter";
 import { Zap, MapPin, Clock, Shield, TrendingUp, Users, CreditCard } from "lucide-react";
 
 export default function PublicCharging() {
+  useEffect(() => { document.title = "Public Charging - EB Volt"; }, []);
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />

@@ -1,7 +1,7 @@
 /* ============================================================
    EB Volt - Contact Page
    ============================================================ */
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import { Mail, Phone, MapPin, Zap, Send, CheckCircle, Building, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -20,6 +20,7 @@ const contactReasons = [
 ];
 
 export default function Contact() {
+  useEffect(() => { document.title = "Contact Us - EB Volt"; }, []);
   const [form, setForm] = useState({ name: "", email: "", phone: "", reason: "general", message: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

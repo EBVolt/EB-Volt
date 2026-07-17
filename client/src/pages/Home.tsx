@@ -78,6 +78,7 @@ const features = [
 ];
 
 export default function Home() {
+  useEffect(() => { document.title = "EB Volt - Ghana's Premier EV Charging Network"; }, []);
   // The userAuth hooks provides authentication state
   // To implement login/logout functionality, simply call logout() or redirect to getLoginUrl()
   let { user, loading, error, isAuthenticated, logout } = useAuth();

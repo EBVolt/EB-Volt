@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { trpc } from "@/lib/trpc";
 import { AlertCircle, CheckCircle, Zap, Wifi } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import { toast } from "sonner";
 import RefundManagement from "@/components/RefundManagement";
 import BookingAnalyticsDashboard from "@/components/BookingAnalyticsDashboard";
@@ -12,6 +12,7 @@ import NotificationDashboard from "@/components/NotificationDashboard";
 import UssdAdminPanel from "@/components/UssdAdminPanel";
 
 export default function AdminDashboard() {
+  useEffect(() => { document.title = "Admin Dashboard - EB Volt"; }, []);
   const { user, isAuthenticated } = useAuth();
   const [selectedStationId, setSelectedStationId] = useState<number | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");

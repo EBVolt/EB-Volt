@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function TermsOfService() {
+  useEffect(() => { document.title = "Terms of Service - EB Volt"; }, []);
   const sections = [
     {
       title: "About us",

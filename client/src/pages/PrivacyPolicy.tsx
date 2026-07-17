@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export default function PrivacyPolicy() {
+  useEffect(() => { document.title = "Privacy Policy - EB Volt"; }, []);
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />

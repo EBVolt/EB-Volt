@@ -104,6 +104,7 @@ function ChargingGraphic() {
 }
 
 export default function HowItWorks() {
+  useEffect(() => { document.title = "How It Works - EB Volt"; }, []);
   const { ref: heroRef, inView: heroIn } = useInView(0.1);
   const { ref: stepsRef, inView: stepsIn } = useInView(0.1);
   const { ref: faqRef, inView: faqIn } = useInView(0.1);

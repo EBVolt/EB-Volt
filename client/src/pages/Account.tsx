@@ -2,7 +2,7 @@
    EB Volt - Account Dashboard Page
    Features: Reservation history, receipts, refund management
    ============================================================ */
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import Navbar from "@/components/Navbar";
@@ -54,6 +54,7 @@ const StatusBadge = ({ status }: { status: string }) => {
 };
 
 export default function Account() {
+  useEffect(() => { document.title = "My Account - EB Volt"; }, []);
   const { user, loading } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>("reservations");
   const [expandedId, setExpandedId] = useState<number | null>(null);

@@ -2,7 +2,7 @@
    EB Volt - Find a Charger Page
    Features: Google Maps zoomed to Accra, waitlist signup card
    ============================================================ */
-import { useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { Mail, Zap, CheckCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -17,6 +17,7 @@ interface SearchLocation {
 }
 
 export default function FindCharger() {
+  useEffect(() => { document.title = "Find a Charger - EB Volt"; }, []);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);

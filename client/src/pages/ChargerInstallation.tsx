@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { Wrench, CheckCircle, Zap, Shield, Truck, Calendar, Home } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
 
 export default function ChargerInstallation() {
+  useEffect(() => { document.title = "Charger Installation - EB Volt"; }, []);
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />

@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertCircle, Home } from "lucide-react";
 import { useLocation } from "wouter";
 
 export default function NotFound() {
+  useEffect(() => { document.title = "Page Not Found - EB Volt"; }, []);
   const [, setLocation] = useLocation();
 
   const handleGoHome = () => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 
 export default function ProfileSettings() {
+  useEffect(() => { document.title = "Profile Settings - EB Volt"; }, []);
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
 

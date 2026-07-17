@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { Truck, BarChart3, Zap, Lock, Users, Headphones } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
 
 export default function FleetCharging() {
+  useEffect(() => { document.title = "Fleet Charging - EB Volt"; }, []);
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />

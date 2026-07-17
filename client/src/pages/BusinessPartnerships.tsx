@@ -1,9 +1,11 @@
 import { Handshake, TrendingUp, Globe, Award, Zap, Users } from "lucide-react";
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Link } from "wouter";
 
 export default function BusinessPartnerships() {
+  useEffect(() => { document.title = "Business Partnerships - EB Volt"; }, []);
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />

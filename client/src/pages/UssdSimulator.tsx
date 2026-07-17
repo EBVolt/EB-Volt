@@ -20,6 +20,7 @@ interface Message {
 }
 
 export default function UssdSimulator() {
+  useEffect(() => { document.title = "USSD Simulator - EB Volt"; }, []);
   const [phoneNumber, setPhoneNumber] = useState("233501234567");
   const [sessionId, setSessionId] = useState("");
   const [inputText, setInputText] = useState("");

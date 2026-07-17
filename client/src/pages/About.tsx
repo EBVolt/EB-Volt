@@ -38,6 +38,7 @@ const values = [
 ];
 
 export default function About() {
+  useEffect(() => { document.title = "About Us - EB Volt"; }, []);
   const { ref: heroRef, inView: heroIn } = useInView(0.1);
   const { ref: missionRef, inView: missionIn } = useInView(0.1);
   const { ref: valuesRef, inView: valuesIn } = useInView(0.1);
