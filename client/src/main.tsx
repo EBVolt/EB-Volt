@@ -18,6 +18,12 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
 
   if (!isUnauthorized) return;
 
+  // Only redirect to login on protected pages, not on public pages
+  const publicPages = ['/', '/find-charger', '/how-it-works', '/about', '/contact', '/services', '/privacy', '/terms', '/investors', '/404'];
+  const isPublicPage = publicPages.some(page => window.location.pathname === page || window.location.pathname.startsWith(page));
+  
+  if (isPublicPage) return; // Don't redirect on public pages
+
   window.location.href = getLoginUrl();
 };
 
