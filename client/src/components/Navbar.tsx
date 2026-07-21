@@ -55,19 +55,11 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/">
               <div className="flex items-center gap-2.5 group">
-                <span
-                  className="flex h-12 items-center rounded-xl px-3 transition-transform duration-200 group-hover:scale-105"
-                  style={{
-                    background: "oklch(0.98 0.01 145 / 0.95)",
-                    boxShadow: "0 10px 30px oklch(0 0 0 / 0.22)",
-                  }}
-                >
-                  <img
-                    src="/manus-storage/ecobelle_logo_e4538568.webp"
-                    alt="EB Volt"
-                    className="h-9 w-auto"
-                  />
-                </span>
+                <img
+                  src="/manus-storage/ecobelle_logo_e4538568.webp"
+                  alt="EB Volt"
+                  className="h-12 w-auto transition-transform duration-200 group-hover:scale-105 lg:h-14"
+                />
               </div>
             </Link>
 

@@ -19,19 +19,11 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/">
               <div className="mb-4 inline-flex items-center">
-                <span
-                  className="flex h-14 items-center rounded-xl px-3"
-                  style={{
-                    background: "oklch(0.98 0.01 145 / 0.95)",
-                    boxShadow: "0 10px 30px oklch(0 0 0 / 0.25)",
-                  }}
-                >
-                  <img
-                    src="/manus-storage/ecobelle_logo_e4538568.webp"
-                    alt="EB Volt"
-                    className="h-10 w-auto"
-                  />
-                </span>
+                <img
+                  src="/manus-storage/ecobelle_logo_e4538568.webp"
+                  alt="EB Volt"
+                  className="h-12 w-auto"
+                />
               </div>
             </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "oklch(0.62 0.01 240)" }}>
