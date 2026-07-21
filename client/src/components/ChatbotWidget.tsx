@@ -12,6 +12,14 @@ interface Message {
   timestamp: Date;
 }
 
+const BELLE_AVATAR = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663769530589/mj4LfT67DGuWqeKLojJiDY/belle-avatar-UoKsZcRcn7zffedg9vu6va.webp';
+
+const SUGGESTED_QUESTIONS = [
+  'What payment methods do you accept?',
+  'How long does it take to charge?',
+  'What is your pricing?',
+];
+
 export function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
@@ -25,6 +33,7 @@ export function ChatbotWidget() {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [suggestionsShown, setSuggestionsShown] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new messages arrive
@@ -46,10 +55,11 @@ export function ChatbotWidget() {
 
     setMessages(prev => [...prev, userMessage]);
     setInputValue('');
+    setSuggestionsShown(false);
     setIsLoading(true);
 
     // Simulate processing delay
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise(resolve => setTimeout(resolve, 800));
 
     // Search FAQ for matching answer
     const matches = searchFAQ(inputValue);
@@ -84,6 +94,7 @@ export function ChatbotWidget() {
 
   const handleQuickQuestion = (question: string) => {
     setInputValue(question);
+    setSuggestionsShown(false);
     // Trigger send after state update
     setTimeout(() => {
       const form = document.getElementById('chatbot-form') as HTMLFormElement;
@@ -107,10 +118,12 @@ export function ChatbotWidget() {
     <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-24px)] flex flex-col bg-white rounded-2xl shadow-2xl overflow-hidden">
       {/* Header */}
       <div className="bg-gradient-to-r from-[#1D9E75] to-[#0F6E56] text-white p-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-            <MessageCircle size={18} />
-          </div>
+        <div className="flex items-center gap-3">
+          <img
+            src={BELLE_AVATAR}
+            alt="Belle"
+            className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-md"
+          />
           <div>
             <h3 className="font-semibold text-sm">Belle</h3>
             <p className="text-xs text-green-100">Always here to help</p>
@@ -165,13 +178,17 @@ export function ChatbotWidget() {
               </div>
             ))}
 
+            {/* Typing Indicator */}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-white text-gray-800 border border-gray-200 rounded-lg rounded-bl-none px-4 py-2">
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100" />
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200" />
+                <div className="bg-white text-gray-800 border border-gray-200 rounded-lg rounded-bl-none px-4 py-3">
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                    <span className="text-xs text-gray-500 ml-1">Belle is typing...</span>
                   </div>
                 </div>
               </div>
@@ -180,29 +197,20 @@ export function ChatbotWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Questions (shown if few messages) */}
-          {messages.length <= 1 && (
+          {/* Suggested Questions (shown at start) */}
+          {suggestionsShown && messages.length <= 1 && (
             <div className="px-4 py-3 bg-white border-t border-gray-200">
               <p className="text-xs text-gray-600 mb-2 font-medium">Popular questions:</p>
               <div className="space-y-2">
-                <button
-                  onClick={() => handleQuickQuestion('What payment methods do you accept?')}
-                  className="w-full text-left text-xs p-2 rounded bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700"
-                >
-                  💳 Payment methods
-                </button>
-                <button
-                  onClick={() => handleQuickQuestion('How long does it take to charge?')}
-                  className="w-full text-left text-xs p-2 rounded bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700"
-                >
-                  ⚡ Charging time
-                </button>
-                <button
-                  onClick={() => handleQuickQuestion('What is your pricing?')}
-                  className="w-full text-left text-xs p-2 rounded bg-gray-100 hover:bg-gray-200 transition-colors text-gray-700"
-                >
-                  💰 Pricing
-                </button>
+                {SUGGESTED_QUESTIONS.map((question, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleQuickQuestion(question)}
+                    className="w-full text-left text-xs p-2.5 rounded bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 transition-all border border-green-200 hover:border-green-300 text-gray-700 font-medium"
+                  >
+                    {question}
+                  </button>
+                ))}
               </div>
             </div>
           )}

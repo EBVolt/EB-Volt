@@ -126,3 +126,9 @@
 - [x] Add minimize/maximize toggle for widget
 - [x] Test chatbot on all pages
 - [x] Create vitest tests for FAQ search and categorization (18 tests passing)
+
+
+## Chatbot Widget Enhancements
+- [x] Add friendly avatar image for Belle in chatbot header
+- [x] Implement typing indicator animation when Belle processes responses
+- [x] Add three clickable suggested questions at chat start
