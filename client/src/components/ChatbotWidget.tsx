@@ -112,7 +112,7 @@ export function ChatbotWidget() {
             <MessageCircle size={18} />
           </div>
           <div>
-            <h3 className="font-semibold text-sm">EB Volt Support</h3>
+            <h3 className="font-semibold text-sm">Belle</h3>
             <p className="text-xs text-green-100">Always here to help</p>
           </div>
         </div>
