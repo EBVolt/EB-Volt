@@ -17,11 +17,29 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <img
-              src="/manus-storage/ecobelle_logo_e4538568.webp"
-              alt="EB Volt"
-              className="h-10 w-auto mb-4"
-            />
+            <Link href="/">
+              <div className="mb-4 flex items-center gap-2.5">
+                <span
+                  className="flex h-10 w-10 items-center justify-center rounded-lg"
+                  style={{
+                    background: "oklch(0.55 0.18 145)",
+                    color: "oklch(0.08 0.015 240)",
+                  }}
+                  aria-hidden="true"
+                >
+                  <Zap size={24} strokeWidth={2.6} />
+                </span>
+                <span
+                  className="text-2xl font-bold tracking-normal"
+                  style={{
+                    color: "oklch(0.95 0 0)",
+                    fontFamily: "'Space Grotesk', sans-serif",
+                  }}
+                >
+                  EB Volt
+                </span>
+              </div>
+            </Link>
             <p className="text-sm leading-relaxed mb-6" style={{ color: "oklch(0.62 0.01 240)" }}>
               Ghana's first smart EV charging network. Fast, reliable, and built for the future of clean mobility.
             </p>
