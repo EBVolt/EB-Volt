@@ -274,14 +274,11 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="mt-12 pt-8 flex flex-col gap-4"
+          className="mt-12 pt-8"
           style={{ borderTop: "1px solid oklch(1 0 0 / 8%)" }}
         >
           <p className="text-xs" style={{ color: "oklch(0.5 0.01 240)" }}>
             © 2026 EB Volt. All rights reserved. Launching in Ghana.
-          </p>
-          <p className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>
-            EB Volt Ltd is registered in England and Wales. Operating in Ghana under Energy Commission authorisation.
           </p>
         </div>
       </div>
