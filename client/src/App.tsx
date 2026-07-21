@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Redirect, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -20,7 +20,6 @@ import Unsubscribe from "./pages/Unsubscribe";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
 import { OfflineBanner } from "./components/OfflineBanner";
 import { ChatbotWidget } from "./components/ChatbotWidget";
 import UssdSimulator from "./pages/UssdSimulator";
@@ -46,7 +45,7 @@ function Router() {
       <Route path="/privacy" component={Privacy} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms" component={Terms} />
-      <Route path="/terms-of-service" component={TermsOfService} />
+      <Route path="/terms-of-service">{() => <Redirect to="/terms" />}</Route>
       <Route path="/ussd-simulator" component={UssdSimulator} />
       <Route path="/investors" component={Investors} />
       <Route path="/404" component={NotFound} />

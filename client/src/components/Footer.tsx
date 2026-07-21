@@ -283,7 +283,7 @@ export default function Footer() {
               Privacy Policy
             </a>
             <a
-              href="/terms-of-service"
+              href="/terms"
               className="text-xs transition-colors duration-200"
               style={{ color: "oklch(0.5 0.01 240)" }}
               onMouseEnter={(e) => {
