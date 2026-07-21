@@ -189,37 +189,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
-          <div>
-            <h4
-              className="text-sm font-semibold uppercase tracking-wider mb-5"
-              style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              Legal
-            </h4>
-            <ul className="space-y-3">
-              {[
-                { label: "Privacy Policy", href: "/privacy-policy" },
-                { label: "Terms of Service", href: "/terms-of-service" },
-              ].map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className="text-sm transition-colors duration-200"
-                    style={{ color: "oklch(0.62 0.01 240)" }}
-                    onMouseEnter={(e) => {
-                      (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.target as HTMLElement).style.color = "oklch(0.62 0.01 240)";
-                    }}
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+
 
           {/* Contact */}
           <div>
@@ -274,12 +244,40 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="mt-12 pt-8"
+          className="mt-12 pt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
           style={{ borderTop: "1px solid oklch(1 0 0 / 8%)" }}
         >
           <p className="text-xs" style={{ color: "oklch(0.5 0.01 240)" }}>
             © 2026 EB Volt. All rights reserved. Launching in Ghana.
           </p>
+          <div className="flex gap-4">
+            <a
+              href="/privacy-policy"
+              className="text-xs transition-colors duration-200"
+              style={{ color: "oklch(0.5 0.01 240)" }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.color = "oklch(0.5 0.01 240)";
+              }}
+            >
+              Privacy Policy
+            </a>
+            <a
+              href="/terms-of-service"
+              className="text-xs transition-colors duration-200"
+              style={{ color: "oklch(0.5 0.01 240)" }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.color = "oklch(0.72 0.18 145)";
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.color = "oklch(0.5 0.01 240)";
+              }}
+            >
+              Terms of Service
+            </a>
+          </div>
         </div>
       </div>
     </footer>
