@@ -117,3 +117,12 @@
 - [x] In-app USSD simulator page to test the flow end-to-end
 - [x] Vitest coverage for USSD state machine + reconciliation (20 tests passing)
 - [x] Document aggregator registration steps (Hubtel/Nsano) for real shortcode
+
+
+## Chatbot Widget
+- [x] Create floating chatbot widget component in lower right corner
+- [x] Implement pre-populated FAQ database with automated responses
+- [x] Add message history and conversation UI
+- [x] Add minimize/maximize toggle for widget
+- [x] Test chatbot on all pages
+- [x] Create vitest tests for FAQ search and categorization (18 tests passing)

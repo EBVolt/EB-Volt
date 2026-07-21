@@ -22,6 +22,7 @@ import Terms from "./pages/Terms";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import { OfflineBanner } from "./components/OfflineBanner";
+import { ChatbotWidget } from "./components/ChatbotWidget";
 import UssdSimulator from "./pages/UssdSimulator";
 import Investors from "./pages/Investors";
 
@@ -61,6 +62,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <OfflineBanner />
+          <ChatbotWidget />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
