@@ -56,23 +56,17 @@ export default function Navbar() {
             <Link href="/">
               <div className="flex items-center gap-2.5 group">
                 <span
-                  className="flex h-9 w-9 items-center justify-center rounded-lg transition-transform duration-200 group-hover:scale-105"
+                  className="flex h-12 items-center rounded-xl px-3 transition-transform duration-200 group-hover:scale-105"
                   style={{
-                    background: "oklch(0.55 0.18 145)",
-                    color: "oklch(0.08 0.015 240)",
-                  }}
-                  aria-hidden="true"
-                >
-                  <Zap size={22} strokeWidth={2.6} />
-                </span>
-                <span
-                  className="text-xl font-bold tracking-normal"
-                  style={{
-                    color: "oklch(0.95 0 0)",
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    background: "oklch(0.98 0.01 145 / 0.95)",
+                    boxShadow: "0 10px 30px oklch(0 0 0 / 0.22)",
                   }}
                 >
-                  EB Volt
+                  <img
+                    src="/manus-storage/ecobelle_logo_e4538568.webp"
+                    alt="EB Volt"
+                    className="h-9 w-auto"
+                  />
                 </span>
               </div>
             </Link>

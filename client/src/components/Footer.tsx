@@ -18,25 +18,19 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/">
-              <div className="mb-4 flex items-center gap-2.5">
+              <div className="mb-4 inline-flex items-center">
                 <span
-                  className="flex h-10 w-10 items-center justify-center rounded-lg"
+                  className="flex h-14 items-center rounded-xl px-3"
                   style={{
-                    background: "oklch(0.55 0.18 145)",
-                    color: "oklch(0.08 0.015 240)",
-                  }}
-                  aria-hidden="true"
-                >
-                  <Zap size={24} strokeWidth={2.6} />
-                </span>
-                <span
-                  className="text-2xl font-bold tracking-normal"
-                  style={{
-                    color: "oklch(0.95 0 0)",
-                    fontFamily: "'Space Grotesk', sans-serif",
+                    background: "oklch(0.98 0.01 145 / 0.95)",
+                    boxShadow: "0 10px 30px oklch(0 0 0 / 0.25)",
                   }}
                 >
-                  EB Volt
+                  <img
+                    src="/manus-storage/ecobelle_logo_e4538568.webp"
+                    alt="EB Volt"
+                    className="h-10 w-auto"
+                  />
                 </span>
               </div>
             </Link>
