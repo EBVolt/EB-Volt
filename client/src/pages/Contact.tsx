@@ -39,13 +39,13 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       {/* Hero */}
       <section
         className="pt-32 pb-16"
-        style={{ background: "linear-gradient(180deg, oklch(0.15 0.012 240) 0%, oklch(0.12 0.015 240) 100%)" }}
+        style={{ background: "linear-gradient(180deg, oklch(0.23 0.012 240) 0%, oklch(0.20 0.015 240) 100%)" }}
       >
         <div className="container">
           <div className="max-w-2xl">
@@ -74,9 +74,9 @@ export default function Contact() {
       </section>
 
       {/* Join the Team Section */}
-      <section className="py-16" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-16" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl">
-          <div className="rounded-2xl p-8" style={{ background: "oklch(0.17 0.012 240)", border: "1px solid oklch(0.55 0.18 145 / 0.2)" }}>
+          <div className="rounded-2xl p-8" style={{ background: "oklch(0.25 0.012 240)", border: "1px solid oklch(0.55 0.18 145 / 0.2)" }}>
             <h2
               className="text-3xl font-bold mb-6"
               style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}
@@ -158,7 +158,7 @@ export default function Contact() {
                     <div
                       key={item.title}
                       className="p-4 rounded-xl"
-                      style={{ background: "oklch(0.17 0.012 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
+                      style={{ background: "oklch(0.25 0.012 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
                     >
                       <div className="flex items-start gap-3">
                         <Icon size={18} style={{ color: "oklch(0.72 0.18 145)", marginTop: 2 }} />
@@ -195,7 +195,7 @@ export default function Contact() {
             <div className="lg:col-span-2">
               <div
                 className="rounded-2xl p-8"
-                style={{ background: "oklch(0.17 0.012 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
+                style={{ background: "oklch(0.25 0.012 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
               >
                 {submitted ? (
                   <div className="text-center py-12">
@@ -237,7 +237,7 @@ export default function Contact() {
                           placeholder="Your name"
                           className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
                           style={{
-                            background: "oklch(0.12 0.015 240)",
+                            background: "oklch(0.20 0.015 240)",
                             border: "1px solid oklch(1 0 0 / 12%)",
                             color: "oklch(0.95 0 0)",
                           }}
@@ -256,7 +256,7 @@ export default function Contact() {
                           placeholder="your@email.com"
                           className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
                           style={{
-                            background: "oklch(0.12 0.015 240)",
+                            background: "oklch(0.20 0.015 240)",
                             border: "1px solid oklch(1 0 0 / 12%)",
                             color: "oklch(0.95 0 0)",
                           }}
@@ -278,7 +278,7 @@ export default function Contact() {
                           placeholder="+233 ..."
                           className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
                           style={{
-                            background: "oklch(0.12 0.015 240)",
+                            background: "oklch(0.20 0.015 240)",
                             border: "1px solid oklch(1 0 0 / 12%)",
                             color: "oklch(0.95 0 0)",
                           }}
@@ -295,7 +295,7 @@ export default function Contact() {
                           onChange={(e) => setForm({ ...form, reason: e.target.value })}
                           className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all"
                           style={{
-                            background: "oklch(0.12 0.015 240)",
+                            background: "oklch(0.20 0.015 240)",
                             border: "1px solid oklch(1 0 0 / 12%)",
                             color: "oklch(0.95 0 0)",
                           }}
@@ -318,7 +318,7 @@ export default function Contact() {
                         rows={5}
                         className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all resize-none"
                         style={{
-                          background: "oklch(0.12 0.015 240)",
+                          background: "oklch(0.20 0.015 240)",
                           border: "1px solid oklch(1 0 0 / 12%)",
                           color: "oklch(0.95 0 0)",
                         }}

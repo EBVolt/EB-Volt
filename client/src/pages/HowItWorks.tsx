@@ -85,7 +85,7 @@ function PaymentGraphic() {
 // Charging Progress Graphic Component
 function ChargingGraphic() {
   return (
-    <div className="w-full h-64 rounded-lg flex items-center justify-center" style={{ background: "oklch(0.15 0.012 240)" }}>
+    <div className="w-full h-64 rounded-lg flex items-center justify-center" style={{ background: "oklch(0.23 0.012 240)" }}>
       <div className="flex flex-col items-center gap-6 px-6">
         <div className="text-center">
           <p className="text-xs font-semibold mb-2" style={{ color: "oklch(0.72 0.18 145)" }}>EB VOLT</p>
@@ -111,13 +111,13 @@ export default function HowItWorks() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       {/* Hero */}
       <section
         className="pt-32 pb-20"
-        style={{ background: "linear-gradient(180deg, oklch(0.15 0.012 240) 0%, oklch(0.12 0.015 240) 100%)" }}
+        style={{ background: "linear-gradient(180deg, oklch(0.23 0.012 240) 0%, oklch(0.20 0.015 240) 100%)" }}
       >
         <div className="container">
           <div
@@ -237,7 +237,7 @@ export default function HowItWorks() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl">
           <div
             ref={faqRef}

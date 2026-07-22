@@ -73,7 +73,7 @@ export default function Account() {
 
   if (loading) {
     return (
-      <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+      <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
         <Navbar />
         <div className="flex items-center justify-center h-screen">
           <div className="text-center">
@@ -87,7 +87,7 @@ export default function Account() {
 
   if (!user) {
     return (
-      <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+      <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
         <Navbar />
         <div className="flex items-center justify-center h-screen">
           <p style={{ color: "oklch(0.62 0.01 240)" }}>Please log in to view your account</p>
@@ -192,7 +192,7 @@ export default function Account() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       <div style={{ paddingTop: "5rem" }} className="py-12">
@@ -215,7 +215,7 @@ export default function Account() {
                 onClick={() => setActiveTab(tab)}
                 className="px-4 py-2 rounded-lg font-medium capitalize transition-all"
                 style={{
-                  background: activeTab === tab ? "oklch(0.55 0.18 145 / 0.2)" : "oklch(0.17 0.012 240)",
+                  background: activeTab === tab ? "oklch(0.55 0.18 145 / 0.2)" : "oklch(0.25 0.012 240)",
                   color: activeTab === tab ? "oklch(0.72 0.18 145)" : "oklch(0.62 0.01 240)",
                   border: `1px solid ${activeTab === tab ? "oklch(0.55 0.18 145 / 0.4)" : "oklch(1 0 0 / 8%)"}`,
                   fontFamily: "'Space Grotesk', sans-serif",
@@ -253,7 +253,7 @@ export default function Account() {
                     key={reservation.id}
                     className="p-4 rounded-xl border transition-all cursor-pointer"
                     style={{
-                      background: "oklch(0.17 0.012 240)",
+                      background: "oklch(0.25 0.012 240)",
                       border: `1px solid ${expandedId === reservation.id ? "oklch(0.55 0.18 145 / 0.4)" : "oklch(1 0 0 / 8%)"}`,
                     }}
                     onClick={() => setExpandedId(expandedId === reservation.id ? null : reservation.id)}
@@ -346,7 +346,7 @@ export default function Account() {
                     key={receipt.id}
                     className="p-4 rounded-xl border"
                     style={{
-                      background: "oklch(0.17 0.012 240)",
+                      background: "oklch(0.25 0.012 240)",
                       border: "1px solid oklch(1 0 0 / 8%)",
                     }}
                   >
@@ -402,7 +402,7 @@ export default function Account() {
                     key={refund.id}
                     className="p-4 rounded-xl border"
                     style={{
-                      background: "oklch(0.17 0.012 240)",
+                      background: "oklch(0.25 0.012 240)",
                       border: "1px solid oklch(1 0 0 / 8%)",
                     }}
                   >

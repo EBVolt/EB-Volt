@@ -53,7 +53,7 @@ export default function RefundModal({ isOpen, reservationId, onClose, onSuccess 
       <div
         className="w-full max-w-md rounded-2xl p-6"
         style={{
-          background: "oklch(0.17 0.012 240)",
+          background: "oklch(0.25 0.012 240)",
           border: "1px solid oklch(1 0 0 / 10%)",
           boxShadow: "0 24px 64px oklch(0 0 0 / 0.5)",
         }}
@@ -92,7 +92,7 @@ export default function RefundModal({ isOpen, reservationId, onClose, onSuccess 
                 className="w-full px-4 py-3 rounded-xl text-sm outline-none resize-none"
                 rows={4}
                 style={{
-                  background: "oklch(0.12 0.015 240)",
+                  background: "oklch(0.20 0.015 240)",
                   border: "1px solid oklch(1 0 0 / 12%)",
                   color: "oklch(0.95 0 0)",
                 }}
@@ -108,7 +108,7 @@ export default function RefundModal({ isOpen, reservationId, onClose, onSuccess 
                 onClick={onClose}
                 className="flex-1 px-4 py-3 rounded-xl font-semibold transition-all"
                 style={{
-                  background: "oklch(0.12 0.015 240)",
+                  background: "oklch(0.20 0.015 240)",
                   color: "oklch(0.62 0.01 240)",
                   border: "1px solid oklch(1 0 0 / 12%)",
                 }}

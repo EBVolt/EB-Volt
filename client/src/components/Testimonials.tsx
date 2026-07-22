@@ -50,7 +50,7 @@ const trustPoints: TrustPoint[] = [
 
 export default function TrustSection() {
   return (
-    <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+    <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
       <div className="container">
         <div className="text-center mb-14">
           <div

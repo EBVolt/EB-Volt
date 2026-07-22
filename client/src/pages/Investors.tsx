@@ -15,13 +15,13 @@ const opportunities = [
 export default function Investors() {
   useEffect(() => { document.title = "Investors - EB Volt"; }, []);
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       {/* Hero Section */}
       <section
         className="pt-32 pb-20"
-        style={{ background: "linear-gradient(180deg, oklch(0.15 0.012 240) 0%, oklch(0.12 0.015 240) 100%)" }}
+        style={{ background: "linear-gradient(180deg, oklch(0.23 0.012 240) 0%, oklch(0.20 0.015 240) 100%)" }}
       >
         <div className="container">
           <div className="max-w-3xl">
@@ -40,7 +40,7 @@ export default function Investors() {
       </section>
 
       {/* The Opportunity */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl">
           <div className="text-center mb-10">
             <h2
@@ -77,13 +77,13 @@ export default function Investors() {
               <div
                 key={idx}
                 className="flex items-start gap-4 p-4 rounded-lg"
-                style={{ background: "oklch(0.17 0.012 240)" }}
+                style={{ background: "oklch(0.25 0.012 240)" }}
               >
                 <div
                   className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
                   style={{ background: "oklch(0.72 0.18 145)" }}
                 >
-                  <span style={{ color: "oklch(0.12 0.015 240)", fontSize: "12px", fontWeight: "bold" }}>✓</span>
+                  <span style={{ color: "oklch(0.20 0.015 240)", fontSize: "12px", fontWeight: "bold" }}>✓</span>
                 </div>
                 <p style={{ color: "oklch(0.68 0.01 240)", lineHeight: "1.6" }}>
                   {opp}
@@ -95,7 +95,7 @@ export default function Investors() {
       </section>
 
       {/* Our Model */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl">
           <div className="text-center">
             <h2

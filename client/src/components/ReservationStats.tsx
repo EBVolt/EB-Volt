@@ -48,7 +48,7 @@ export default function ReservationStats({
             key={i}
             className="p-6 rounded-xl border animate-pulse"
             style={{
-              background: "oklch(0.17 0.012 240)",
+              background: "oklch(0.25 0.012 240)",
               border: "1px solid oklch(1 0 0 / 8%)",
             }}
           >

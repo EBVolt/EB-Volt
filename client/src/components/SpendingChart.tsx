@@ -29,7 +29,7 @@ const CustomTooltip = ({ active, payload }: any) => {
       <div
         className="p-3 rounded-lg border"
         style={{
-          background: "oklch(0.17 0.012 240)",
+          background: "oklch(0.25 0.012 240)",
           border: "1px solid oklch(0.55 0.18 145 / 0.3)",
         }}
       >
@@ -56,7 +56,7 @@ export default function SpendingChart({ data, isLoading = false }: SpendingChart
       <div
         className="p-6 rounded-xl border animate-pulse"
         style={{
-          background: "oklch(0.17 0.012 240)",
+          background: "oklch(0.25 0.012 240)",
           border: "1px solid oklch(1 0 0 / 8%)",
         }}
       >
@@ -71,7 +71,7 @@ export default function SpendingChart({ data, isLoading = false }: SpendingChart
       <div
         className="p-8 rounded-xl border text-center"
         style={{
-          background: "oklch(0.17 0.012 240)",
+          background: "oklch(0.25 0.012 240)",
           border: "1px solid oklch(1 0 0 / 8%)",
         }}
       >
@@ -86,7 +86,7 @@ export default function SpendingChart({ data, isLoading = false }: SpendingChart
     <div
       className="p-6 rounded-xl border"
       style={{
-        background: "oklch(0.17 0.012 240)",
+        background: "oklch(0.25 0.012 240)",
         border: "1px solid oklch(1 0 0 / 8%)",
       }}
     >

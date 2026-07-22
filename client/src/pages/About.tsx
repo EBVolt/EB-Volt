@@ -45,13 +45,13 @@ export default function About() {
   const { ref: sustainRef, inView: sustainIn } = useInView(0.1);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       {/* Hero */}
       <section
         className="pt-32 pb-20"
-        style={{ background: "linear-gradient(180deg, oklch(0.15 0.012 240) 0%, oklch(0.12 0.015 240) 100%)" }}
+        style={{ background: "linear-gradient(180deg, oklch(0.23 0.012 240) 0%, oklch(0.20 0.015 240) 100%)" }}
       >
         <div className="container">
           <div
@@ -78,7 +78,7 @@ export default function About() {
       </section>
 
       {/* Story */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl">
           <div className="text-center mb-10">
             <h2
@@ -114,7 +114,7 @@ export default function About() {
             <div
               className="p-8 rounded-2xl relative overflow-hidden"
               style={{
-                background: "oklch(0.17 0.012 240)",
+                background: "oklch(0.25 0.012 240)",
                 border: "1px solid oklch(0.55 0.18 145 / 0.2)",
               }}
             >
@@ -141,7 +141,7 @@ export default function About() {
             <div
               className="p-8 rounded-2xl relative overflow-hidden"
               style={{
-                background: "oklch(0.17 0.012 240)",
+                background: "oklch(0.25 0.012 240)",
                 border: "1px solid oklch(1 0 0 / 8%)",
               }}
             >
@@ -166,7 +166,7 @@ export default function About() {
       </section>
 
       {/* What Makes Us Different */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl">
           <div className="text-center mb-12">
             <h2
@@ -181,13 +181,13 @@ export default function About() {
               <div
                 key={idx}
                 className="flex items-start gap-4 p-4 rounded-lg"
-                style={{ background: "oklch(0.17 0.012 240)" }}
+                style={{ background: "oklch(0.25 0.012 240)" }}
               >
                 <div
                   className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
                   style={{ background: "oklch(0.72 0.18 145)" }}
                 >
-                  <span style={{ color: "oklch(0.12 0.015 240)", fontSize: "12px", fontWeight: "bold" }}>✓</span>
+                  <span style={{ color: "oklch(0.20 0.015 240)", fontSize: "12px", fontWeight: "bold" }}>✓</span>
                 </div>
                 <p style={{ color: "oklch(0.68 0.01 240)", lineHeight: "1.6" }}>
                   {diff}
@@ -254,7 +254,7 @@ export default function About() {
       </section>
 
       {/* Closing */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container max-w-3xl text-center">
           <p className="text-xl leading-relaxed mb-8" style={{ color: "oklch(0.68 0.01 240)" }}>
             We're just getting started, and we'd love for you to be part of the journey.

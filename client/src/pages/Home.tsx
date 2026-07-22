@@ -91,7 +91,7 @@ export default function Home() {
   const { ref: sustainRef, inView: sustainIn } = useInView(0.1);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       {/* ── HERO ── */}
@@ -109,7 +109,7 @@ export default function Home() {
           <div
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(105deg, oklch(0.08 0.015 240 / 0.92) 0%, oklch(0.10 0.015 240 / 0.75) 50%, oklch(0.08 0.015 240 / 0.5) 100%)",
+              background: "linear-gradient(105deg, oklch(0.16 0.015 240 / 0.92) 0%, oklch(0.18 0.015 240 / 0.75) 50%, oklch(0.16 0.015 240 / 0.5) 100%)",
             }}
           />
         </div>
@@ -226,13 +226,13 @@ export default function Home() {
           style={{ height: "80px", zIndex: 5 }}
         >
           <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
-            <path d="M0,80 L1440,20 L1440,80 Z" fill="oklch(0.12 0.015 240)" />
+            <path d="M0,80 L1440,20 L1440,80 Z" fill="oklch(0.20 0.015 240)" />
           </svg>
         </div>
       </section>
 
       {/* ── STATS ── */}
-      <section className="py-16" style={{ background: "oklch(0.12 0.015 240)" }}>
+      <section className="py-16" style={{ background: "oklch(0.20 0.015 240)" }}>
         <div className="container">
           <div
             ref={statsRef}
@@ -273,7 +273,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container">
           <div
             ref={featRef}
@@ -342,7 +342,7 @@ export default function Home() {
       </section>
 
       {/* ── CHARGER TYPES ── */}
-      <section className="py-20" style={{ background: "oklch(0.12 0.015 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.20 0.015 240)" }}>
         <div className="container">
           <div className="text-center mb-14">
             <div
@@ -415,7 +415,7 @@ export default function Home() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="py-20" style={{ background: "oklch(0.12 0.015 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.20 0.015 240)" }}>
         <div className="container">
           <div className="text-center mb-14">
             <div
@@ -455,7 +455,7 @@ export default function Home() {
       </section>
 
       {/* ── MAP PREVIEW ── */}
-      <section className="py-20" style={{ background: "oklch(0.10 0.015 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.18 0.015 240)" }}>
         <div className="container">
           <div
             ref={mapRef}
@@ -525,7 +525,7 @@ export default function Home() {
               <div
                 className="absolute -bottom-4 -right-4 px-5 py-4 rounded-xl"
                 style={{
-                  background: "oklch(0.17 0.012 240)",
+                  background: "oklch(0.25 0.012 240)",
                   border: "1px solid oklch(0.55 0.18 145 / 0.3)",
                   boxShadow: "0 8px 32px oklch(0 0 0 / 0.4)",
                 }}
@@ -551,7 +551,7 @@ export default function Home() {
       </section>
 
       {/* ── APP SECTION ── */}
-      <section className="py-20" style={{ background: "oklch(0.14 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
         <div className="container">
           <div
             ref={appRef}
@@ -603,7 +603,7 @@ export default function Home() {
                     <div
                       key={item.label}
                       className="p-4 rounded-xl"
-                      style={{ background: "oklch(0.12 0.015 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
+                      style={{ background: "oklch(0.20 0.015 240)", border: "1px solid oklch(1 0 0 / 8%)" }}
                     >
                       <Icon size={18} style={{ color: "oklch(0.72 0.18 145)", marginBottom: 8 }} />
                       <div className="text-sm font-semibold mb-1" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.95 0 0)" }}>
@@ -655,7 +655,7 @@ export default function Home() {
           />
           <div
             className="absolute inset-0"
-            style={{ background: "oklch(0.08 0.015 240 / 0.82)" }}
+            style={{ background: "oklch(0.16 0.015 240 / 0.82)" }}
           />
         </div>
         <div className="container relative z-10">
@@ -720,12 +720,12 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24" style={{ background: "oklch(0.12 0.015 240)" }}>
+      <section className="py-24" style={{ background: "oklch(0.20 0.015 240)" }}>
         <div className="container">
           <div
             className="rounded-2xl p-12 lg:p-16 text-center relative overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, oklch(0.17 0.012 240) 0%, oklch(0.20 0.015 200) 100%)",
+              background: "linear-gradient(135deg, oklch(0.25 0.012 240) 0%, oklch(0.20 0.015 200) 100%)",
               border: "1px solid oklch(0.55 0.18 145 / 0.2)",
             }}
           >

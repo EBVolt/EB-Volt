@@ -167,7 +167,7 @@ export default function UssdSimulator() {
           <CardContent className="p-0">
             {/* Phone screen area */}
             <div className="min-h-[400px] max-h-[500px] overflow-y-auto p-4 font-mono text-sm"
-              style={{ background: "oklch(0.15 0.02 240)", color: "oklch(0.85 0.02 145)" }}>
+              style={{ background: "oklch(0.23 0.02 240)", color: "oklch(0.85 0.02 145)" }}>
               {messages.length === 0 && !sessionActive && (
                 <div className="text-center py-16 opacity-60">
                   <Phone className="w-12 h-12 mx-auto mb-3 opacity-40" />

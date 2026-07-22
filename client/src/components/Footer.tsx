@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        background: "oklch(0.10 0.015 240)",
+        background: "oklch(0.18 0.015 240)",
         borderTop: "1px solid oklch(1 0 0 / 8%)",
       }}
     >

@@ -81,7 +81,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all"
           style={{
-            background: isOpen ? "oklch(0.55 0.18 145 / 0.15)" : "oklch(0.17 0.012 240)",
+            background: isOpen ? "oklch(0.55 0.18 145 / 0.15)" : "oklch(0.25 0.012 240)",
             color: isOpen ? "oklch(0.72 0.18 145)" : "oklch(0.62 0.01 240)",
             border: `1px solid ${isOpen ? "oklch(0.55 0.18 145 / 0.3)" : "oklch(1 0 0 / 8%)"}`,
           }}
@@ -91,7 +91,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
           {hasActiveFilters && (
             <span
               className="ml-2 px-2 py-0.5 rounded-full text-xs font-bold"
-              style={{ background: "oklch(0.72 0.18 145)", color: "oklch(0.12 0.015 240)" }}
+              style={{ background: "oklch(0.72 0.18 145)", color: "oklch(0.20 0.015 240)" }}
             >
               {[filters.dateFrom, filters.dateTo, filters.location, filters.status].filter(Boolean).length}
             </span>
@@ -105,7 +105,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
             onChange={(e) => handleSortChange(e.target.value as "date" | "cost" | "duration")}
             className="px-3 py-2 rounded-lg text-sm outline-none"
             style={{
-              background: "oklch(0.17 0.012 240)",
+              background: "oklch(0.25 0.012 240)",
               color: "oklch(0.95 0 0)",
               border: "1px solid oklch(1 0 0 / 8%)",
             }}
@@ -121,7 +121,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
             onClick={() => handleSortOrderChange(filters.sortOrder === "asc" ? "desc" : "asc")}
             className="px-3 py-2 rounded-lg text-sm font-medium transition-all"
             style={{
-              background: "oklch(0.17 0.012 240)",
+              background: "oklch(0.25 0.012 240)",
               color: "oklch(0.62 0.01 240)",
               border: "1px solid oklch(1 0 0 / 8%)",
             }}
@@ -152,7 +152,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
         <div
           className="p-4 rounded-xl border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
           style={{
-            background: "oklch(0.17 0.012 240)",
+            background: "oklch(0.25 0.012 240)",
             border: "1px solid oklch(1 0 0 / 12%)",
           }}
         >
@@ -167,7 +167,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
               onChange={(e) => handleDateFromChange(e.target.value)}
               className="w-full px-3 py-2 rounded-lg text-sm outline-none"
               style={{
-                background: "oklch(0.12 0.015 240)",
+                background: "oklch(0.20 0.015 240)",
                 color: "oklch(0.95 0 0)",
                 border: "1px solid oklch(1 0 0 / 12%)",
               }}
@@ -185,7 +185,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
               onChange={(e) => handleDateToChange(e.target.value)}
               className="w-full px-3 py-2 rounded-lg text-sm outline-none"
               style={{
-                background: "oklch(0.12 0.015 240)",
+                background: "oklch(0.20 0.015 240)",
                 color: "oklch(0.95 0 0)",
                 border: "1px solid oklch(1 0 0 / 12%)",
               }}
@@ -202,7 +202,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
               onChange={(e) => handleLocationChange(e.target.value)}
               className="w-full px-3 py-2 rounded-lg text-sm outline-none"
               style={{
-                background: "oklch(0.12 0.015 240)",
+                background: "oklch(0.20 0.015 240)",
                 color: "oklch(0.95 0 0)",
                 border: "1px solid oklch(1 0 0 / 12%)",
               }}
@@ -226,7 +226,7 @@ export default function ReservationFilterBar({ onFiltersChange, locations }: Res
               onChange={(e) => handleStatusChange(e.target.value)}
               className="w-full px-3 py-2 rounded-lg text-sm outline-none capitalize"
               style={{
-                background: "oklch(0.12 0.015 240)",
+                background: "oklch(0.20 0.015 240)",
                 color: "oklch(0.95 0 0)",
                 border: "1px solid oklch(1 0 0 / 12%)",
               }}

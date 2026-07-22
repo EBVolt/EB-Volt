@@ -23,13 +23,13 @@ type LegalPageProps = {
 
 export default function LegalPage({ title, subtitle, lastUpdated, intro, sections }: LegalPageProps) {
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
 
       {/* Hero */}
       <section
         className="pt-32 pb-14"
-        style={{ background: "linear-gradient(180deg, oklch(0.15 0.012 240) 0%, oklch(0.12 0.015 240) 100%)" }}
+        style={{ background: "linear-gradient(180deg, oklch(0.23 0.012 240) 0%, oklch(0.20 0.015 240) 100%)" }}
       >
         <div className="container">
           <div className="max-w-3xl">

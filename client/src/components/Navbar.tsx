@@ -44,7 +44,7 @@ export default function Navbar() {
         className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         style={{
           background: scrolled
-            ? "oklch(0.12 0.015 240 / 0.95)"
+            ? "oklch(0.20 0.015 240 / 0.95)"
             : "transparent",
           backdropFilter: scrolled ? "blur(16px)" : "none",
           borderBottom: scrolled ? "1px solid oklch(1 0 0 / 8%)" : "none",
@@ -121,7 +121,7 @@ export default function Navbar() {
                 <div
                   className="absolute left-0 mt-0 w-48 rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2"
                   style={{
-                    background: "oklch(0.12 0.015 240)",
+                    background: "oklch(0.20 0.015 240)",
                     border: "1px solid oklch(0.55 0.18 145 / 0.2)",
                   }}
                 >
@@ -188,7 +188,7 @@ export default function Navbar() {
         <div
           className="absolute top-0 right-0 bottom-0 w-72 flex flex-col pt-20 pb-8 px-6"
           style={{
-            background: "oklch(0.15 0.012 240)",
+            background: "oklch(0.23 0.012 240)",
             borderLeft: "1px solid oklch(1 0 0 / 10%)",
             transform: mobileOpen ? "translateX(0)" : "translateX(100%)",
             transition: "transform 300ms cubic-bezier(0.23, 1, 0.32, 1)",
