@@ -64,11 +64,11 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
               {navLinks.map((link) => (
                 <Link key={link.href} href={link.href}>
                   <span
-                    className="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200"
+                    className="whitespace-nowrap px-2.5 py-2 rounded-md text-[13px] xl:text-sm font-medium transition-all duration-200"
                     style={{
                       color:
                         location === link.href
@@ -101,7 +101,7 @@ export default function Navbar() {
               {/* Services Dropdown */}
               <div className="relative group">
                 <span
-                  className="px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 cursor-pointer"
+                  className="whitespace-nowrap px-2.5 py-2 rounded-md text-[13px] xl:text-sm font-medium transition-all duration-200 cursor-pointer"
                   style={{
                     color: "oklch(0.85 0 0)",
                     background: "transparent",
@@ -152,7 +152,7 @@ export default function Navbar() {
             {/* CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <Link href="/find-charger">
-                <button className="btn-primary flex items-center gap-2 text-sm">
+                <button className="btn-primary whitespace-nowrap flex items-center gap-2 text-sm">
                   <Zap size={16} />
                   Find a Charger
                 </button>
