@@ -151,7 +151,7 @@ export default function Navbar() {
           }}
         >
           {/* Main links */}
-          <nav className="flex flex-col gap-1">
+          <nav className="flex flex-col gap-1 shrink-0">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href}>
                 <span
@@ -176,7 +176,7 @@ export default function Navbar() {
 
           {/* Services section */}
           <div
-            className="mt-6 pt-6"
+            className="mt-6 pt-6 shrink-0"
             style={{ borderTop: "1px solid oklch(1 0 0 / 10%)" }}
           >
             <p
@@ -214,7 +214,7 @@ export default function Navbar() {
 
           {/* Primary CTA */}
           <div
-            className="mt-6 pt-6"
+            className="mt-6 pt-6 shrink-0"
             style={{ borderTop: "1px solid oklch(1 0 0 / 10%)" }}
           >
             <Link href="/find-charger">
