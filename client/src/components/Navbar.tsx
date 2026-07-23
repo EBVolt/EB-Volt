@@ -7,7 +7,6 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, Zap } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Home" },
   { href: "/find-charger", label: "Find a Charger" },
   { href: "/how-it-works", label: "How It Works" },
   { href: "/about", label: "About Us" },
