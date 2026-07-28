@@ -363,8 +363,8 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center">
               <img
-                src="https://images.unsplash.com/photo-1700411881984-971bc29083bd?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
-                alt="Electric car at a DC fast charging station"
+                src="https://images.unsplash.com/photo-1631347826177-de288776ed3b?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
+                alt="Car at an unbranded DC fast charging station"
                 loading="lazy"
                 className="w-full object-cover rounded-2xl"
                 style={{ maxWidth: "460px", height: "340px", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
@@ -410,8 +410,8 @@ export default function Home() {
             </div>
             <div className="flex justify-center">
               <img
-                src="https://images.unsplash.com/photo-1760539108573-6a061eca015c?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
-                alt="Wall-mounted AC Level 2 charger with a car"
+                src="https://images.unsplash.com/photo-1619913387719-a43ee8859d9c?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
+                alt="Free-standing AC Level 2 EV charging station"
                 loading="lazy"
                 className="w-full object-cover rounded-2xl"
                 style={{ maxWidth: "460px", height: "340px", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
