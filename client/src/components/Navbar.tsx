@@ -20,6 +20,7 @@ const serviceLinks = [
   { href: "/services/public-charging", label: "Public Charging" },
   { href: "/services/fleet-charging", label: "Fleet Charging" },
   { href: "/services/business-partnerships", label: "Business Partnerships" },
+  { href: "/services/home-charging", label: "Home Charging" },
   { href: "/services/charger-installation", label: "Charger Installation" },
   { href: "/services/support", label: "Support" },
 ];

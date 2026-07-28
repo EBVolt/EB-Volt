@@ -14,6 +14,7 @@ import PublicCharging from "./pages/PublicCharging";
 import FleetCharging from "./pages/FleetCharging";
 import BusinessPartnerships from "./pages/BusinessPartnerships";
 import ChargerInstallation from "./pages/ChargerInstallation";
+import HomeCharging from "./pages/HomeCharging";
 import Support from "./pages/Support";
 import AdminDashboard from "./pages/AdminDashboard";
 import Unsubscribe from "./pages/Unsubscribe";
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/services/fleet-charging" component={FleetCharging} />
       <Route path="/services/business-partnerships" component={BusinessPartnerships} />
       <Route path="/services/charger-installation" component={ChargerInstallation} />
+      <Route path="/services/home-charging" component={HomeCharging} />
       <Route path="/services/support" component={Support} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/unsubscribe" component={Unsubscribe} />

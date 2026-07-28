@@ -176,6 +176,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
+                { label: "Home Charging", href: "/services/home-charging" },
                 { label: "Public Charging", href: "/services/public-charging" },
                 { label: "Fleet Charging", href: "/services/fleet-charging" },
                 { label: "Business Partnerships", href: "/services/business-partnerships" },
