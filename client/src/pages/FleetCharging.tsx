@@ -37,19 +37,27 @@ export default function FleetCharging() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: Truck, title: "Dedicated Chargers", desc: "Install chargers at your depot or facility" },
-              { icon: BarChart3, title: "Fleet Analytics", desc: "Track charging costs and vehicle efficiency" },
-              { icon: Zap, title: "Reserved Slots", desc: "Book charging slots ahead for your vehicles" },
-              { icon: Lock, title: "Secure Access", desc: "RFID-based access control for your fleet" },
-              { icon: Users, title: "Team Management", desc: "Manage multiple drivers and vehicles" },
-              { icon: Headphones, title: "Fleet Support", desc: "A named point of contact for your fleet account" },
+              { icon: Truck, title: "Dedicated Chargers", desc: "Install chargers at your depot or facility", img: "https://images.unsplash.com/photo-1760539068164-e7186a197d09?fm=jpg&q=70&w=600&h=360&auto=format&fit=crop", alt: "Wall-mounted EV charger" },
+              { icon: BarChart3, title: "Fleet Analytics", desc: "Track charging costs and vehicle efficiency", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?fm=jpg&q=70&w=600&h=360&auto=format&fit=crop", alt: "Analytics graphs on a laptop screen" },
+              { icon: Zap, title: "Reserved Slots", desc: "Book charging slots ahead for your vehicles", img: "https://images.unsplash.com/photo-1700411881984-971bc29083bd?fm=jpg&q=70&w=600&h=360&auto=format&fit=crop", alt: "Electric car at a charging bay" },
+              { icon: Lock, title: "Secure Access", desc: "RFID-based access control for your fleet", img: "https://images.unsplash.com/photo-1746682975155-ae1cce0853a3?fm=jpg&q=70&w=600&h=360&auto=format&fit=crop", alt: "Hand with keys accessing a door" },
+              { icon: Users, title: "Team Management", desc: "Manage multiple drivers and vehicles", img: "https://images.unsplash.com/photo-1758873268663-5a362616b5a7?fm=jpg&q=70&w=600&h=360&auto=format&fit=crop", alt: "A team of colleagues together" },
+              { icon: Headphones, title: "Fleet Support", desc: "A named point of contact for your fleet account", img: "https://images.unsplash.com/photo-1712159018726-4564d92f3ec2?fm=jpg&q=70&w=600&h=360&auto=format&fit=crop", alt: "Support agent wearing a headset" },
             ].map((benefit, idx) => (
-              <div key={idx} className="p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
-                <benefit.icon size={32} style={{ color: "oklch(0.65 0.18 50)", marginBottom: "1rem" }} />
-                <h3 className="text-xl font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                  {benefit.title}
-                </h3>
-                <p style={{ color: "oklch(0.45 0.05 240)" }}>{benefit.desc}</p>
+              <div key={idx} className="rounded-xl overflow-hidden flex flex-col" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
+                <div className="relative">
+                  <img src={benefit.img} alt={benefit.alt} loading="lazy" className="w-full object-cover" style={{ height: "160px" }} />
+                  <div className="absolute bottom-0 left-0 right-0" style={{ height: "50%", background: "linear-gradient(to top, rgba(13,31,26,0.55), transparent)" }} />
+                  <div className="absolute top-3 left-3 inline-flex items-center justify-center w-10 h-10 rounded-full" style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+                    <benefit.icon size={20} style={{ color: "oklch(0.65 0.18 50)" }} />
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
+                    {benefit.title}
+                  </h3>
+                  <p style={{ color: "oklch(0.45 0.05 240)" }}>{benefit.desc}</p>
+                </div>
               </div>
             ))}
           </div>
