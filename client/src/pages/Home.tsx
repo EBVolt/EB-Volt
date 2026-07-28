@@ -410,8 +410,8 @@ export default function Home() {
             </div>
             <div className="flex justify-center">
               <img
-                src="https://images.unsplash.com/photo-1703860271509-b50f5679f2a0?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
-                alt="Electric car plugged into an AC Level 2 wallbox charger"
+                src="https://images.unsplash.com/photo-1760539108573-6a061eca015c?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
+                alt="Wall-mounted AC Level 2 charger with a car"
                 loading="lazy"
                 className="w-full object-cover rounded-2xl"
                 style={{ maxWidth: "460px", height: "340px", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
