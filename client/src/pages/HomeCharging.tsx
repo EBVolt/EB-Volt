@@ -2,11 +2,13 @@ import { useEffect } from "react";
 import { Home, Zap, CheckCircle, Shield, Wrench, Calendar, Gauge, Plug } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { ChargerIllustration } from "@/components/ChargerIllustration";
 import { Link } from "wouter";
 
 const chargerTiers = [
   {
     icon: Plug,
+    illoType: "home" as const,
     power: "7 kW",
     name: "Essential Home Charger",
     type: "Single-phase AC",
@@ -21,6 +23,7 @@ const chargerTiers = [
   },
   {
     icon: Gauge,
+    illoType: "ac-level2" as const,
     power: "11 kW",
     name: "Advanced Home Charger",
     type: "Three-phase AC",
@@ -36,6 +39,7 @@ const chargerTiers = [
   },
   {
     icon: Zap,
+    illoType: "dc-fast" as const,
     power: "22 kW",
     name: "Performance Charger",
     type: "Three-phase AC",
@@ -104,13 +108,16 @@ export default function HomeCharging() {
                   boxShadow: tier.highlighted ? "0 10px 30px oklch(0.52 0.18 145 / 0.15)" : "none",
                 }}
               >
-                <div className="flex items-center justify-between mb-4">
-                  <tier.icon size={32} style={{ color: "#1D9E75" }} />
+                <div className="flex items-start justify-between mb-2">
+                  <tier.icon size={28} style={{ color: "#1D9E75" }} />
                   {tier.highlighted && (
                     <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: "oklch(0.52 0.18 145 / 0.12)", color: "#1D9E75" }}>
                       Most Popular
                     </span>
                   )}
+                </div>
+                <div className="flex justify-center mb-4" style={{ background: "oklch(0.96 0.01 240)", borderRadius: "0.75rem", padding: "0.5rem" }}>
+                  <ChargerIllustration type={tier.illoType} size="medium" />
                 </div>
                 <div className="text-3xl font-bold mb-1" style={{ color: "oklch(0.25 0.08 240)", fontFamily: "'Space Grotesk', sans-serif" }}>
                   {tier.power}
