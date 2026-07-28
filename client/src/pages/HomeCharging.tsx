@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { Home, Zap, CheckCircle, Shield, Wrench, Calendar, Gauge, Plug } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChargerIllustration } from "@/components/ChargerIllustration";
 import { Link } from "wouter";
 
 const chargerTiers = [
   {
     icon: Plug,
-    illoType: "home" as const,
+    img: "https://images.unsplash.com/photo-1766507680004-1c71007aefe5?fm=jpg&q=70&w=800&h=520&auto=format&fit=crop",
+    alt: "Wall-mounted home EV charger",
     power: "7 kW",
     name: "Essential Home Charger",
     type: "Single-phase AC",
@@ -23,7 +23,8 @@ const chargerTiers = [
   },
   {
     icon: Gauge,
-    illoType: "ac-level2" as const,
+    img: "https://images.unsplash.com/photo-1760539068164-e7186a197d09?fm=jpg&q=70&w=800&h=520&auto=format&fit=crop",
+    alt: "Wall-mounted EV charger with cable",
     power: "11 kW",
     name: "Advanced Home Charger",
     type: "Three-phase AC",
@@ -39,7 +40,8 @@ const chargerTiers = [
   },
   {
     icon: Zap,
-    illoType: "dc-fast" as const,
+    img: "https://images.unsplash.com/photo-1703860271509-b50f5679f2a0?fm=jpg&q=70&w=800&h=520&auto=format&fit=crop",
+    alt: "Electric car plugged into a home wallbox charger",
     power: "22 kW",
     name: "Performance Charger",
     type: "Three-phase AC",
@@ -101,23 +103,29 @@ export default function HomeCharging() {
             {chargerTiers.map((tier, idx) => (
               <div
                 key={idx}
-                className="p-8 rounded-xl flex flex-col"
+                className="p-8 rounded-xl flex flex-col overflow-hidden"
                 style={{
                   background: "white",
                   border: tier.highlighted ? "2px solid #1D9E75" : "1px solid oklch(0.88 0.02 240)",
                   boxShadow: tier.highlighted ? "0 10px 30px oklch(0.52 0.18 145 / 0.15)" : "none",
                 }}
               >
-                <div className="flex items-start justify-between mb-2">
-                  <tier.icon size={28} style={{ color: "#1D9E75" }} />
+                <div className="relative mb-5 -mx-8 -mt-8">
+                  <img
+                    src={tier.img}
+                    alt={tier.alt}
+                    loading="lazy"
+                    className="w-full object-cover"
+                    style={{ height: "200px", borderTopLeftRadius: "0.75rem", borderTopRightRadius: "0.75rem" }}
+                  />
+                  <div className="absolute top-3 left-3 inline-flex items-center justify-center w-10 h-10 rounded-full" style={{ background: "white", boxShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+                    <tier.icon size={20} style={{ color: "#1D9E75" }} />
+                  </div>
                   {tier.highlighted && (
-                    <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: "oklch(0.52 0.18 145 / 0.12)", color: "#1D9E75" }}>
+                    <span className="absolute top-3 right-3 text-xs font-semibold px-3 py-1 rounded-full" style={{ background: "#1D9E75", color: "white" }}>
                       Most Popular
                     </span>
                   )}
-                </div>
-                <div className="flex justify-center mb-4" style={{ background: "oklch(0.96 0.01 240)", borderRadius: "0.75rem", padding: "0.5rem" }}>
-                  <ChargerIllustration type={tier.illoType} size="medium" />
                 </div>
                 <div className="text-3xl font-bold mb-1" style={{ color: "oklch(0.25 0.08 240)", fontFamily: "'Space Grotesk', sans-serif" }}>
                   {tier.power}
