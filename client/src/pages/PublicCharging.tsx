@@ -63,16 +63,6 @@ export default function PublicCharging() {
                 </div>
               </div>
             ))}
-            {/* Pay with Mobile Money Card */}
-            <div className="p-6 rounded-xl" style={{ background: "oklch(0.96 0.01 240)", border: "1px solid oklch(0.88 0.02 240)" }}>
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style={{ background: "#FFC72C" }}>
-                <span className="font-bold text-sm" style={{ color: "#000" }}>MTN</span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2" style={{ color: "oklch(0.25 0.08 240)" }}>
-                Pay with Mobile Money
-              </h3>
-              <p style={{ color: "oklch(0.45 0.05 240)" }}>No bank card or app required. Pay instantly with MTN MoMo, Telecel Cash, or AirtelTigo at the charger screen.</p>
-            </div>
           </div>
         </div>
       </section>
