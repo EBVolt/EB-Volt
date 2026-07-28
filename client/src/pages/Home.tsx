@@ -8,7 +8,6 @@ import { Link } from "wouter";
 import { Zap, MapPin, Clock, Shield, ChevronRight, ArrowRight, Battery, Leaf, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { ChargerIllustration } from "@/components/ChargerIllustration";
 import TrustSection from "@/components/Testimonials";
 
 // Intersection observer hook for scroll animations
@@ -363,7 +362,13 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div className="flex justify-center">
-              <ChargerIllustration type="dc-fast" size="large" />
+              <img
+                src="https://images.unsplash.com/photo-1700411881984-971bc29083bd?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
+                alt="Electric car at a DC fast charging station"
+                loading="lazy"
+                className="w-full object-cover rounded-2xl"
+                style={{ maxWidth: "460px", height: "340px", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
+              />
             </div>
             <div>
               <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}>
@@ -404,7 +409,13 @@ export default function Home() {
               </ul>
             </div>
             <div className="flex justify-center">
-              <ChargerIllustration type="ac-level2" size="large" />
+              <img
+                src="https://images.unsplash.com/photo-1703860271509-b50f5679f2a0?fm=jpg&q=75&w=800&h=600&auto=format&fit=crop"
+                alt="Electric car plugged into an AC Level 2 wallbox charger"
+                loading="lazy"
+                className="w-full object-cover rounded-2xl"
+                style={{ maxWidth: "460px", height: "340px", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
+              />
             </div>
           </div>
         </div>
