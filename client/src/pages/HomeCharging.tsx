@@ -77,8 +77,9 @@ export default function HomeCharging() {
               Home Charging
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              Buy and install a home EV charger with EB Volt. We supply and fit 7 kW to 22 kW chargers,
-              professionally installed by certified technicians across Ghana.
+              Charge up at home, on your schedule. EB Volt supplies and fits 7 kW to 22 kW EV chargers —
+              so you wake up to a full battery every morning. Certified technicians, clean installation,
+              backed by warranty, anywhere in Ghana.
             </p>
             <Link href="/contact?reason=installation">
               <a className="inline-block px-8 py-3 rounded-lg font-semibold transition-all" style={{ background: "#1D9E75", color: "white", border: "none" }}>
