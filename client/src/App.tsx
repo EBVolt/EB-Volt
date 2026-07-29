@@ -25,6 +25,11 @@ import { OfflineBanner } from "./components/OfflineBanner";
 import { ChatbotWidget } from "./components/ChatbotWidget";
 import UssdSimulator from "./pages/UssdSimulator";
 import Investors from "./pages/Investors";
+import CityCharging from "./pages/CityCharging";
+import TaxiEVCharging from "./pages/TaxiEVCharging";
+import ApartmentEVCharging from "./pages/ApartmentEVCharging";
+import CostToChargeEV from "./pages/CostToChargeEV";
+import FastChargingTime from "./pages/FastChargingTime";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -50,6 +55,12 @@ function Router() {
       <Route path="/terms-of-service">{() => <Redirect to="/terms" />}</Route>
       <Route path="/ussd-simulator" component={UssdSimulator} />
       <Route path="/investors" component={Investors} />
+      {/* SEO landing pages */}
+      <Route path="/ev-charging/:city" component={CityCharging} />
+      <Route path="/ev-charging-for-taxi-drivers" component={TaxiEVCharging} />
+      <Route path="/ev-charging-for-apartments" component={ApartmentEVCharging} />
+      <Route path="/guides/cost-to-charge-ev-ghana" component={CostToChargeEV} />
+      <Route path="/guides/how-long-does-ev-fast-charging-take" component={FastChargingTime} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
