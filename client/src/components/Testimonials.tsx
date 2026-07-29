@@ -50,14 +50,14 @@ const trustPoints: TrustPoint[] = [
 
 export default function TrustSection() {
   return (
-    <section className="py-20" style={{ background: "oklch(0.38 0.03 248)" }}>
+    <section className="py-20" style={{ background: "oklch(0.94 0.03 155)" }}>
       <div className="container">
         <div className="text-center mb-14">
           <div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
             style={{
               background: "oklch(0.55 0.18 145 / 0.12)",
-              color: "oklch(0.75 0.16 145)",
+              color: "oklch(0.48 0.18 145)",
               fontFamily: "'Space Grotesk', sans-serif",
             }}
           >
@@ -65,11 +65,11 @@ export default function TrustSection() {
           </div>
           <h2
             className="text-4xl lg:text-5xl font-bold mb-4"
-            style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
           >
             Built to Earn Your Trust
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.82 0.01 245)" }}>
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.45 0.02 240)" }}>
             We are just getting started in Ghana, and we are building the network to be reliable, transparent, and easy to use from day one.
           </p>
         </div>
@@ -89,15 +89,15 @@ export default function TrustSection() {
                     border: "1px solid oklch(0.55 0.18 145 / 0.25)",
                   }}
                 >
-                  <Icon size={22} style={{ color: "oklch(0.75 0.16 145)" }} />
+                  <Icon size={22} style={{ color: "oklch(0.48 0.18 145)" }} />
                 </div>
                 <h3
                   className="text-lg font-semibold mb-2"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                  style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
                 >
                   {point.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.01 245)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "oklch(0.45 0.02 240)" }}>
                   {point.desc}
                 </p>
               </div>

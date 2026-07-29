@@ -86,7 +86,7 @@ export default function Home() {
   const { ref: sustainRef, inView: sustainIn } = useInView(0.1);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.42 0.03 245)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.965 0.02 155)" }}>
       <Navbar />
 
       {/* ── HERO ── */}
@@ -227,13 +227,13 @@ export default function Home() {
           style={{ height: "80px", zIndex: 5 }}
         >
           <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
-            <path d="M0,80 L1440,20 L1440,80 Z" fill="oklch(0.42 0.03 245)" />
+            <path d="M0,80 L1440,20 L1440,80 Z" fill="oklch(0.965 0.02 155)" />
           </svg>
         </div>
       </section>
 
       {/* ── STATS ── */}
-      <section className="py-16" style={{ background: "oklch(0.42 0.03 245)" }}>
+      <section className="py-16" style={{ background: "oklch(0.965 0.02 155)" }}>
         <div className="container">
           <div
             ref={statsRef}
@@ -255,15 +255,15 @@ export default function Home() {
                     className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4"
                     style={{ background: "oklch(0.55 0.18 145 / 0.12)", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
                   >
-                    <Icon size={22} style={{ color: "oklch(0.75 0.16 145)" }} />
+                    <Icon size={22} style={{ color: "oklch(0.48 0.18 145)" }} />
                   </div>
                   <div
                     className="text-4xl font-bold mb-1"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                    style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
                   >
                     <CountUp end={stat.value} suffix={stat.suffix} />
                   </div>
-                  <div className="text-sm" style={{ color: "oklch(0.82 0.01 245)" }}>
+                  <div className="text-sm" style={{ color: "oklch(0.45 0.02 240)" }}>
                     {stat.label}
                   </div>
                 </div>
@@ -274,7 +274,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section className="py-20" style={{ background: "oklch(0.38 0.03 248)" }}>
+      <section className="py-20" style={{ background: "oklch(0.94 0.03 155)" }}>
         <div className="container">
           <div
             ref={featRef}
@@ -289,7 +289,7 @@ export default function Home() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
                 style={{
                   background: "oklch(0.55 0.18 145 / 0.12)",
-                  color: "oklch(0.75 0.16 145)",
+                  color: "oklch(0.48 0.18 145)",
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
@@ -297,11 +297,11 @@ export default function Home() {
               </div>
               <h2
                 className="text-4xl lg:text-5xl font-bold mb-4"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
               >
                 Built for Ghana's Roads
               </h2>
-              <p className="text-lg max-w-xl mx-auto" style={{ color: "oklch(0.82 0.01 245)" }}>
+              <p className="text-lg max-w-xl mx-auto" style={{ color: "oklch(0.45 0.02 240)" }}>
                 Every feature is designed around how Ghanaian EV drivers actually charge, from the daily commute to the long-haul trip.
               </p>
             </div>
@@ -323,15 +323,15 @@ export default function Home() {
                       className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
                       style={{ background: "oklch(0.55 0.18 145 / 0.12)", border: "1px solid oklch(0.55 0.18 145 / 0.25)" }}
                     >
-                      <Icon size={22} style={{ color: "oklch(0.75 0.16 145)" }} />
+                      <Icon size={22} style={{ color: "oklch(0.48 0.18 145)" }} />
                     </div>
                     <h3
                       className="text-lg font-semibold mb-2"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                      style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
                     >
                       {feat.title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: "oklch(0.82 0.01 245)" }}>
+                    <p className="text-sm leading-relaxed" style={{ color: "oklch(0.45 0.02 240)" }}>
                       {feat.desc}
                     </p>
                   </div>
@@ -343,14 +343,14 @@ export default function Home() {
       </section>
 
       {/* ── CHARGER TYPES ── */}
-      <section className="py-20" style={{ background: "oklch(0.42 0.03 245)" }}>
+      <section className="py-20" style={{ background: "oklch(0.965 0.02 155)" }}>
         <div className="container">
           <div className="text-center mb-14">
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
               style={{
                 background: "oklch(0.55 0.18 145 / 0.12)",
-                color: "oklch(0.75 0.16 145)",
+                color: "oklch(0.48 0.18 145)",
                 fontFamily: "'Space Grotesk', sans-serif",
               }}
             >
@@ -358,11 +358,11 @@ export default function Home() {
             </div>
             <h2
               className="text-4xl lg:text-5xl font-bold mb-4"
-              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
             >
               Charging Technology
             </h2>
-            <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.82 0.01 245)" }}>
+            <p className="text-lg max-w-2xl mx-auto" style={{ color: "oklch(0.45 0.02 240)" }}>
               Choose the charging speed that fits your day. DC Fast for quick top-ups, or AC Level 2 for longer sessions.
             </p>
           </div>
@@ -377,19 +377,19 @@ export default function Home() {
               />
             </div>
             <div>
-              <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}>
+              <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}>
                 DC Fast Charging
               </h3>
-              <p className="text-lg mb-6" style={{ color: "oklch(0.82 0.01 245)" }}>
+              <p className="text-lg mb-6" style={{ color: "oklch(0.45 0.02 240)" }}>
                 Get 80% charge in just 30 minutes. Perfect for highway stops and quick top-ups.
               </p>
               <ul className="space-y-3">
                 {["Up to 100kW power", "30-minute fast charge", "Available at major hubs", "Perfect for long trips"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "oklch(0.55 0.18 145 / 0.2)" }}>
-                      <Zap size={11} style={{ color: "oklch(0.75 0.16 145)" }} />
+                      <Zap size={11} style={{ color: "oklch(0.48 0.18 145)" }} />
                     </div>
-                    <span style={{ color: "oklch(0.86 0.008 245)" }}>{item}</span>
+                    <span style={{ color: "oklch(0.42 0.02 240)" }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -397,19 +397,19 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
             <div>
-              <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}>
+              <h3 className="text-2xl font-bold mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}>
                 AC Level 2 Charging
               </h3>
-              <p className="text-lg mb-6" style={{ color: "oklch(0.82 0.01 245)" }}>
+              <p className="text-lg mb-6" style={{ color: "oklch(0.45 0.02 240)" }}>
                 Convenient charging for shopping, dining, or overnight stays.
               </p>
               <ul className="space-y-3">
                 {["Up to 50kW power", "2-4 hour full charge", "Available at all stations", "Perfect for daily use"].map((item) => (
                   <li key={item} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: "oklch(0.55 0.18 145 / 0.2)" }}>
-                      <Zap size={11} style={{ color: "oklch(0.75 0.16 145)" }} />
+                      <Zap size={11} style={{ color: "oklch(0.48 0.18 145)" }} />
                     </div>
-                    <span style={{ color: "oklch(0.86 0.008 245)" }}>{item}</span>
+                    <span style={{ color: "oklch(0.42 0.02 240)" }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -428,14 +428,14 @@ export default function Home() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="py-20" style={{ background: "oklch(0.42 0.03 245)" }}>
+      <section className="py-20" style={{ background: "oklch(0.965 0.02 155)" }}>
         <div className="container">
           <div className="text-center mb-14">
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
               style={{
                 background: "oklch(0.55 0.18 145 / 0.12)",
-                color: "oklch(0.75 0.16 145)",
+                color: "oklch(0.48 0.18 145)",
                 fontFamily: "'Space Grotesk', sans-serif",
               }}
             >
@@ -443,7 +443,7 @@ export default function Home() {
             </div>
             <h2
               className="text-4xl lg:text-5xl font-bold mb-4"
-              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
             >
               Charging is Easy
             </h2>
@@ -453,7 +453,7 @@ export default function Home() {
               src="/manus-storage/charging_steps_28dee001.png"
               alt="How to charge with EB Volt"
               className="w-full max-w-4xl rounded-2xl"
-              style={{ border: "1px solid oklch(1 0 0 / 12%)" }}
+              style={{ border: "1px solid oklch(0.35 0.06 150 / 0.14)" }}
             />
           </div>
           <div className="text-center mt-10">
@@ -468,7 +468,7 @@ export default function Home() {
       </section>
 
       {/* ── MAP PREVIEW ── */}
-      <section className="py-20" style={{ background: "oklch(0.42 0.03 245)" }}>
+      <section className="py-20" style={{ background: "oklch(0.965 0.02 155)" }}>
         <div className="container">
           <div
             ref={mapRef}
@@ -484,7 +484,7 @@ export default function Home() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
                 style={{
                   background: "oklch(0.55 0.18 145 / 0.12)",
-                  color: "oklch(0.75 0.16 145)",
+                  color: "oklch(0.48 0.18 145)",
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
@@ -492,12 +492,12 @@ export default function Home() {
               </div>
               <h2
                 className="text-4xl lg:text-5xl font-bold mb-6"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
               >
                 Find a Charger{" "}
-                <span style={{ color: "oklch(0.75 0.16 145)" }}>Near You</span>
+                <span style={{ color: "oklch(0.48 0.18 145)" }}>Near You</span>
               </h2>
-              <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.82 0.01 245)" }}>
+              <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.45 0.02 240)" }}>
                 Our interactive map shows EB Volt charging stations across Ghana in real time. Filter by speed, availability, and amenities to find the right spot for your charge.
               </p>
               <ul className="space-y-4 mb-10">
@@ -512,9 +512,9 @@ export default function Home() {
                       className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                       style={{ background: "oklch(0.55 0.18 145 / 0.2)" }}
                     >
-                      <Zap size={11} style={{ color: "oklch(0.75 0.16 145)" }} />
+                      <Zap size={11} style={{ color: "oklch(0.48 0.18 145)" }} />
                     </div>
-                    <span className="text-sm" style={{ color: "oklch(0.86 0.008 245)" }}>
+                    <span className="text-sm" style={{ color: "oklch(0.42 0.02 240)" }}>
                       {item}
                     </span>
                   </li>
@@ -538,7 +538,7 @@ export default function Home() {
               <div
                 className="absolute -bottom-4 -right-4 px-5 py-4 rounded-xl"
                 style={{
-                  background: "oklch(0.47 0.03 245)",
+                  background: "oklch(0.99 0.008 155)",
                   border: "1px solid oklch(0.55 0.18 145 / 0.3)",
                   boxShadow: "0 8px 24px oklch(0.25 0.03 240 / 0.15)",
                 }}
@@ -548,11 +548,11 @@ export default function Home() {
                     className="w-10 h-10 rounded-lg flex items-center justify-center animate-pulse-glow"
                     style={{ background: "oklch(0.55 0.18 145 / 0.2)" }}
                   >
-                    <Zap size={18} style={{ color: "oklch(0.75 0.16 145)" }} />
+                    <Zap size={18} style={{ color: "oklch(0.48 0.18 145)" }} />
                   </div>
                   <div>
-                    <div className="text-xs" style={{ color: "oklch(0.82 0.01 245)" }}>Stations Online</div>
-                    <div className="text-xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.75 0.16 145)" }}>
+                    <div className="text-xs" style={{ color: "oklch(0.45 0.02 240)" }}>Stations Online</div>
+                    <div className="text-xl font-bold" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.48 0.18 145)" }}>
                       50+
                     </div>
                   </div>
@@ -564,7 +564,7 @@ export default function Home() {
       </section>
 
       {/* ── APP SECTION ── */}
-      <section className="py-20" style={{ background: "oklch(0.38 0.03 248)" }}>
+      <section className="py-20" style={{ background: "oklch(0.94 0.03 155)" }}>
         <div className="container">
           <div
             ref={appRef}
@@ -588,7 +588,7 @@ export default function Home() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
                 style={{
                   background: "oklch(0.55 0.18 145 / 0.12)",
-                  color: "oklch(0.75 0.16 145)",
+                  color: "oklch(0.48 0.18 145)",
                   fontFamily: "'Space Grotesk', sans-serif",
                 }}
               >
@@ -596,12 +596,12 @@ export default function Home() {
               </div>
               <h2
                 className="text-4xl lg:text-5xl font-bold mb-6"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
               >
                 Your Charging{" "}
-                <span style={{ color: "oklch(0.75 0.16 145)" }}>Command Centre</span>
+                <span style={{ color: "oklch(0.48 0.18 145)" }}>Command Centre</span>
               </h2>
-              <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.82 0.01 245)" }}>
+              <p className="text-lg leading-relaxed mb-8" style={{ color: "oklch(0.45 0.02 240)" }}>
                 The EB Volt app puts Ghana's charging network in your pocket. Find chargers, reserve slots, track your charge, and manage payments, all in one place.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -616,13 +616,13 @@ export default function Home() {
                     <div
                       key={item.label}
                       className="p-4 rounded-xl"
-                      style={{ background: "oklch(0.42 0.03 245)", border: "1px solid oklch(1 0 0 / 12%)" }}
+                      style={{ background: "oklch(0.965 0.02 155)", border: "1px solid oklch(0.35 0.06 150 / 0.14)" }}
                     >
-                      <Icon size={18} style={{ color: "oklch(0.75 0.16 145)", marginBottom: 8 }} />
-                      <div className="text-sm font-semibold mb-1" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.95 0 0)" }}>
+                      <Icon size={18} style={{ color: "oklch(0.48 0.18 145)", marginBottom: 8 }} />
+                      <div className="text-sm font-semibold mb-1" style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.30 0.05 240)" }}>
                         {item.label}
                       </div>
-                      <div className="text-xs" style={{ color: "oklch(0.82 0.01 245)" }}>
+                      <div className="text-xs" style={{ color: "oklch(0.45 0.02 240)" }}>
                         {item.desc}
                       </div>
                     </div>
@@ -635,7 +635,7 @@ export default function Home() {
                   style={{
                     background: "oklch(0.55 0.18 145 / 0.12)",
                     border: "1px solid oklch(0.55 0.18 145 / 0.25)",
-                    color: "oklch(0.75 0.16 145)",
+                    color: "oklch(0.48 0.18 145)",
                     fontFamily: "'Space Grotesk', sans-serif",
                   }}
                 >
@@ -646,7 +646,7 @@ export default function Home() {
                   style={{
                     background: "oklch(0.55 0.18 145 / 0.12)",
                     border: "1px solid oklch(0.55 0.18 145 / 0.25)",
-                    color: "oklch(0.75 0.16 145)",
+                    color: "oklch(0.48 0.18 145)",
                     fontFamily: "'Space Grotesk', sans-serif",
                   }}
                 >
@@ -733,12 +733,12 @@ export default function Home() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24" style={{ background: "oklch(0.42 0.03 245)" }}>
+      <section className="py-24" style={{ background: "oklch(0.965 0.02 155)" }}>
         <div className="container">
           <div
             className="rounded-2xl p-12 lg:p-16 text-center relative overflow-hidden"
             style={{
-              background: "linear-gradient(135deg, oklch(0.45 0.04 245) 0%, oklch(0.40 0.045 255) 100%)",
+              background: "linear-gradient(135deg, oklch(0.95 0.03 150) 0%, oklch(0.975 0.018 160) 100%)",
               border: "1px solid oklch(0.55 0.18 145 / 0.2)",
             }}
           >
@@ -752,15 +752,15 @@ export default function Home() {
                 className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 animate-pulse-glow"
                 style={{ background: "oklch(0.55 0.18 145 / 0.15)", border: "1px solid oklch(0.55 0.18 145 / 0.3)" }}
               >
-                <Zap size={28} style={{ color: "oklch(0.75 0.16 145)" }} />
+                <Zap size={28} style={{ color: "oklch(0.48 0.18 145)" }} />
               </div>
               <h2
                 className="text-4xl lg:text-5xl font-bold mb-4"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.98 0 0)" }}
+                style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.27 0.06 240)" }}
               >
                 Ready to Drive Green?
               </h2>
-              <p className="text-lg mb-10 max-w-lg mx-auto" style={{ color: "oklch(0.82 0.01 245)" }}>
+              <p className="text-lg mb-10 max-w-lg mx-auto" style={{ color: "oklch(0.45 0.02 240)" }}>
                 Find your nearest EB Volt charger and be part of Ghana's shift to clean, electric driving.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
