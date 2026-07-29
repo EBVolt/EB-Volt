@@ -94,13 +94,19 @@ export default function Home() {
         className="relative min-h-screen flex items-center overflow-hidden"
         style={{ paddingTop: "5rem" }}
       >
-        {/* Background image */}
+        {/* Background video */}
         <div className="absolute inset-0">
-          <img
-            src="/manus-storage/hero_charging_f0301604.png"
-            alt="EV Charging in Ghana"
+          <video
             className="w-full h-full object-cover"
-          />
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/manus-storage/hero_charging_f0301604.png"
+            aria-label="Woman charging her electric vehicle at a DC charging station"
+          >
+            <source src="https://assets.mixkit.co/videos/23125/23125-720.mp4" type="video/mp4" />
+          </video>
           <div
             className="absolute inset-0"
             style={{
