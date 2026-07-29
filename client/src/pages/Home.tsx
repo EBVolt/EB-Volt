@@ -105,7 +105,7 @@ export default function Home() {
             poster="/manus-storage/hero_charging_f0301604.png"
             aria-label="Woman charging her electric vehicle at a DC charging station"
           >
-            <source src="https://assets.mixkit.co/videos/23125/23125-720.mp4" type="video/mp4" />
+            <source src="/manus-storage/hero_ev_dawn.mp4" type="video/mp4" />
           </video>
           <div
             className="absolute inset-0"
