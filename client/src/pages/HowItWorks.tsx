@@ -267,7 +267,7 @@ export default function HowItWorks() {
                   <div className="p-6 flex items-start justify-between gap-4">
                     <h3
                       className="font-semibold text-base"
-                      style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}
+                      style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
                     >
                       {faq.q}
                     </h3>
@@ -275,7 +275,7 @@ export default function HowItWorks() {
                       style={{
                         transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)",
                         transition: "transform 0.3s ease",
-                        color: "oklch(0.72 0.18 145)",
+                        color: "oklch(0.52 0.18 145)",
                         flexShrink: 0,
                       }}
                     >
@@ -285,7 +285,7 @@ export default function HowItWorks() {
                   {openFaq === i && (
                     <div
                       className="px-6 pb-6 border-t"
-                      style={{ borderColor: "oklch(0.25 0.01 240)", color: "oklch(0.62 0.01 240)" }}
+                      style={{ borderColor: "oklch(0.88 0.02 240)", color: "oklch(0.45 0.05 240)" }}
                     >
                       {faq.a}
                     </div>
