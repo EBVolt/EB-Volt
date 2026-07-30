@@ -2,6 +2,8 @@
    EB Volt - Privacy Policy
    ============================================================ */
 import LegalPage, { LegalSection } from "@/components/LegalPage";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 
 const sections: LegalSection[] = [
   {
@@ -66,12 +68,15 @@ const sections: LegalSection[] = [
 
 export default function Privacy() {
   return (
-    <LegalPage
+    <>
+      <Seo {...PAGE_SEO.privacy} />
+      <LegalPage
       title="Privacy Policy"
       subtitle="How EB Volt collects, uses, and protects your personal information."
       lastUpdated="July 2026"
       intro="Your privacy matters to us. This policy describes the information we collect when you use the EB Volt website, app, and charging network, and the choices you have about that information."
       sections={sections}
-    />
+      />
+    </>
   );
 }

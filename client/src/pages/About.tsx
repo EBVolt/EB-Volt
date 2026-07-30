@@ -2,6 +2,8 @@
    EB Volt - About Page
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 import { Leaf, Zap, Users, Globe, ArrowRight, Target, Eye } from "lucide-react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
@@ -47,6 +49,7 @@ export default function About() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.about} />
 
       {/* Hero */}
       <section

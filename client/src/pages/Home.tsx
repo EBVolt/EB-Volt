@@ -4,6 +4,8 @@
    Sections: Hero, Stats, How It Works, Map Preview, App, Sustainability, CTA
    ============================================================ */
 import { useEffect, useRef, useState } from "react";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 import { Link } from "wouter";
 import { Zap, MapPin, Clock, Shield, ChevronRight, ArrowRight, Battery, Leaf, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
@@ -88,6 +90,7 @@ export default function Home() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.965 0.02 155)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.home} />
 
       {/* ── HERO ── */}
       <section

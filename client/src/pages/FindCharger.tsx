@@ -3,6 +3,8 @@
    Features: Google Maps zoomed to Accra, waitlist signup card
    ============================================================ */
 import { useEffect, useState, useCallback, useRef } from 'react';
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 import { Mail, Zap, CheckCircle } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -56,6 +58,7 @@ export default function FindCharger() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.findCharger} />
 
       <section className="pt-24 pb-8">
         <div className="container">

@@ -145,6 +145,108 @@ export function getCity(slug?: string): City | undefined {
   return CITIES.find((c) => c.slug === slug?.toLowerCase());
 }
 
+/* ---------- Static page SEO metadata ---------- */
+
+export interface PageSeo {
+  title: string;
+  description: string;
+  canonicalPath: string;
+}
+
+export const PAGE_SEO: Record<string, PageSeo> = {
+  home: {
+    title: "EB Volt – Ghana's Premier EV Charging Network",
+    description:
+      "EB Volt is Ghana's first solar-powered EV charging network. Find fast chargers, pay with MTN MoMo — no bank account needed — and drive green across Ghana.",
+    canonicalPath: "/",
+  },
+  findCharger: {
+    title: "Find an EV Charger Near You in Ghana | EB Volt",
+    description:
+      "Locate the nearest EB Volt EV charging station in Ghana with live availability. Fast, solar-powered chargers with instant mobile-money payment.",
+    canonicalPath: "/find-charger",
+  },
+  howItWorks: {
+    title: "How EB Volt EV Charging Works | EB Volt Ghana",
+    description:
+      "See how easy it is to charge with EB Volt: find a station, plug in, and pay with MTN MoMo, Telecel Cash or AirtelTigo Money. Charging in three simple steps.",
+    canonicalPath: "/how-it-works",
+  },
+  about: {
+    title: "About EB Volt – Solar EV Charging in Ghana",
+    description:
+      "Learn about EB Volt, Ghana's solar-powered electric-vehicle charging network on a mission to make clean, reliable charging accessible across the country.",
+    canonicalPath: "/about",
+  },
+  contact: {
+    title: "Contact EB Volt | EV Charging Support in Ghana",
+    description:
+      "Get in touch with EB Volt for EV charging support, partnerships and installation enquiries in Ghana. Call +233 59 560 2717 or email hello@ebvolt.com.",
+    canonicalPath: "/contact",
+  },
+  publicCharging: {
+    title: "Public EV Charging Network in Ghana | EB Volt",
+    description:
+      "EB Volt's public EV charging network offers solar-powered DC fast charging across Ghana, with transparent per-kWh pricing and mobile-money payments.",
+    canonicalPath: "/services/public-charging",
+  },
+  fleetCharging: {
+    title: "EV Fleet Charging Solutions in Ghana | EB Volt",
+    description:
+      "Power your electric fleet with EB Volt. Reliable, solar-backed fast charging and flexible plans for taxis, delivery vans and commercial fleets in Ghana.",
+    canonicalPath: "/services/fleet-charging",
+  },
+  businessPartnerships: {
+    title: "EV Charging Partnerships for Business | EB Volt",
+    description:
+      "Partner with EB Volt to host EV chargers at your business or property in Ghana. Attract EV drivers and earn from Ghana's growing charging network.",
+    canonicalPath: "/services/business-partnerships",
+  },
+  chargerInstallation: {
+    title: "EV Charger Installation in Ghana | EB Volt",
+    description:
+      "Professional EV charger installation for homes, estates and businesses across Ghana. EB Volt handles supply, installation and support end to end.",
+    canonicalPath: "/services/charger-installation",
+  },
+  homeCharging: {
+    title: "Home EV Charging in Ghana | EB Volt",
+    description:
+      "Charge your electric vehicle at home with EB Volt. Reliable home charger installation and solar-ready options for EV owners across Ghana.",
+    canonicalPath: "/services/home-charging",
+  },
+  support: {
+    title: "EV Charging Support & Help | EB Volt Ghana",
+    description:
+      "Need help with EB Volt charging, payments or your account? Find answers and reach our Ghana-based support team for fast, friendly assistance.",
+    canonicalPath: "/services/support",
+  },
+  investors: {
+    title: "Investors | EB Volt – EV Charging in Ghana",
+    description:
+      "Invest in Ghana's clean-mobility future with EB Volt, the solar-powered EV charging network scaling across the country. Explore the opportunity.",
+    canonicalPath: "/investors",
+  },
+  privacy: {
+    title: "Privacy Policy | EB Volt",
+    description:
+      "How EB Volt collects, uses and protects your personal information across our website, app and EV charging network in Ghana.",
+    canonicalPath: "/privacy",
+  },
+  // Duplicate of /privacy — canonical points to the primary URL to avoid duplicate content.
+  privacyPolicy: {
+    title: "Privacy Policy | EB Volt",
+    description:
+      "How EB Volt collects, uses and protects your personal information across our website, app and EV charging network in Ghana.",
+    canonicalPath: "/privacy",
+  },
+  terms: {
+    title: "Terms of Service | EB Volt",
+    description:
+      "The terms that apply when you use EB Volt's EV charging network, app, website and installation services in Ghana.",
+    canonicalPath: "/terms",
+  },
+};
+
 /* ---------- Structured-data builders ---------- */
 
 export function organizationLd() {

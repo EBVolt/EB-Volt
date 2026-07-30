@@ -5,6 +5,8 @@
    redirects here.
    ============================================================ */
 import LegalPage, { LegalSection } from "@/components/LegalPage";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 
 const sections: LegalSection[] = [
   {
@@ -97,12 +99,15 @@ const sections: LegalSection[] = [
 
 export default function Terms() {
   return (
-    <LegalPage
+    <>
+      <Seo {...PAGE_SEO.terms} />
+      <LegalPage
       title="Terms of Service"
       subtitle="The terms that apply when you use EB Volt charging and installation services."
       lastUpdated="July 2026"
       intro="These terms set out the rules for using EB Volt's charging network, app, website, and installation services. Please read them carefully so you understand your rights and responsibilities."
       sections={sections}
-    />
+      />
+    </>
   );
 }

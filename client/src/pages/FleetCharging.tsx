@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 import { Truck, BarChart3, Zap, Lock, Users, Headphones } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -9,6 +11,7 @@ export default function FleetCharging() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.fleetCharging} />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16" style={{ background: "#0D1F1A" }}>

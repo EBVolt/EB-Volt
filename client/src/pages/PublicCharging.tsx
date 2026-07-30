@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 /*
    EB Volt - Public Charging Page
    ============================================================ */
@@ -12,6 +14,7 @@ export default function PublicCharging() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.publicCharging} />
 
       {/* Hero Section */}
       <section className="pt-32 pb-16" style={{ background: "#0D1F1A" }}>

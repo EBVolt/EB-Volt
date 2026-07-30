@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 import { ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 import Navbar from "@/components/Navbar";
@@ -17,6 +19,7 @@ export default function Investors() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.investors} />
 
       {/* Hero Section */}
       <section

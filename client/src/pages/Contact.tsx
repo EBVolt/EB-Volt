@@ -2,6 +2,8 @@
    EB Volt - Contact Page
    ============================================================ */
 import { useEffect, useState } from 'react';
+import Seo from "@/components/Seo";
+import { PAGE_SEO } from "@/data/seoContent";
 import { Mail, Phone, MapPin, Zap, Send, CheckCircle, Building, Users } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -41,6 +43,7 @@ export default function Contact() {
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
       <Navbar />
+      <Seo {...PAGE_SEO.contact} />
 
       {/* Hero */}
       <section
