@@ -70,13 +70,13 @@ function QrCodeGraphic() {
 // Payment Screen Graphic Component
 function PaymentGraphic() {
   return (
-    <div className="w-full h-64 rounded-lg flex items-center justify-center" style={{ background: "oklch(0.2 0.01 240)" }}>
+    <div className="w-full h-64 rounded-lg flex items-center justify-center" style={{ background: "oklch(0.96 0.01 240)" }}>
       <div className="flex flex-col items-center gap-4 px-6">
-        <CreditCard size={48} style={{ color: "oklch(0.72 0.18 145)" }} />
-        <p className="text-sm font-medium text-center" style={{ color: "oklch(0.78 0.005 240)" }}>
+        <CreditCard size={48} style={{ color: "oklch(0.52 0.18 145)" }} />
+        <p className="text-sm font-medium text-center" style={{ color: "oklch(0.40 0.03 240)" }}>
           Payment Prompt<br />Enter PIN
         </p>
-        <div className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>
+        <div className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>
           Completes in &lt;5 seconds
         </div>
       </div>
@@ -87,19 +87,19 @@ function PaymentGraphic() {
 // Charging Progress Graphic Component
 function ChargingGraphic() {
   return (
-    <div className="w-full h-64 rounded-lg flex items-center justify-center" style={{ background: "oklch(0.23 0.012 240)" }}>
+    <div className="w-full h-64 rounded-lg flex items-center justify-center" style={{ background: "oklch(0.96 0.01 240)" }}>
       <div className="flex flex-col items-center gap-6 px-6">
         <div className="text-center">
-          <p className="text-xs font-semibold mb-2" style={{ color: "oklch(0.72 0.18 145)" }}>EB VOLT</p>
-          <p className="text-sm" style={{ color: "oklch(0.78 0.005 240)" }}>Charging...</p>
+          <p className="text-xs font-semibold mb-2" style={{ color: "oklch(0.52 0.18 145)" }}>EB VOLT</p>
+          <p className="text-sm" style={{ color: "oklch(0.40 0.03 240)" }}>Charging...</p>
         </div>
-        <div className="w-32 h-2 rounded-full" style={{ background: "oklch(0.25 0.01 240)" }}>
+        <div className="w-32 h-2 rounded-full" style={{ background: "oklch(0.88 0.02 240)" }}>
           <div
             className="h-full rounded-full"
-            style={{ background: "oklch(0.72 0.18 145)", width: "65%" }}
+            style={{ background: "oklch(0.52 0.18 145)", width: "65%" }}
           />
         </div>
-        <p className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>65% • 12 min remaining</p>
+        <p className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>65% • 12 min remaining</p>
       </div>
     </div>
   );
@@ -113,14 +113,14 @@ export default function HowItWorks() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.20 0.015 240)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.98 0.01 240)" }}>
       <Navbar />
       <Seo {...PAGE_SEO.howItWorks} />
 
       {/* Hero */}
       <section
         className="pt-32 pb-20"
-        style={{ background: "linear-gradient(180deg, oklch(0.23 0.012 240) 0%, oklch(0.20 0.015 240) 100%)" }}
+        style={{ background: "#0D1F1A" }}
       >
         <div className="container">
           <div
@@ -135,8 +135,8 @@ export default function HowItWorks() {
             <div
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-4"
               style={{
-                background: "oklch(0.55 0.18 145 / 0.12)",
-                color: "oklch(0.72 0.18 145)",
+                background: "oklch(0.55 0.18 145 / 0.20)",
+                color: "#4ade80",
                 fontFamily: "'Space Grotesk', sans-serif",
               }}
             >
@@ -149,7 +149,7 @@ export default function HowItWorks() {
               Charging is{" "}
               <span style={{ color: "oklch(0.72 0.18 145)" }}>Easy</span>
             </h1>
-            <p className="text-lg leading-relaxed" style={{ color: "oklch(0.62 0.01 240)" }}>
+            <p className="text-lg leading-relaxed" style={{ color: "rgba(255,255,255,0.85)" }}>
               Three simple steps: scan, pay, charge. No app download, no bank account, no complications.
             </p>
           </div>
@@ -180,11 +180,11 @@ export default function HowItWorks() {
                     <div className="mt-6">
                       <div
                         className="text-sm font-semibold mb-2"
-                        style={{ color: "oklch(0.72 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}
+                        style={{ color: "oklch(0.52 0.18 145)", fontFamily: "'Space Grotesk', sans-serif" }}
                       >
                         Step {step.number} — {step.title}
                       </div>
-                      <p className="text-base leading-relaxed" style={{ color: "oklch(0.78 0.005 240)" }}>
+                      <p className="text-base leading-relaxed" style={{ color: "oklch(0.40 0.03 240)" }}>
                         {step.desc}
                       </p>
                     </div>
@@ -194,9 +194,9 @@ export default function HowItWorks() {
             </div>
 
             {/* Payment methods footer */}
-            <div className="border-t" style={{ borderColor: "oklch(0.25 0.01 240)" }}>
+            <div className="border-t" style={{ borderColor: "oklch(0.88 0.02 240)" }}>
               <div className="pt-12 text-center">
-                <p className="text-sm font-semibold mb-6" style={{ color: "oklch(0.72 0.18 145)" }}>
+                <p className="text-sm font-semibold mb-6" style={{ color: "oklch(0.52 0.18 145)" }}>
                   Accepted payment methods — no bank account needed
                 </p>
                 <div className="flex justify-center items-center gap-8">
@@ -208,7 +208,7 @@ export default function HowItWorks() {
                     >
                       <span className="font-bold text-xs" style={{ color: "#000" }}>MTN</span>
                     </div>
-                    <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>MTN MoMo</span>
+                    <span className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>MTN MoMo</span>
                   </div>
 
                   {/* Telecel Cash */}
@@ -219,7 +219,7 @@ export default function HowItWorks() {
                     >
                       <span className="font-bold text-xs" style={{ color: "#FFF" }}>TC</span>
                     </div>
-                    <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>Telecel Cash</span>
+                    <span className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>Telecel Cash</span>
                   </div>
 
                   {/* AirtelTigo Money */}
@@ -230,7 +230,7 @@ export default function HowItWorks() {
                     >
                       <span className="font-bold text-xs" style={{ color: "#FFF" }}>ATM</span>
                     </div>
-                    <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>AirtelTigo Money</span>
+                    <span className="text-xs" style={{ color: "oklch(0.45 0.05 240)" }}>AirtelTigo Money</span>
                   </div>
                 </div>
               </div>
@@ -240,7 +240,7 @@ export default function HowItWorks() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20" style={{ background: "oklch(0.22 0.012 240)" }}>
+      <section className="py-20" style={{ background: "oklch(0.96 0.01 240)" }}>
         <div className="container max-w-3xl">
           <div
             ref={faqRef}
@@ -252,7 +252,7 @@ export default function HowItWorks() {
           >
             <h2
               className="text-4xl font-bold mb-12 text-center"
-              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}
+              style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
             >
               Frequently Asked Questions
             </h2>
@@ -302,11 +302,11 @@ export default function HowItWorks() {
         <div className="container text-center">
           <h2
             className="text-4xl font-bold mb-6"
-            style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.97 0 0)" }}
+            style={{ fontFamily: "'Space Grotesk', sans-serif", color: "oklch(0.25 0.08 240)" }}
           >
             Ready to Charge?
           </h2>
-          <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: "oklch(0.62 0.01 240)" }}>
+          <p className="text-lg mb-8 max-w-2xl mx-auto" style={{ color: "oklch(0.45 0.05 240)" }}>
             Find your nearest EB Volt charger and start charging today.
           </p>
           <Link href="/find-charger">
