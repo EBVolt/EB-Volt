@@ -132,7 +132,7 @@ export const ReceiptPDF = ({
       {/* Header */}
       <View style={styles.header}>
         <Text style={styles.logo}>⚡ EB Volt</Text>
-        <Text style={styles.company}>EB Volt - Ghana's Premier EV Charging Network</Text>
+        <Text style={styles.company}>EB Volt - Premier EV Charging Network</Text>
       </View>
 
       {/* Receipt Title */}

@@ -155,7 +155,7 @@ export interface PageSeo {
 
 export const PAGE_SEO: Record<string, PageSeo> = {
   home: {
-    title: "EB Volt – Ghana's Premier EV Charging Network",
+    title: "EB Volt – Premier EV Charging Network",
     description:
       "EB Volt is Ghana's first solar-powered EV charging network. Find fast chargers, pay with MTN MoMo — no bank account needed — and drive green across Ghana.",
     canonicalPath: "/",

@@ -78,7 +78,7 @@ const features = [
 ];
 
 export default function Home() {
-  useEffect(() => { document.title = "EB Volt - Ghana's Premier EV Charging Network"; }, []);
+  useEffect(() => { document.title = "EB Volt - Premier EV Charging Network"; }, []);
 
   const { ref: heroRef, inView: heroIn } = useInView(0.1);
   const { ref: statsRef, inView: statsIn } = useInView(0.2);
