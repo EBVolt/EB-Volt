@@ -167,7 +167,9 @@ export default function Home() {
               className="text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl"
               style={{ color: "oklch(0.78 0.005 240)" }}
             >
-              Ghana's first solar-powered rapid EV charging network. No bank account needed – pay instantly with MTN MoMo.
+              The Fastest Way to Charge Your EV
+              <br />
+              Powered by the sun. Paid with MoMo. No bank account. No hassle. Just plug in and go
             </p>
 
             {/* Payment logos */}
