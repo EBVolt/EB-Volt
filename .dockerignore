@@ -1,0 +1,13 @@
+node_modules
+dist
+.git
+.DS_Store
+.env
+.env.*
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+coverage
+.cache
+tmp
+temp

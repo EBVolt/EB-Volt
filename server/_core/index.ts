@@ -9,7 +9,7 @@ import { syncAuthMiddleware } from "../syncAuth";
 import { ussdRouter } from "../ussd/routes";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
-import { serveStatic, setupVite } from "./vite";
+import { serveStatic } from "./static";
 
 async function startServer() {
   const app = express();
@@ -33,6 +33,8 @@ async function startServer() {
   );
   // development mode uses Vite, production mode uses static files
   if (process.env.NODE_ENV === "development") {
+    const viteModulePath = "./vite";
+    const { setupVite } = await import(viteModulePath);
     await setupVite(app, server);
   } else {
     serveStatic(app);
