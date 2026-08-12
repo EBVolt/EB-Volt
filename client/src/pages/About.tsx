@@ -263,7 +263,7 @@ export default function About() {
             We're just getting started, and we'd love for you to be part of the journey.
           </p>
           <Link href="/contact">
-            <button className="btn-green flex items-center gap-2 mx-auto">
+            <button className="btn-primary flex items-center gap-2 mx-auto">
               Get in Touch
               <ArrowRight size={16} />
             </button>

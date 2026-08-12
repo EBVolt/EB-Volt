@@ -128,7 +128,7 @@ export default function Investors() {
               We're building relationships with development finance institutions, climate-focused funds, and impact investors who share our vision for clean mobility in Africa. If that's you, we'd welcome a conversation.
             </p>
             <Link href="/contact">
-              <button className="btn-green flex items-center gap-2 mx-auto mb-8">
+              <button className="btn-primary flex items-center gap-2 mx-auto mb-8">
                 Contact Our Team
                 <ArrowRight size={16} />
               </button>
