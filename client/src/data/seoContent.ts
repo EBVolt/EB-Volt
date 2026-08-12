@@ -167,7 +167,7 @@ export const PAGE_SEO: Record<string, PageSeo> = {
     canonicalPath: "/find-charger",
   },
   howItWorks: {
-    title: "How EB Volt EV Charging Works | EB Volt Ghana",
+    title: "How EV Charging Works | EB Volt Ghana",
     description:
       "See how easy it is to charge with EB Volt: find a station, plug in, and pay with MTN MoMo, Telecel Cash or AirtelTigo Money. Charging in three simple steps.",
     canonicalPath: "/how-it-works",

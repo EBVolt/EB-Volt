@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://ebvolt.com/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://ebvolt.com/find-charger</loc><changefreq>daily</changefreq><priority>0.9</priority></url>
-  <url><loc>https://ebvolt.com/how-it-works</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://ebvolt.com/about</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://ebvolt.com/contact</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ebvolt.com/</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://ebvolt.com/find-charger</loc><lastmod>2026-08-12</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ebvolt.com/how-it-works</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ebvolt.com/about</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ebvolt.com/contact</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
   <!-- Service pages -->
-  <url><loc>https://ebvolt.com/services/public-charging</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ebvolt.com/services/fleet-charging</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ebvolt.com/services/business-partnerships</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-  <url><loc>https://ebvolt.com/services/charger-installation</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://ebvolt.com/services/home-charging</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://ebvolt.com/services/support</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://ebvolt.com/services/public-charging</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ebvolt.com/services/fleet-charging</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ebvolt.com/services/business-partnerships</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://ebvolt.com/services/charger-installation</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ebvolt.com/services/home-charging</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://ebvolt.com/services/support</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
 
   <!-- City / location landing pages -->
-  <url><loc>https://ebvolt.com/ev-charging/accra</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://ebvolt.com/ev-charging/kumasi</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://ebvolt.com/ev-charging/tema</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://ebvolt.com/ev-charging/takoradi</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ebvolt.com/ev-charging/accra</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ebvolt.com/ev-charging/kumasi</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ebvolt.com/ev-charging/tema</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://ebvolt.com/ev-charging/takoradi</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
 
   <!-- Use-case landing pages -->
-  <url><loc>https://ebvolt.com/ev-charging-for-taxi-drivers</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ebvolt.com/ev-charging-for-apartments</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ebvolt.com/ev-charging-for-taxi-drivers</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ebvolt.com/ev-charging-for-apartments</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- Guides -->
-  <url><loc>https://ebvolt.com/guides/cost-to-charge-ev-ghana</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://ebvolt.com/guides/how-long-does-ev-fast-charging-take</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ebvolt.com/guides/cost-to-charge-ev-ghana</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://ebvolt.com/guides/how-long-does-ev-fast-charging-take</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
 
   <!-- Legal -->
-  <url><loc>https://ebvolt.com/privacy</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://ebvolt.com/terms</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://ebvolt.com/investors</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://ebvolt.com/privacy</loc><lastmod>2026-08-12</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://ebvolt.com/terms</loc><lastmod>2026-08-12</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://ebvolt.com/investors</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.4</priority></url>
 </urlset>
