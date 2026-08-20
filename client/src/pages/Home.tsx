@@ -97,23 +97,31 @@ export default function Home() {
         className="relative min-h-screen flex items-center overflow-hidden"
         style={{ paddingTop: "5rem" }}
       >
-        {/* Background video */}
+        {/* Background image (optimized, replaces the 25MB autoplay video) */}
         <div className="absolute inset-0">
-          <video
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster="/manus-storage/hero_charging_f0301604.png"
-            aria-label="Woman charging her electric vehicle at a DC charging station"
-          >
-            <source src="/manus-storage/hero_ev_dawn.mp4" type="video/mp4" />
-          </video>
+          <picture>
+            <source
+              type="image/avif"
+              srcSet="/manus-storage/hero_pin_city-900.avif 900w, /manus-storage/hero_pin_city-1600.avif 1600w"
+              sizes="100vw"
+            />
+            <source
+              type="image/webp"
+              srcSet="/manus-storage/hero_pin_city-900.webp 900w, /manus-storage/hero_pin_city-1600.webp 1600w"
+              sizes="100vw"
+            />
+            <img
+              src="/manus-storage/hero_pin_city-1600.jpg"
+              alt="EB Volt EV charging network across Accra, Ghana"
+              className="w-full h-full object-cover object-top md:object-[center_60%]"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           <div
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(105deg, oklch(0.30 0.06 160 / 0.86) 0%, oklch(0.42 0.08 155 / 0.60) 50%, oklch(0.55 0.10 150 / 0.32) 100%)",
+              background: "linear-gradient(105deg, oklch(0.20 0.04 160 / 0.72) 0%, oklch(0.30 0.06 155 / 0.42) 45%, oklch(0.45 0.08 150 / 0.15) 100%)",
             }}
           />
         </div>
