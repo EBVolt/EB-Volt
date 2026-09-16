@@ -96,15 +96,25 @@ export default function Home() {
       {/* Full artwork shown unmodified (no crop) — overlay copy now lives below in its own section. */}
       <section className="relative overflow-hidden" style={{ paddingTop: "5rem" }}>
         <div
-          className="relative h-[70vh] sm:h-[85vh] lg:h-[90vh]"
+          className="relative overflow-hidden h-[65vh] sm:h-[75vh] lg:h-[82vh]"
           style={{ background: "#E3CBA8" }}
         >
+          {/* Blurred, scaled-up copy of the same artwork fills the frame so the portrait
+              image reads as a landscape banner instead of sitting on flat gutters. */}
+          <img
+            src="/manus-storage/hero-accra-1440w.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover scale-125 blur-3xl brightness-75"
+            decoding="async"
+          />
+          {/* Full artwork, unmodified and uncropped, centred on top of the backdrop */}
           <img
             src="/manus-storage/hero-accra-1440w.jpg"
             srcSet="/manus-storage/hero-accra-900w.jpg 900w, /manus-storage/hero-accra-1440w.jpg 1440w"
             sizes="100vw"
             alt="EB Volt logo in a glowing electric pin above an aerial view of Accra at sunset"
-            className="w-full h-full object-contain object-center"
+            className="relative w-full h-full object-contain object-center"
             fetchPriority="high"
             decoding="async"
           />
