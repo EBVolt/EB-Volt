@@ -93,15 +93,18 @@ export default function Home() {
       <Seo {...PAGE_SEO.home} />
 
       {/* ── HERO IMAGE ── */}
-      {/* Artwork shown unmodified as a banner; the overlay copy now lives below in its own section. */}
+      {/* Full artwork shown unmodified (no crop) — overlay copy now lives below in its own section. */}
       <section className="relative overflow-hidden" style={{ paddingTop: "5rem" }}>
-        <div className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh]">
+        <div
+          className="relative h-[70vh] sm:h-[85vh] lg:h-[90vh]"
+          style={{ background: "#E3CBA8" }}
+        >
           <img
             src="/manus-storage/hero-accra-1440w.jpg"
             srcSet="/manus-storage/hero-accra-900w.jpg 900w, /manus-storage/hero-accra-1440w.jpg 1440w"
             sizes="100vw"
             alt="EB Volt logo in a glowing electric pin above an aerial view of Accra at sunset"
-            className="w-full h-full object-cover object-[center_12%] sm:object-[center_16%]"
+            className="w-full h-full object-contain object-center"
             fetchPriority="high"
             decoding="async"
           />
