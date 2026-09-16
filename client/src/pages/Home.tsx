@@ -92,14 +92,10 @@ export default function Home() {
       <Navbar />
       <Seo {...PAGE_SEO.home} />
 
-      {/* ── HERO ── */}
-      {/* Redesign: copy centred in the lower band, artwork unmodified, scrim confined to the strip behind the text. */}
-      <section
-        className="relative min-h-screen flex flex-col justify-end items-center text-center overflow-hidden"
-        style={{ paddingTop: "5rem" }}
-      >
-        {/* Background artwork (Accra sunset, EB Volt pin) */}
-        <div className="absolute inset-0">
+      {/* ── HERO IMAGE ── */}
+      {/* Artwork shown unmodified as a banner; the overlay copy now lives below in its own section. */}
+      <section className="relative overflow-hidden" style={{ paddingTop: "5rem" }}>
+        <div className="relative h-[60vh] sm:h-[70vh] lg:h-[80vh]">
           <img
             src="/manus-storage/hero-accra-1440w.jpg"
             srcSet="/manus-storage/hero-accra-900w.jpg 900w, /manus-storage/hero-accra-1440w.jpg 1440w"
@@ -109,21 +105,25 @@ export default function Home() {
             fetchPriority="high"
             decoding="async"
           />
-          {/* Scrim, weighted to the lower band only so the photograph stays visible */}
-          <div
-            className="absolute inset-0"
-            aria-hidden="true"
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(18,14,9,0) 0%, rgba(18,14,9,0) 42%, rgba(18,14,9,.174) 60%, rgba(18,14,9,.418) 80%, rgba(18,14,9,.58) 100%)",
-            }}
-          />
         </div>
 
-        <div className="container relative z-10 pb-20 pt-10">
+        {/* Diagonal cut */}
+        <div
+          className="absolute bottom-0 left-0 right-0"
+          style={{ height: "80px", zIndex: 5 }}
+        >
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
+            <path d="M0,80 L1440,20 L1440,80 Z" fill="oklch(0.965 0.02 155)" />
+          </svg>
+        </div>
+      </section>
+
+      {/* ── HERO COPY ── */}
+      <section className="pt-4 pb-16 sm:pb-20" style={{ background: "oklch(0.965 0.02 155)" }}>
+        <div className="container">
           <div
             ref={heroRef}
-            className="max-w-2xl mx-auto flex flex-col items-center gap-5"
+            className="max-w-2xl mx-auto flex flex-col items-center text-center gap-5"
             style={{
               opacity: heroIn ? 1 : 0,
               transform: heroIn ? "translateY(0)" : "translateY(32px)",
@@ -134,12 +134,10 @@ export default function Home() {
             <div
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
               style={{
-                background: "rgba(255,255,255,.14)",
-                border: "1px solid rgba(255,255,255,.3)",
-                color: "#fff",
+                background: "oklch(0.55 0.18 145 / 0.15)",
+                border: "1px solid oklch(0.55 0.18 145 / 0.35)",
+                color: "oklch(0.48 0.18 145)",
                 fontFamily: "'Space Grotesk', sans-serif",
-                backdropFilter: "blur(6px)",
-                WebkitBackdropFilter: "blur(6px)",
               }}
             >
               <Zap size={14} />
@@ -150,52 +148,37 @@ export default function Home() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                color: "#fff",
+                color: "oklch(0.27 0.06 240)",
                 lineHeight: 1.06,
-                textShadow: "0 2px 26px rgba(24,14,4,.65)",
               }}
             >
               Charge Anywhere{" "}
-              <span
-                style={{
-                  color: "oklch(0.72 0.18 145)",
-                  textShadow: "0 0 30px oklch(0.55 0.18 145 / 0.5)",
-                }}
-              >
-                in Ghana.
-              </span>
+              <span style={{ color: "oklch(0.48 0.18 145)" }}>in Ghana.</span>
               <br />
               Arrive Confident.
             </h1>
 
             <p
               className="text-base sm:text-lg leading-relaxed max-w-xl"
-              style={{ color: "rgba(255,255,255,.94)", textShadow: "0 1px 16px rgba(24,14,4,.75)" }}
+              style={{ color: "oklch(0.45 0.02 240)" }}
             >
               The fastest way to charge your EV.{" "}
-              <strong style={{ color: "#fff", fontWeight: 600 }}>Powered by the sun. Paid with MoMo.</strong>{" "}
+              <strong style={{ color: "oklch(0.3 0.03 240)", fontWeight: 600 }}>
+                Powered by the sun. Paid with MoMo.
+              </strong>{" "}
               No bank account, no hassle. Just plug in and go.
             </p>
 
-            <div className="flex flex-wrap justify-center gap-3 mt-1">
+            <div className="flex flex-wrap justify-center gap-4 mt-1">
               <Link href="/find-charger">
-                <button className="btn-primary rounded-full flex items-center gap-2 text-base px-8 py-4">
+                <button className="btn-primary flex items-center gap-2 text-base px-8 py-4">
                   <MapPin size={18} />
                   Find a Charger
                   <ArrowRight size={16} />
                 </button>
               </Link>
               <Link href="/how-it-works">
-                <button
-                  className="rounded-full flex items-center gap-2 text-base font-semibold px-8 py-4 transition-transform hover:-translate-y-0.5"
-                  style={{
-                    background: "rgba(255,255,255,.12)",
-                    color: "#fff",
-                    border: "1px solid rgba(255,255,255,.5)",
-                    backdropFilter: "blur(6px)",
-                    WebkitBackdropFilter: "blur(6px)",
-                  }}
-                >
+                <button className="btn-outline-green flex items-center gap-2 text-base px-8 py-4">
                   How It Works
                   <ChevronRight size={16} />
                 </button>
@@ -206,7 +189,7 @@ export default function Home() {
             <div className="flex flex-wrap justify-center items-center gap-2.5">
               <span
                 className="w-full text-center text-[0.7rem] tracking-[0.14em] uppercase"
-                style={{ color: "rgba(255,255,255,.66)" }}
+                style={{ color: "oklch(0.55 0.02 240)" }}
               >
                 Pay with
               </span>
@@ -220,11 +203,9 @@ export default function Home() {
                   className="inline-flex items-center gap-2 rounded-full text-sm font-medium"
                   style={{
                     padding: "6px 14px 6px 7px",
-                    background: "rgba(255,255,255,.14)",
-                    border: "1px solid rgba(255,255,255,.24)",
-                    backdropFilter: "blur(8px)",
-                    WebkitBackdropFilter: "blur(8px)",
-                    color: "#fff",
+                    background: "#fff",
+                    border: "1px solid oklch(0.55 0.18 145 / 0.2)",
+                    color: "oklch(0.3 0.03 240)",
                   }}
                 >
                   <span
@@ -239,20 +220,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* Diagonal cut */}
-        <div
-          className="absolute bottom-0 left-0 right-0"
-          style={{ height: "80px", zIndex: 5 }}
-        >
-          <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-full">
-            <path d="M0,80 L1440,20 L1440,80 Z" fill="oklch(0.965 0.02 155)" />
-          </svg>
-        </div>
       </section>
 
       {/* ── STATS ── */}
-      <section className="py-16" style={{ background: "oklch(0.965 0.02 155)" }}>
+      <section className="pt-0 pb-16" style={{ background: "oklch(0.965 0.02 155)" }}>
         <div className="container">
           <div
             ref={statsRef}
