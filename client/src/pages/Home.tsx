@@ -93,43 +93,37 @@ export default function Home() {
       <Seo {...PAGE_SEO.home} />
 
       {/* ── HERO ── */}
+      {/* Redesign: copy centred in the lower band, artwork unmodified, scrim confined to the strip behind the text. */}
       <section
-        className="relative min-h-screen flex items-center overflow-hidden"
+        className="relative min-h-screen flex flex-col justify-end items-center text-center overflow-hidden"
         style={{ paddingTop: "5rem" }}
       >
-        {/* Background image (optimized, replaces the 25MB autoplay video) */}
+        {/* Background artwork (Accra sunset, EB Volt pin) */}
         <div className="absolute inset-0">
-          <picture>
-            <source
-              type="image/avif"
-              srcSet="/manus-storage/hero_pin_city-900.avif 900w, /manus-storage/hero_pin_city-1600.avif 1600w"
-              sizes="100vw"
-            />
-            <source
-              type="image/webp"
-              srcSet="/manus-storage/hero_pin_city-900.webp 900w, /manus-storage/hero_pin_city-1600.webp 1600w"
-              sizes="100vw"
-            />
-            <img
-              src="/manus-storage/hero_pin_city-1600.jpg"
-              alt="EB Volt EV charging network across Accra, Ghana"
-              className="w-full h-full object-cover object-top md:object-[center_60%]"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </picture>
+          <img
+            src="/manus-storage/hero-accra-1440w.jpg"
+            srcSet="/manus-storage/hero-accra-900w.jpg 900w, /manus-storage/hero-accra-1440w.jpg 1440w"
+            sizes="100vw"
+            alt="EB Volt logo in a glowing electric pin above an aerial view of Accra at sunset"
+            className="w-full h-full object-cover object-[center_12%] sm:object-[center_16%]"
+            fetchPriority="high"
+            decoding="async"
+          />
+          {/* Scrim, weighted to the lower band only so the photograph stays visible */}
           <div
             className="absolute inset-0"
+            aria-hidden="true"
             style={{
-              background: "linear-gradient(105deg, oklch(0.20 0.04 160 / 0.72) 0%, oklch(0.30 0.06 155 / 0.42) 45%, oklch(0.45 0.08 150 / 0.15) 100%)",
+              background:
+                "linear-gradient(to bottom, rgba(18,14,9,0) 0%, rgba(18,14,9,0) 42%, rgba(18,14,9,.174) 60%, rgba(18,14,9,.418) 80%, rgba(18,14,9,.58) 100%)",
             }}
           />
         </div>
 
-        <div className="container relative z-10 py-20">
+        <div className="container relative z-10 pb-20 pt-10">
           <div
             ref={heroRef}
-            className="max-w-3xl"
+            className="max-w-2xl mx-auto flex flex-col items-center gap-5"
             style={{
               opacity: heroIn ? 1 : 0,
               transform: heroIn ? "translateY(0)" : "translateY(32px)",
@@ -138,12 +132,14 @@ export default function Home() {
           >
             {/* Badge */}
             <div
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
               style={{
-                background: "oklch(0.55 0.18 145 / 0.15)",
-                border: "1px solid oklch(0.55 0.18 145 / 0.35)",
-                color: "oklch(0.72 0.18 145)",
+                background: "rgba(255,255,255,.14)",
+                border: "1px solid rgba(255,255,255,.3)",
+                color: "#fff",
                 fontFamily: "'Space Grotesk', sans-serif",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
               }}
             >
               <Zap size={14} />
@@ -151,11 +147,12 @@ export default function Home() {
             </div>
 
             <h1
-              className="text-5xl lg:text-7xl font-bold leading-tight mb-6"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-balance"
               style={{
                 fontFamily: "'Space Grotesk', sans-serif",
-                color: "oklch(0.97 0 0)",
-                lineHeight: 1.05,
+                color: "#fff",
+                lineHeight: 1.06,
+                textShadow: "0 2px 26px rgba(24,14,4,.65)",
               }}
             >
               Charge Anywhere{" "}
@@ -172,64 +169,73 @@ export default function Home() {
             </h1>
 
             <p
-              className="text-lg lg:text-xl leading-relaxed mb-8 max-w-2xl"
-              style={{ color: "oklch(0.78 0.005 240)" }}
+              className="text-base sm:text-lg leading-relaxed max-w-xl"
+              style={{ color: "rgba(255,255,255,.94)", textShadow: "0 1px 16px rgba(24,14,4,.75)" }}
             >
-              The Fastest Way to Charge Your EV
-              <br />
-              Powered by the sun. Paid with MoMo. No bank account. No hassle. Just plug in and go
+              The fastest way to charge your EV.{" "}
+              <strong style={{ color: "#fff", fontWeight: 600 }}>Powered by the sun. Paid with MoMo.</strong>{" "}
+              No bank account, no hassle. Just plug in and go.
             </p>
 
-            {/* Payment logos */}
-            <div className="flex items-center gap-8 mb-10">
-              {/* MTN MoMo */}
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-2"
-                  style={{ background: "#FFC72C" }}
-                >
-                  <span className="font-bold text-sm" style={{ color: "#000" }}>MTN</span>
-                </div>
-                <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>MTN MoMo</span>
-              </div>
-
-              {/* Telecel Cash */}
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-2"
-                  style={{ background: "#FF6B35" }}
-                >
-                  <span className="font-bold text-sm" style={{ color: "#FFF" }}>TC</span>
-                </div>
-                <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>Telecel Cash</span>
-              </div>
-
-              {/* AirtelTigo Money */}
-              <div className="flex flex-col items-center">
-                <div
-                  className="w-16 h-16 rounded-lg flex items-center justify-center mb-2"
-                  style={{ background: "#E60000" }}
-                >
-                  <span className="font-bold text-sm" style={{ color: "#FFF" }}>ATM</span>
-                </div>
-                <span className="text-xs" style={{ color: "oklch(0.65 0.01 240)" }}>AirtelTigo Money</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-4 mt-6">
+            <div className="flex flex-wrap justify-center gap-3 mt-1">
               <Link href="/find-charger">
-                <button className="btn-primary flex items-center gap-2 text-base px-8 py-4">
+                <button className="btn-primary rounded-full flex items-center gap-2 text-base px-8 py-4">
                   <MapPin size={18} />
                   Find a Charger
                   <ArrowRight size={16} />
                 </button>
               </Link>
               <Link href="/how-it-works">
-                <button className="btn-outline-green flex items-center gap-2 text-base px-8 py-4">
+                <button
+                  className="rounded-full flex items-center gap-2 text-base font-semibold px-8 py-4 transition-transform hover:-translate-y-0.5"
+                  style={{
+                    background: "rgba(255,255,255,.12)",
+                    color: "#fff",
+                    border: "1px solid rgba(255,255,255,.5)",
+                    backdropFilter: "blur(6px)",
+                    WebkitBackdropFilter: "blur(6px)",
+                  }}
+                >
                   How It Works
                   <ChevronRight size={16} />
                 </button>
               </Link>
+            </div>
+
+            {/* Payment chips */}
+            <div className="flex flex-wrap justify-center items-center gap-2.5">
+              <span
+                className="w-full text-center text-[0.7rem] tracking-[0.14em] uppercase"
+                style={{ color: "rgba(255,255,255,.66)" }}
+              >
+                Pay with
+              </span>
+              {[
+                { label: "MTN MoMo", mark: "MTN", bg: "#FFC72C", fg: "#1A1A1A" },
+                { label: "Telecel Cash", mark: "TC", bg: "#FF6B35", fg: "#fff" },
+                { label: "AirtelTigo Money", mark: "AT", bg: "#E60000", fg: "#fff" },
+              ].map((p) => (
+                <span
+                  key={p.label}
+                  className="inline-flex items-center gap-2 rounded-full text-sm font-medium"
+                  style={{
+                    padding: "6px 14px 6px 7px",
+                    background: "rgba(255,255,255,.14)",
+                    border: "1px solid rgba(255,255,255,.24)",
+                    backdropFilter: "blur(8px)",
+                    WebkitBackdropFilter: "blur(8px)",
+                    color: "#fff",
+                  }}
+                >
+                  <span
+                    className="inline-flex items-center justify-center rounded-lg text-[0.6rem] font-extrabold"
+                    style={{ width: 29, height: 29, background: p.bg, color: p.fg }}
+                  >
+                    {p.mark}
+                  </span>
+                  {p.label}
+                </span>
+              ))}
             </div>
           </div>
         </div>
