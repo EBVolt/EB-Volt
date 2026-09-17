@@ -100,7 +100,7 @@ export default function Home() {
             src="/manus-storage/hero-accra-1440w.jpg"
             srcSet="/manus-storage/hero-accra-900w.jpg 900w, /manus-storage/hero-accra-1440w.jpg 1440w"
             sizes="100vw"
-            alt="EB Volt logo in a glowing electric pin above an aerial view of Accra at sunset"
+            alt="Multiple glowing EB Volt pin markers over an aerial view of Accra at sunset, marking charging locations across the city"
             className="w-full h-full object-cover"
             fetchPriority="high"
             decoding="async"
